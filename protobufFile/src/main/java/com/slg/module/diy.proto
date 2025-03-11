@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+option java_multiple_files = false;
+option java_package = "com.slg.protobuffile.message";
+option java_outer_classname = "MSG";
+
+package protobuffile;
+
+//通用错误码
+enum ERERROR {
+    SUCCESS=0;
+    PARAMET_ERERROR=1;
+    UNKNOWN_ERERROR = 2;
+    TIMEOUT_ERERROR = 3;
+}
+
+/*下面定义具体的消息内容，MSG枚举中的每个消息ID，如果有消息体，
+则会对应一个message 定义，如果无消息体则不必要*/
+/*Login_Request 消息ID对应的消息名称为LoginRequest */
+//示例
+message LoginRequest
+{
+    string username = 1;
+    string password = 2;
+}
+//示例
+message LoginResponse
+{
+    fixed32 aaa = 1;
+    fixed32 bbb = 2;
+}
+//示例
+message TestRequest {
+    string data = 1;
+}
+//示例
+message TestResponse {
+    string result = 1;
+}
+//示例
+message FriendRequest
+{
+    int64 userId=1;
+}
+//示例
+message FriendsResponse
+{
+    repeated int64 userIdList=1;
+}
+
