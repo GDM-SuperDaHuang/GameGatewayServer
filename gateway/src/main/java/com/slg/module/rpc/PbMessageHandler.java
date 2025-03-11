@@ -67,6 +67,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         return "127.0.0.1:8081"; // 默认服务器
     }
 
+
     //转发到目标服务器
     private void forwardToTargetServer(ChannelHandlerContext ctx, ByteBufferMessage  msg, String targetServerAddress) {
         String[] parts = targetServerAddress.split(":");
@@ -87,6 +88,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
                 });
 
         ChannelFuture future = bootstrap.connect(host, port);
+
         future.addListener((ChannelFutureListener) f -> {
             if (f.isSuccess()) {
                 f.channel().writeAndFlush(msg);
