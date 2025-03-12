@@ -32,6 +32,8 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
     private final EventLoopGroup forwardingGroup = new NioEventLoopGroup(4);
     private final Map<String, Channel> serverChannels = new ConcurrentHashMap<>();
     private final Bootstrap bootstrap;
+    private final IdleStateHandler idleStateHandler = new IdleStateHandler(0, 30, 0, TimeUnit.SECONDS);
+    private final IdleStateEventHandler idleStateEventHandler = new IdleStateEventHandler();
 
     public PbMessageHandler() {
         bootstrap = new Bootstrap();
@@ -45,8 +47,8 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
                         ChannelPipeline p = ch.pipeline();
                         p.addLast(new MsgDecode());
                         p.addLast(new MsgEncode());
-                        p.addLast(new IdleStateHandler(0, 30, 0, TimeUnit.SECONDS));
-                        p.addLast(new IdleStateEventHandler());
+                        p.addLast(idleStateHandler);
+                        p.addLast(idleStateEventHandler);
                         p.addLast(new TargetServerHandler(null));
                     }
                 });
