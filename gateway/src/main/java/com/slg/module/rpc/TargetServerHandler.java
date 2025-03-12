@@ -16,13 +16,13 @@ public class TargetServerHandler extends SimpleChannelInboundHandler<ByteBufferM
     }
 
 
+    /**
+     * 接收目标服务器数据
+     */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ByteBufferMessage byteBufferMessage ) throws Exception {
         System.out.println("TargetServer received: " + byteBufferMessage);
-        // 模拟处理逻辑
-        String response = "Processed: " + byteBufferMessage;
-        // 将结果返回给网关
-        gatewayContext.writeAndFlush(response);
-        ctx.close();
+        gatewayContext.writeAndFlush(byteBufferMessage);
+        // ctx.close();
     }
 }

@@ -6,7 +6,7 @@ public class ByteBufferMessage {
     private long sessionId;
     private int protocolId;
     private ByteBuffer byteBuffer;
-
+    
     public ByteBufferMessage() {
     }
 

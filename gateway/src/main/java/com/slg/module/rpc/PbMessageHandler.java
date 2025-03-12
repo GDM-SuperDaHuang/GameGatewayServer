@@ -16,11 +16,41 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.SocketException;
 
+
+import io.netty.handler.timeout.IdleStateHandler;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
+import javax.annotation.PreDestroy;
+import lombok.extern.slf4j.Slf4j;
+
 @Component
 @ChannelHandler.Sharable
 public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMessage> {
     @Autowired
     private HandleBeanDefinitionRegistryPostProcessor postProcessor;
+
+    private final EventLoopGroup forwardingGroup = new NioEventLoopGroup(4);
+    private final Map<String, Channel> serverChannels = new ConcurrentHashMap<>();
+    private final Bootstrap bootstrap;
+
+    public PbMessageHandler() {
+        bootstrap = new Bootstrap();
+        bootstrap.group(forwardingGroup)
+                .channel(NioSocketChannel.class)
+                .option(ChannelOption.TCP_NODELAY, true)
+                .option(ChannelOption.SO_KEEPALIVE, true)
+                .handler(new ChannelInitializer<SocketChannel>() {
+                    @Override
+                    protected void initChannel(SocketChannel ch) {
+                        ChannelPipeline p = ch.pipeline();
+                        p.addLast(new MsgDecode());
+                        p.addLast(new MsgEncode());
+                        p.addLast(new IdleStateHandler(0, 30, 0, TimeUnit.SECONDS));
+                        p.addLast(new IdleStateEventHandler());
+                        p.addLast(new TargetServerHandler(null));
+                    }
+                });
+    }
 
     /**
      *
@@ -67,38 +97,55 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         return "127.0.0.1:8081"; // 默认服务器
     }
 
-
     //转发到目标服务器
-    private void forwardToTargetServer(ChannelHandlerContext ctx, ByteBufferMessage  msg, String targetServerAddress) {
-        String[] parts = targetServerAddress.split(":");
-        String host = parts[0];
-        int port = Integer.parseInt(parts[1]);
-
-        // 连接到目标服务器
-        EventLoopGroup group = new NioEventLoopGroup();
-        Bootstrap bootstrap = new Bootstrap();
-        bootstrap.group(group)
-                .channel(NioSocketChannel.class)
-                .handler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    protected void initChannel(SocketChannel ch) {
-                        ChannelPipeline p = ch.pipeline();
-                        p.addLast(new TargetServerHandler(ctx));
+    private void forwardToTargetServer(ChannelHandlerContext ctx, ByteBufferMessage msg, String targetServerAddress) {
+        try {
+            Channel channel = getOrCreateChannel(targetServerAddress);
+            if (channel != null && channel.isActive()) {
+                channel.writeAndFlush(msg).addListener((ChannelFutureListener) future -> {
+                    if (future.isSuccess()) {
+                        // 消息转发成功的处理
+                        // log.debug("Successfully forwarded message to {}, protocolId: {}",targetServerAddress, msg.getProtocolId());
+                    } else {
+                        // 消息转发失败的处理
+                        log.error("Failed to forward message to {}", targetServerAddress, future.cause());
+                        serverChannels.remove(targetServerAddress);
+                        ctx.writeAndFlush(new ByteBufferMessage(msg.getProtocolId(),msg.getSessionId(), "Forward failed".getBytes()));
                     }
                 });
-
-        ChannelFuture future = bootstrap.connect(host, port);
-
-        future.addListener((ChannelFutureListener) f -> {
-            if (f.isSuccess()) {
-                f.channel().writeAndFlush(msg);
             } else {
-                ctx.writeAndFlush("Failed to connect to target server");
-                f.channel().close();
+                log.error("No active channel for {}", targetServerAddress);
+                ctx.writeAndFlush(new ByteBufferMessage(msg.getProtocolId(),msg.getSessionId(), "No connection".getBytes()));
             }
+        } catch (Exception e) {
+            log.error("Error forwarding message to {}", targetServerAddress, e);
+            ctx.writeAndFlush(new ByteBufferMessage(msg.getProtocolId(),msg.getSessionId(), "Internal error".getBytes()));
+        }
+    }
+    private Channel getOrCreateChannel(String targetServerAddress) {
+        return serverChannels.computeIfAbsent(targetServerAddress, address -> {
+            String[] parts = address.split(":");
+            String host = parts[0];
+            int port = Integer.parseInt(parts[1]);
+            
+            try {
+                ChannelFuture future = bootstrap.connect(host, port).sync();
+                if (future.isSuccess()) {
+                    return future.channel();
+                }
+            } catch (Exception e) {
+                log.error("Failed to create channel for {}", address, e);
+            }
+            return null;
         });
     }
 
+    @PreDestroy
+    public void destroy() {
+        serverChannels.values().forEach(Channel::close);
+        serverChannels.clear();
+        forwardingGroup.shutdownGracefully();
+    }
 
     //todo
     @Override

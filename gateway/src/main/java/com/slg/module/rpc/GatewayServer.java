@@ -34,14 +34,7 @@ public class GatewayServer implements CommandLineRunner {
     private final PbMessageHandler pbMessageHandler;
     LoggingHandler loggingHandler = new LoggingHandler(LogLevel.INFO);
     public void start(int port) throws Exception {
-        String str ="";
-        for(int i = 0;i<str.length();i++){
-            char indexStr = str.charAt(i);
-            for(int j = 0;j<str.length();j++){
-                String temp = indexStr + str.charAt(i)+"";
 
-            }
-        }
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
