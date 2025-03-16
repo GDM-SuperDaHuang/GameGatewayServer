@@ -1,14 +1,11 @@
 package com.slg.module.rpc;
 
-import io.netty.bootstrap.Bootstrap;
+import com.slg.module.rpc.outsideMsg.MsgDecode;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import lombok.Getter;
@@ -20,13 +17,12 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.net.InetSocketAddress;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 @Getter
 @RequiredArgsConstructor
 public class GatewayServer implements CommandLineRunner {
-    @Value("8999")
+    @Value("8888")
     private int port;
     EventLoopGroup bossGroup = new NioEventLoopGroup(1);
     EventLoopGroup workerGroup = new NioEventLoopGroup(30);
@@ -63,7 +59,7 @@ public class GatewayServer implements CommandLineRunner {
             ChannelFuture f = b.bind().sync();
             //zk注册
 //            toRegisterZK(port);
-            System.out.println("=====服务器启动成功=====");
+            System.out.println("=====服务器启动成功gatewayServer=====");
             f.channel().closeFuture().sync();
         } finally {
             System.out.println("----------------------------服务器关闭--------------------------------------------");

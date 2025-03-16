@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.slg.module</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>gateway</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 

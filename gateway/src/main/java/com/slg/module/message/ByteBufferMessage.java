@@ -1,42 +1,55 @@
-package com.slg.module.message;
-
-import java.nio.ByteBuffer;
-
-public class ByteBufferMessage {
-    private long sessionId;
-    private int protocolId;
-    private ByteBuffer byteBuffer;
-    
-    public ByteBufferMessage() {
-    }
-
-    public ByteBufferMessage(long sessionId, int protocolId, ByteBuffer byteBuffer) {
-        this.sessionId = sessionId;
-        this.protocolId = protocolId;
-        this.byteBuffer = byteBuffer;
-    }
-
-    public long getSessionId() {
-        return sessionId;
-    }
-
-    public void setSessionId(long sessionId) {
-        this.sessionId = sessionId;
-    }
-
-    public int getProtocolId() {
-        return protocolId;
-    }
-
-    public void setProtocolId(int protocolId) {
-        this.protocolId = protocolId;
-    }
-
-    public ByteBuffer getByteBuffer() {
-        return byteBuffer;
-    }
-
-    public void setByteBuffer(ByteBuffer byteBuffer) {
-        this.byteBuffer = byteBuffer;
-    }
-}
+//package com.slg.module.message;
+//
+//import java.nio.ByteBuffer;
+//
+///**
+// * 客户端与服务器之间协议
+// */
+//public class ByteBufferMessage {
+//    private int cid;//顺序号
+//    private int errorCode;//错误码
+//    private int protocolId;//协议id
+//    private ByteBuffer byteBuffer;//消息体
+//
+//    public ByteBufferMessage() {
+//    }
+//
+//    public ByteBufferMessage(int cid, int errorCode, int protocolId, ByteBuffer byteBuffer) {
+//        this.cid = cid;
+//        this.errorCode = errorCode;
+//        this.protocolId = protocolId;
+//        this.byteBuffer = byteBuffer;
+//    }
+//
+//    public int getCid() {
+//        return cid;
+//    }
+//
+//    public void setCid(int cid) {
+//        this.cid = cid;
+//    }
+//
+//    public int getErrorCode() {
+//        return errorCode;
+//    }
+//
+//    public void setErrorCode(int errorCode) {
+//        this.errorCode = errorCode;
+//    }
+//
+//    public int getProtocolId() {
+//        return protocolId;
+//    }
+//
+//    public void setProtocolId(int protocolId) {
+//        this.protocolId = protocolId;
+//    }
+//
+//    public ByteBuffer getByteBuffer() {
+//        return byteBuffer;
+//    }
+//
+//    public void setByteBuffer(ByteBuffer byteBuffer) {
+//        this.byteBuffer = byteBuffer;
+//    }
+//}

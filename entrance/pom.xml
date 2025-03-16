@@ -48,12 +48,6 @@
 
 		<dependency>
 			<groupId>com.slg.module</groupId>
-			<artifactId>common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.slg.module</groupId>
 			<artifactId>demo</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

@@ -8,8 +8,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @EnableAsync
-@ComponentScan(basePackages = {"com.slg.module","com.slg.module.handle"})
-@Slf4j
+//@ComponentScan(basePackages = {"com.slg.module","com.slg.module.handle"})
+//@Slf4j
+//@ComponentScan
 public class EntranceApplication {
 	public static void main(String[] args) {
 		System.out.println("服务器开始启动.......");
