@@ -39,6 +39,7 @@ public class MsgServerInternalDecode extends ByteToMessageDecoder {
             return;
         }
         ByteBuf messageBody = in.readBytes(length);
+        byte[] array = messageBody.array();
         ByteBuffer byteBuffer = messageBody.nioBuffer();
         ByteBufferServerMessage byteBufferMessage = new ByteBufferServerMessage(sessionId, cid, errorCode, protocolId, byteBuffer);
         out.add(byteBufferMessage);

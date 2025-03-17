@@ -3,7 +3,9 @@ package com.slg.module.handle;
 import com.slg.module.annotation.ToMethod;
 import com.slg.module.annotation.ToServer;
 
+
 import com.slg.module.message.MSG;
+//import com.slg.module.message.MsgResponse;
 import com.slg.module.message.MsgResponse;
 import com.slg.module.message.SendMsg;
 import io.netty.channel.ChannelHandlerContext;
@@ -26,11 +28,11 @@ public class Test {
 
     @ToMethod(value = 1)
     public MsgResponse diy(ChannelHandlerContext ctx, MSG.LoginRequest request, long userId) throws IOException, InterruptedException {
-        MSG.LoginResponse.Builder LoginResponseBuilder = MSG.LoginResponse.newBuilder()
+        MSG.LoginResponse.Builder builder = MSG.LoginResponse.newBuilder()
                 .setAaa(999999999)
                 .setBbb(777777777);
         MsgResponse msgResponse = new MsgResponse();
-        msgResponse.setBody(LoginResponseBuilder);
+        msgResponse.setBody(builder);
         msgResponse.setErrorCode(0);
         return msgResponse;
     }
@@ -39,11 +41,10 @@ public class Test {
     @ToMethod(value = 2)
     public MsgResponse ffff(ChannelHandlerContext ctx, MSG.FriendRequest request,long userId) throws IOException {
         ArrayList<Long> longs = new ArrayList<>();
-        longs.add(1L);
-        longs.add(2L);
+        longs.add(110L);
+        longs.add(211L);
         MSG.FriendsResponse.Builder friendsResponse = MSG.FriendsResponse.newBuilder()
                 .addAllUserIdList(longs);
-
         MsgResponse msgResponse = new MsgResponse();
         msgResponse.setBody(friendsResponse);
         msgResponse.setErrorCode(0);

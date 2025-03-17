@@ -1,12 +1,16 @@
 package com.slg.module.rpc.outsideMsg;
 
+
+
 import com.slg.module.message.ByteBufferMessage;
-import com.slg.module.message.MsgResponse;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
-public class MsgEncode extends MessageToByteEncoder<MsgResponse> {
+import java.nio.ByteBuffer;
+
+public class MsgEncode extends MessageToByteEncoder<ByteBufferMessage> {
     @Override
     protected void encode(ChannelHandlerContext ctx, ByteBufferMessage msg, ByteBuf out) throws Exception {
         // 写入消息头
@@ -16,15 +20,14 @@ public class MsgEncode extends MessageToByteEncoder<MsgResponse> {
         out.writeByte(0);                       // zip压缩标志，1字节
         out.writeByte(1);                       // pb版本，1字节
         // 获取消息体长度并写入
-        int length = msg.getByteBuffer().remaining();
+//        byte[] body = msg.getBody();
+//        int length = body.length;
+        ByteBuffer body = msg.getBody();
+        int length = body.remaining();
         out.writeShort(length);                 // 消息体长度，2字节
 
         // 写入消息体
-        out.writeBytes(msg.getByteBuffer());
+        out.writeBytes(body);
     }
 
-    @Override
-    protected void encode(ChannelHandlerContext channelHandlerContext, MsgResponse msgResponse, ByteBuf byteBuf) throws Exception {
-
-    }
 }

@@ -1,6 +1,7 @@
 package com.slg.module.rpc.outsideMsg;
 
 
+
 import com.slg.module.message.ByteBufferMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -40,13 +41,19 @@ public class MsgDecode extends ByteToMessageDecoder {
         ByteBuf messageBody = in.readBytes(length);
 
         //方式1
-//        ByteBuffer byteBuffer = messageBody.nioBuffer();
-//        ByteBufferMessage byteBufferMessage = new ByteBufferMessage(cid, errorCode, protocolId, byteBuffer);
-//        out.add(byteBufferMessage);
+        ByteBuffer byteBuffer = messageBody.nioBuffer();
+        ByteBufferMessage byteBufferMessage = new ByteBufferMessage(cid, errorCode, protocolId, byteBuffer);
+        out.add(byteBufferMessage);
+        //释放 messageBody 的引用
+        messageBody.release();
+
+        //方式二
+//        byte[] array = new byte[messageBody.readableBytes()];
+////        byte[] array = messageBody.array();
+//        ByteMessage byteBufMessage = new ByteMessage(cid, errorCode, protocolId, array);
+//        out.add(byteBufMessage);
 //        //释放 messageBody 的引用
 //        messageBody.release();
 
-        ByteBufMessage byteBufMessage = new ByteBufMessage(userId, cid, errorCode, protocolId, messageBody);
-        out.add(byteBufMessage);
     }
 }

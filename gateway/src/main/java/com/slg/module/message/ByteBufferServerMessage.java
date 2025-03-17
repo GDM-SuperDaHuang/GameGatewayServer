@@ -10,17 +10,17 @@ public class ByteBufferServerMessage {
     private int cid;//顺序号
     private int errorCode;//错误码
     private int protocolId;
-    private ByteBuffer byteBuffer;
+    private ByteBuffer body;
 
     public ByteBufferServerMessage() {
     }
 
-    public ByteBufferServerMessage(long userId, int cid, int errorCode, int protocolId, ByteBuffer byteBuffer) {
+    public ByteBufferServerMessage(long userId, int cid, int errorCode, int protocolId, ByteBuffer body) {
         this.userId = userId;
         this.cid = cid;
         this.errorCode = errorCode;
         this.protocolId = protocolId;
-        this.byteBuffer = byteBuffer;
+        this.body = body;
     }
 
     public long getUserId() {
@@ -55,11 +55,11 @@ public class ByteBufferServerMessage {
         this.protocolId = protocolId;
     }
 
-    public ByteBuffer getByteBuffer() {
-        return byteBuffer;
+    public ByteBuffer getBody() {
+        return body;
     }
 
-    public void setByteBuffer(ByteBuffer byteBuffer) {
-        this.byteBuffer = byteBuffer;
+    public void setBody(ByteBuffer body) {
+        this.body = body;
     }
 }

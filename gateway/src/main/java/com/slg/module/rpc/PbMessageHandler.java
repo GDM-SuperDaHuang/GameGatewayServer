@@ -1,8 +1,10 @@
 package com.slg.module.rpc;
 
+import com.google.protobuf.GeneratedMessage;
 import com.slg.module.connection.ClientChannel;
 import com.slg.module.connection.ClientChannelManage;
 import com.slg.module.connection.ServerChannelManage;
+
 import com.slg.module.message.ByteBufferMessage;
 import com.slg.module.message.MsgResponse;
 import com.slg.module.register.HandleBeanDefinitionRegistryPostProcessor;
@@ -10,6 +12,8 @@ import com.slg.module.rpc.outsideMsg.MsgDecode;
 import com.slg.module.rpc.outsideMsg.MsgEncode;
 import com.slg.module.util.BeanTool;
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
@@ -25,6 +29,7 @@ import java.net.SocketException;
 
 import io.netty.handler.timeout.IdleStateHandler;
 
+import java.nio.ByteBuffer;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -40,8 +45,6 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
     //客户端--网关管理
     @Autowired
     private ClientChannelManage channelManage;
-
-
 
 
     private final EventLoopGroup forwardingGroup = new NioEventLoopGroup(4);
@@ -72,15 +75,16 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
     }
 
     /**
-     * @param ctx               客户端-网关连接
-     * @param byteBufferMessage 信息
+     * @param ctx 客户端-网关连接
+     * @param msg 信息
      * @throws Exception 异常
      */
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, ByteBufferMessage byteBufferMessage) throws Exception {
-        int protocolId = byteBufferMessage.getProtocolId();
-        long cid = byteBufferMessage.getCid();
+    protected void channelRead0(ChannelHandlerContext ctx, ByteBufferMessage msg) throws Exception {
+        int protocolId = msg.getProtocolId();
+        long cid = msg.getCid();
 
+        ByteBuffer body = msg.getBody();
         SocketAddress socketAddress = ctx.channel().remoteAddress();
         String addr = socketAddress.toString();
 
@@ -106,28 +110,54 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
             clientChannel.setToken(token);
             clientChannel.setAddr(addr);
             clientChannel.setUserId(userId);
-            channelManage.saveChannelByAddr(addr,userId,clientChannel);
-            //本地
-            Object msgObject = parse.invoke(null, byteBufferMessage.getByteBuffer());
-            MsgResponse route = route(ctx, msgObject, protocolId, userId);
+            channelManage.saveChannelByAddr(addr, userId, clientChannel);
 
+            //本地
+            Object msgObject = parse.invoke(null, body);
+
+            MsgResponse message = route(ctx, msgObject, protocolId, userId);
+            System.out.println("");
+
+            int errorCode = message.getErrorCode();
+            GeneratedMessage.Builder<?> responseBody = message.getBody();
+            byte[] bodyByteArr = responseBody.buildPartial().toByteArray();
+
+
+            //写回
+            ByteBuf out = Unpooled.buffer(16);
+            //消息头
+            out.writeInt(msg.getCid());      // 4字节
+            out.writeInt(msg.getErrorCode());      // 4字节
+            out.writeInt(msg.getProtocolId());      // 4字节
+            out.writeByte(0);                       // zip压缩标志，1字节
+            out.writeByte(1);                       // pb版本，1字节
+
+            out.writeShort(bodyByteArr.length);                 // 消息体长度，2字节
+            // 写入消息体
+            out.writeBytes(bodyByteArr);
+            ctx.writeAndFlush(out);
+            // 释放 ByteBuf
+            out.release();
         } else if (protocolId == 3) {
             //本地
             ClientChannel clientChannel = channelManage.getChannelByAddr(addr);
             //todo 异常处理
-            if (clientChannel==null){
+            if (clientChannel == null) {
 
             }
             Long userId = clientChannel.getUserId();
-            Object msgObject = parse.invoke(null, byteBufferMessage.getByteBuffer());
-            MsgResponse route = route(ctx, msgObject, protocolId, userId);
+            Object msgObject = parse.invoke(null, new Object[]{body});
+            MsgResponse message = route(ctx, msgObject, protocolId, userId);
+
+//            Object msgObject = parse.invoke(null, msg.getByteBuffer());
+//            MsgResponse route = route(ctx, msgObject, protocolId, userId);
 
         } else {
             //转发
             // todo 根据用户信息选择目标服务器
             String targetServerAddress = getTargetServerAddress("");
             // 转发到目标服务器
-            forwardToTargetServer(ctx, byteBufferMessage, targetServerAddress);
+            forwardToTargetServer(ctx, msg, targetServerAddress);
         }
     }
 
@@ -165,30 +195,31 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
                                 // log.error("Failed to forward message to {}", targetServerAddress, future.cause());
                                 serverChannelManage.removeChanelByIp(targetServerAddress);
                                 //直接告诉客户端，返回错误码 todo
-                                ctx.writeAndFlush(new ByteBufferMessage(0, 0,msg.getProtocolId(), null));
+                                ctx.writeAndFlush(new ByteBufferMessage(0, 0, msg.getProtocolId(), null));
                             }
                         });
             } else {
                 //log.error("No active channel for {}", targetServerAddress);
                 //直接告诉客户端，返回错误码
-                ctx.writeAndFlush(new ByteBufferMessage(0,0, msg.getProtocolId(), null));
+                ctx.writeAndFlush(new ByteBufferMessage(0, 0, msg.getProtocolId(), null));
             }
         } catch (Exception e) {
             //log.error("Error forwarding message to {}", targetServerAddress, e);
             //直接告诉客户端，返回错误码
-            ctx.writeAndFlush(new ByteBufferMessage(0, 0,msg.getProtocolId(), null));
+            ctx.writeAndFlush(new ByteBufferMessage(0, 0, msg.getProtocolId(), null));
         }
     }
 
 
     /**
      * 获取链接 nacos管理
+     *
      * @param targetServerAddress
      * @return
      */
     private Channel getOrCreateChannel(String targetServerAddress) {
         Channel channel = serverChannelManage.getChanelByIp(targetServerAddress);
-        if (channel==null){
+        if (channel == null) {
             //todo nacos
             String[] parts = targetServerAddress.split(":");
             String host = parts[0];
@@ -245,9 +276,9 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
             return null;
         }
         Object invoke = method.invoke(bean, ctx, message, userId);
-        if (invoke instanceof MsgResponse){
-            return (MsgResponse)invoke;
-        }else {
+        if (invoke instanceof MsgResponse) {
+            return (MsgResponse) invoke;
+        } else {
             return null;
         }
     }

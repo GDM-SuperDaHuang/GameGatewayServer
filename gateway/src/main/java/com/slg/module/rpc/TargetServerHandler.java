@@ -2,6 +2,7 @@ package com.slg.module.rpc;
 
 import com.slg.module.connection.ClientChannel;
 import com.slg.module.connection.ClientChannelManage;
+
 import com.slg.module.message.ByteBufferServerMessage;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -44,7 +45,9 @@ public class TargetServerHandler extends SimpleChannelInboundHandler<ByteBufferS
         int cid = msg.getCid();
 
         int protocolId = msg.getProtocolId();
-        ByteBuffer byteBuffer = msg.getByteBuffer();
+        ByteBuffer body = msg.getBody();
+
+//        ByteBuffer byteBuffer = msg.getByteBuffer();
 
         //转发回给客户端
         ClientChannel clientChannel = channelManage.getChannelByUserId(userId);

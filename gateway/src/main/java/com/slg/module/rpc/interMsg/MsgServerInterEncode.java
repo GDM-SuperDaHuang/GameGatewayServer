@@ -5,6 +5,9 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
+import java.nio.ByteBuffer;
+
+
 /**
  * 出
  */
@@ -22,10 +25,12 @@ public class MsgServerInterEncode extends MessageToByteEncoder<ByteBufferServerM
         out.writeByte(3);                       // pb版本，1字节
 
         // 获取消息体长度并写入
-        int length = msg.getByteBuffer().remaining();
+        ByteBuffer body = msg.getBody();
+        int length = body.remaining();
         out.writeShort(length);                 // 消息体长度，2字节
 
         // 写入消息体
-        out.writeBytes(msg.getByteBuffer());
+        out.writeBytes(body);
+
     }
 }

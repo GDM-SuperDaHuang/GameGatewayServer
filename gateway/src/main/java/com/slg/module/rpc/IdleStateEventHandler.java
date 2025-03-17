@@ -1,12 +1,13 @@
 package com.slg.module.rpc;
 
-import com.slg.module.message.ByteBufferMessage;
+
+import com.slg.module.message.ByteBufferServerMessage;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
-import lombok.extern.slf4j.Slf4j;
+
 
 @ChannelHandler.Sharable
 public class IdleStateEventHandler extends ChannelInboundHandlerAdapter {
@@ -17,7 +18,7 @@ public class IdleStateEventHandler extends ChannelInboundHandlerAdapter {
             if (event.state() == IdleState.WRITER_IDLE) {
                 // 发送心跳包
                 //todo
-                ctx.writeAndFlush(new ByteBufferMessage(0, 0, 1,null));
+                ctx.writeAndFlush(new ByteBufferServerMessage(0,0, 0, 0,null));
 //                log.debug("Send heartbeat to target server: {}", ctx.channel().remoteAddress());
             }
         } else {
