@@ -82,7 +82,6 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ByteBufferMessage msg) throws Exception {
         int protocolId = msg.getProtocolId();
-        long cid = msg.getCid();
 
         ByteBuffer body = msg.getBody();
         SocketAddress socketAddress = ctx.channel().remoteAddress();
@@ -96,14 +95,36 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
             return;
         }
 
+//        //本地
+//        Object msgObject = parse.invoke(null, body);
+//
+//        MsgResponse message = route(ctx, msgObject, protocolId, userId);
+//
+//        GeneratedMessage.Builder<?> responseBody = message.getBody();
+//        byte[] bodyByteArr = responseBody.buildPartial().toByteArray();
+//
+//        //写回
+//        ByteBuf out = Unpooled.buffer(16);
+//        //消息头
+//        out.writeInt(msg.getCid());      // 4字节
+//        out.writeInt(message.getErrorCode());      // 4字节
+//        out.writeInt(msg.getProtocolId());      // 4字节
+//        out.writeByte(0);                       // zip压缩标志，1字节
+//        out.writeByte(1);                       // pb版本，1字节
+//        out.writeShort(bodyByteArr.length);                 // 消息体长度，2字节
+//
+//        // 写入消息体
+//        out.writeBytes(bodyByteArr);
+//        ctx.writeAndFlush(out);
+//        // 释放 ByteBuf
+//        out.release();
 
         //todo
         //登录
         if (protocolId == 1) {
             //todo 获取用户信息
-            long userId = 123133L;
+            long userId = 123456789L;
             String token = "";
-
 
             ClientChannel clientChannel = new ClientChannel();
             clientChannel.setChannel(ctx.channel());
@@ -116,23 +137,20 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
             Object msgObject = parse.invoke(null, body);
 
             MsgResponse message = route(ctx, msgObject, protocolId, userId);
-            System.out.println("");
 
-            int errorCode = message.getErrorCode();
             GeneratedMessage.Builder<?> responseBody = message.getBody();
             byte[] bodyByteArr = responseBody.buildPartial().toByteArray();
-
 
             //写回
             ByteBuf out = Unpooled.buffer(16);
             //消息头
             out.writeInt(msg.getCid());      // 4字节
-            out.writeInt(msg.getErrorCode());      // 4字节
+            out.writeInt(message.getErrorCode());      // 4字节
             out.writeInt(msg.getProtocolId());      // 4字节
             out.writeByte(0);                       // zip压缩标志，1字节
             out.writeByte(1);                       // pb版本，1字节
-
             out.writeShort(bodyByteArr.length);                 // 消息体长度，2字节
+
             // 写入消息体
             out.writeBytes(bodyByteArr);
             ctx.writeAndFlush(out);
@@ -182,7 +200,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
      */
     private void forwardToTargetServer(ChannelHandlerContext ctx, ByteBufferMessage msg, String targetServerAddress) {
         try {
-            Channel channel = getOrCreateChannel(targetServerAddress);
+            Channel channel = getOrCreateChannel(msg.getProtocolId(), targetServerAddress);
             //进行转发到目标服务器
             if (channel != null && channel.isActive()) {
                 channel.writeAndFlush(msg)
@@ -217,7 +235,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
      * @param targetServerAddress
      * @return
      */
-    private Channel getOrCreateChannel(String targetServerAddress) {
+    private Channel getOrCreateChannel(int protocolId, String targetServerAddress) {
         Channel channel = serverChannelManage.getChanelByIp(targetServerAddress);
         if (channel == null) {
             //todo nacos
