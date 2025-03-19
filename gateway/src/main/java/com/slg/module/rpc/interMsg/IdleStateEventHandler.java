@@ -1,4 +1,4 @@
-package com.slg.module.rpc;
+package com.slg.module.rpc.interMsg;
 
 
 import com.slg.module.message.ByteBufferServerMessage;

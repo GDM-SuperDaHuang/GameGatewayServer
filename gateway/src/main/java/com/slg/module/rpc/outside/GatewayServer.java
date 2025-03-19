@@ -1,6 +1,6 @@
-package com.slg.module.rpc;
+package com.slg.module.rpc.outside;
 
-import com.slg.module.rpc.outsideMsg.MsgDecode;
+import com.slg.module.rpc.outside.outsideMsg.MsgDecode;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;

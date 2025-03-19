@@ -16,7 +16,7 @@ public class MsgServerInternalDecode extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         // 确保有足够的字节来读取头部
-        if (in.readableBytes() < 16) {
+        if (in.readableBytes() < 24) {
             return;
         }
         // 缓存 readableBytes 不够则暂时到局部变量

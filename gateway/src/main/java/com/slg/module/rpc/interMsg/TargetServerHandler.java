@@ -1,9 +1,12 @@
-package com.slg.module.rpc;
+package com.slg.module.rpc.interMsg;
 
 import com.slg.module.connection.ClientChannel;
 import com.slg.module.connection.ClientChannelManage;
 
+import com.slg.module.message.ByteBufferMessage;
 import com.slg.module.message.ByteBufferServerMessage;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -33,7 +36,7 @@ public class TargetServerHandler extends SimpleChannelInboundHandler<ByteBufferS
     /**
      * 接收目标服务器数据
      *
-     * @param ctx   目标服务器-网关
+     * @param ctx 目标服务器-网关
      * @param msg 消息
      * @throws Exception .
      */
@@ -51,10 +54,33 @@ public class TargetServerHandler extends SimpleChannelInboundHandler<ByteBufferS
 
         //转发回给客户端
         ClientChannel clientChannel = channelManage.getChannelByUserId(userId);
-        if (clientChannel!=null){
+        if (clientChannel != null) {
+            //写回
+            ByteBuf out = Unpooled.buffer(16);
+            //消息头
+            out.writeInt(msg.getCid());      // 4字节
+            out.writeInt(msg.getErrorCode());      // 4字节
+            out.writeInt(msg.getProtocolId());      // 4字节
+            out.writeByte(0);                       // zip压缩标志，1字节
+            out.writeByte(1);                       // pb版本，1字节
+            byte[] bodyArray = body.array();
+            out.writeShort(bodyArray.length);  // 消息体长度，2字节
+            // 写入消息体
+            out.writeBytes(bodyArray);
+
             Channel channel = clientChannel.getChannel();
-            channel.writeAndFlush(msg);
-        }else {//todo 没有，则让网关，返回错误码
+            channel.writeAndFlush(out)
+                    .addListener(future -> {
+                        if (future.isSuccess()) {
+                            // 操作成功，释放 ByteBuf
+                            out.release();
+                        } else {
+                            // 操作失败，也释放 ByteBuf
+                            out.release();
+                            System.err.println("Write and flush failed: " + future.cause());
+                        }
+                    });
+        } else {//todo 没有，则让网关，返回错误码
 
         }
 

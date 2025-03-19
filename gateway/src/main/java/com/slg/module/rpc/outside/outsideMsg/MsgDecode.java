@@ -1,4 +1,4 @@
-package com.slg.module.rpc.outsideMsg;
+package com.slg.module.rpc.outside.outsideMsg;
 
 
 
