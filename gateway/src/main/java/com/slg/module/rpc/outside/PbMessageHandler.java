@@ -46,7 +46,8 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
     //客户端--网关管理
     @Autowired
     private ClientChannelManage channelManage;
-
+    @Autowired
+    private TargetServerHandler targetServerHandler;
 
     private final EventLoopGroup forwardingGroup = new NioEventLoopGroup(4);
     private final Bootstrap bootstrap;
@@ -67,10 +68,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
                     protected void initChannel(SocketChannel ch) {
                         ChannelPipeline p = ch.pipeline();
                         p.addLast(new MsgServerInternalDecode());
-//                        p.addLast(new MsgServerInterEncode());
-//                        p.addLast(idleStateHandler);
-//                        p.addLast(idleStateEventHandler);
-                        p.addLast(new TargetServerHandler());
+                        p.addLast(targetServerHandler);
                     }
                 });
     }
@@ -83,17 +81,14 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ByteBufferMessage msg) throws Exception {
         int protocolId = msg.getProtocolId();
-        ByteBuffer body = msg.getBody();
+//        ByteBuffer body = msg.getBody();
+        byte[] body = msg.getBody();
         SocketAddress socketAddress = ctx.channel().remoteAddress();
         String addr = socketAddress.toString();
-
         Method parse = postProcessor.getParseFromMethod(protocolId);
-        System.out.println("客户端--网关：ctx=" + ctx + "name=" + ctx.name());
         if (parse == null) {
-//            ctx.close();
             return;
         }
-
 
         //todo
         //登录
@@ -111,56 +106,32 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
 
             //本地
             Object msgObject = parse.invoke(null, body);
-
             MsgResponse message = route(ctx, msgObject, protocolId, userId);
-
             GeneratedMessage.Builder<?> responseBody = message.getBody();
+
             byte[] bodyByteArr = responseBody.buildPartial().toByteArray();
+            int length = bodyByteArr.length;
 
             //写回
-            ByteBuf out = Unpooled.buffer(16);
-            //消息头
-            out.writeInt(msg.getCid());      // 4字节
-            out.writeInt(message.getErrorCode());      // 4字节
-            out.writeInt(msg.getProtocolId());      // 4字节
-            out.writeByte(0);                       // zip压缩标志，1字节
-            out.writeByte(1);                       // pb版本，1字节
-            out.writeShort(bodyByteArr.length);                 // 消息体长度，2字节
+            ByteBuf out = buildClientMsg(msg.getCid(), message.getErrorCode(), msg.getProtocolId(), 0, 1, bodyByteArr);
 
-            // 写入消息体
-            out.writeBytes(bodyByteArr);
-            ctx.writeAndFlush(out)
-            .addListener(future -> {
+            //todo java.lang.IndexOutOfBoundsException: srcIndex: 0
+            ChannelFuture channelFuture = ctx.writeAndFlush(out);
+            channelFuture.addListener(future -> {
                 if (future.isSuccess()) {
                     // 操作成功，释放 ByteBuf
-                    out.release();
                 } else {
                     // 操作失败，也释放 ByteBuf
-                    out.release();
                     System.err.println("Write and flush failed: " + future.cause());
                 }
             });
-        } else if (protocolId == 3) {
-            //本地
-            ClientChannel clientChannel = channelManage.getChannelByAddr(addr);
-            //todo 异常处理
-            if (clientChannel == null) {
-
-            }
-            Long userId = clientChannel.getUserId();
-            Object msgObject = parse.invoke(null, new Object[]{body});
-            MsgResponse message = route(ctx, msgObject, protocolId, userId);
-
-//            Object msgObject = parse.invoke(null, msg.getByteBuffer());
-//            MsgResponse route = route(ctx, msgObject, protocolId, userId);
-
         } else {
             long userId = 123456789L;
             //转发
             // todo 根据用户信息选择目标服务器
             String targetServerAddress = getTargetServerAddress("");
             // 转发到目标服务器
-            forwardToTargetServer(ctx, msg, userId,targetServerAddress);
+            forwardToTargetServer(ctx, msg, userId, targetServerAddress);
         }
     }
 
@@ -176,67 +147,82 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         return "127.0.0.1:9999"; // 默认服务器
     }
 
-    private void sentMsg(Channel interChannel,ChannelHandlerContext outsideChannel,ByteBufferMessage msg,long userId,String addr) {
+    /**
+     * 客户端消息
+     */
+    public ByteBuf buildClientMsg(int cid, int errorCode, int protocolId, int zip, int version, byte[] bodyArray) {
+        int length = bodyArray.length;
         //写回
-        ByteBuf out = Unpooled.buffer(24);
+        ByteBuf out = Unpooled.buffer(16 + length);
         //消息头
-        out.writeLong(userId);      // 8字节
-        out.writeInt(msg.getCid());      // 4字节
-        out.writeInt(msg.getErrorCode());      // 4字节
-
-        out.writeInt(msg.getProtocolId());      // 4字节
-        out.writeByte(0);                       // zip压缩标志，1字节
-        out.writeByte(1);                       // pb版本，1字节
-
-
-        ByteBuffer body = msg.getBody();
-        byte[] bodyArray = new byte[body.remaining()];
-
-//        byte[] bodyArray = body.array();
+        out.writeInt(cid);      // 4字节
+        out.writeInt(errorCode);      // 4字节
+        out.writeInt(protocolId);      // 4字节
+        out.writeByte(zip);                       // zip压缩标志，1字节
+        out.writeByte(version);                       // pb版本，1字节
+        //消息体
         out.writeShort(bodyArray.length);                 // 消息体长度，2字节
-
         // 写入消息体
         out.writeBytes(bodyArray);
-        interChannel.writeAndFlush(out)
-                .addListener((ChannelFutureListener) future -> {
-            if (future.isSuccess()) {
-                // 消息转发成功的处理
-                // log.debug("Successfully forwarded message to {}, protocolId: {}",targetServerAddress, msg.getProtocolId());
-            } else {
-                // 消息转发失败的处理
-                // log.error("Failed to forward message to {}", targetServerAddress, future.cause());
-                serverChannelManage.removeChanelByIp(addr);
-                //直接告诉客户端，返回错误码 todo
-                outsideChannel.writeAndFlush(new ByteBufferMessage(0, 0, msg.getProtocolId(), null));
-            }
-        });
+        return out;
+    }
 
-        // 释放 ByteBuf
-        out.release();
+    public ByteBuf buildServerMsg(long userId, int cid, int errorCode, int protocolId, int zip, int version, byte[] bodyArray, int initByteLength) {
+        int length = bodyArray.length;
+        //写回
+        ByteBuf out = Unpooled.buffer(initByteLength + length);
+        //消息头
+        out.writeLong(userId);      // 8字节
+        out.writeInt(cid);      // 4字节
+        out.writeInt(errorCode);      // 4字节
+        out.writeInt(protocolId);      // 4字节
+        out.writeByte(zip);                       // zip压缩标志，1字节
+        out.writeByte(version);                       // pb版本，1字节
+        //消息体
+        out.writeShort(bodyArray.length);                 // 消息体长度，2字节
+        // 写入消息体
+        out.writeBytes(bodyArray);
+        return out;
     }
 
     /**
      * 转发到目标服务器
      *
-     * @param ctx                 客户端-网关
+     * @param clientChannel       客户端-网关
      * @param msg                 消息
      * @param targetServerAddress 目标服务器地址
      */
-    private void forwardToTargetServer(ChannelHandlerContext ctx, ByteBufferMessage msg, long userId ,String targetServerAddress) {
+    private void forwardToTargetServer(ChannelHandlerContext clientChannel, ByteBufferMessage msg, long userId, String targetServerAddress) {
         try {
             Channel channel = getOrCreateChannel(msg.getProtocolId(), targetServerAddress);
             //进行转发到目标服务器
             if (channel != null && channel.isActive()) {
-                sentMsg(channel,ctx,msg,userId,targetServerAddress);
+                ByteBuf out = buildServerMsg(userId, msg.getCid(), msg.getErrorCode(), msg.getProtocolId(), 0, 1, msg.getBody(), 24);
+                ChannelFuture channelFuture = channel.writeAndFlush(out);
+                channelFuture.addListener((ChannelFutureListener) future -> {
+                    if (future.isSuccess()) {
+                        // 消息转发成功的处理
+                        System.out.println("Successfully forwarded message");
+                    } else {
+                        // 消息转发失败的处理
+                        // log.error("Failed to forward message to {}", targetServerAddress, future.cause());
+                        serverChannelManage.removeChanelByIp(targetServerAddress);
+                        //直接告诉客户端，返回错误码 todo
+                        // 错误码 10，todo
+                        ByteBuf outClient = buildClientMsg(msg.getCid(), 10, msg.getProtocolId(), 0, 1, null);
+                        clientChannel.writeAndFlush(outClient);
+                    }
+                });
+
             } else {
                 //log.error("No active channel for {}", targetServerAddress);
-                //直接告诉客户端，返回错误码
-                ctx.writeAndFlush(new ByteBufferMessage(0, 0, msg.getProtocolId(), null));
+                //todo 直接告诉客户端，返回错误码
+                clientChannel.writeAndFlush(new ByteBufferMessage(0, 0, msg.getProtocolId(), null));
             }
         } catch (Exception e) {
             //log.error("Error forwarding message to {}", targetServerAddress, e);
             //直接告诉客户端，返回错误码
-            ctx.writeAndFlush(new ByteBufferMessage(0, 0, msg.getProtocolId(), null));
+            clientChannel.writeAndFlush(new ByteBufferMessage(0, 0, msg.getProtocolId(), null));
         }
     }
 
@@ -257,7 +243,9 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
             try {
                 ChannelFuture future = bootstrap.connect(host, port).sync();
                 if (future.isSuccess()) {
-                    return future.channel();
+                    channel = future.channel();
+                    serverChannelManage.saveByAddr(targetServerAddress, channel);
+                    return channel;
                 }
             } catch (Exception e) {
 //                log.error("Failed to create channel for {}", address, e);

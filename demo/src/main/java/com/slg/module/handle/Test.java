@@ -31,6 +31,7 @@ public class Test {
         MSG.LoginResponse.Builder builder = MSG.LoginResponse.newBuilder()
                 .setAaa(999999999)
                 .setBbb(777777777);
+//        MSG.LoginRequest.parseFrom()
         MsgResponse msgResponse = new MsgResponse();
         msgResponse.setBody(builder);
         msgResponse.setErrorCode(0);

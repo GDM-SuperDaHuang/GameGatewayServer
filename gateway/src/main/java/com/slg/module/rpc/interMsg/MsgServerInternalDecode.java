@@ -1,6 +1,7 @@
 package com.slg.module.rpc.interMsg;
 
 
+import com.slg.module.message.ByteBufferMessage;
 import com.slg.module.message.ByteBufferServerMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -23,7 +24,7 @@ public class MsgServerInternalDecode extends ByteToMessageDecoder {
         int readableBytes = in.readableBytes();
 
         // 消息头
-        long sessionId = in.readLong();
+        long userId = in.readLong();
 
         int cid = in.readInt();
         int errorCode = in.readInt();
@@ -31,19 +32,25 @@ public class MsgServerInternalDecode extends ByteToMessageDecoder {
         byte zip = in.readByte();
         byte pbVersion = in.readByte();
         short length = in.readShort();
-
         // 检查是否有足够的字节来读取整个消息体
         if (readableBytes < 16 + length) {
             // 如果没有，丢弃已经读取的头部信息，并返回
             in.readerIndex(in.readerIndex() - 16);
             return;
         }
-        ByteBuf messageBody = in.readBytes(length);
-        byte[] array = messageBody.array();
-        ByteBuffer byteBuffer = messageBody.nioBuffer();
-        ByteBufferServerMessage byteBufferMessage = new ByteBufferServerMessage(sessionId, cid, errorCode, protocolId, byteBuffer);
-        out.add(byteBufferMessage);
-        //释放 messageBody 的引用
-        messageBody.release();
+
+        byte[] bytes = new byte[length];
+        in.readBytes(bytes, 0, length);
+        ByteBufferServerMessage byteBufMessage = new ByteBufferServerMessage(userId, cid, errorCode, protocolId, bytes);
+        out.add(byteBufMessage);
+
+
+//        ByteBuf messageBody = in.readBytes(length);
+//        byte[] array = messageBody.array();
+//        ByteBuffer byteBuffer = messageBody.nioBuffer();
+//        ByteBufferServerMessage byteBufferMessage = new ByteBufferServerMessage(sessionId, cid, errorCode, protocolId, byteBuffer);
+//        out.add(byteBufferMessage);
+//        //释放 messageBody 的引用
+//        messageBody.release();
     }
 }

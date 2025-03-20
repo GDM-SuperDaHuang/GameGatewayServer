@@ -21,6 +21,10 @@ public class ServerChannelManage {
         serverChannelMap.remove(ip);
     }
 
+    public void saveByAddr(String ip,Channel channel){
+        serverChannelMap.put(ip,channel);
+    }
+
 
     public ServerChannelManage(Map<String, Channel> serverChannelMap) {
         this.serverChannelMap = serverChannelMap;

@@ -1,12 +1,12 @@
 package com.slg.module.rpc.outside.outsideMsg;
 
 
-
 import com.slg.module.message.ByteBufferMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 
+import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.util.List;
 
@@ -38,22 +38,20 @@ public class MsgDecode extends ByteToMessageDecoder {
             in.readerIndex(in.readerIndex() - 16);
             return;
         }
-        ByteBuf messageBody = in.readBytes(length);
+//        ByteBuf messageBody = in.readBytes(length);
 
         //方式1
-        ByteBuffer byteBuffer = messageBody.nioBuffer();
-        ByteBufferMessage byteBufferMessage = new ByteBufferMessage(cid, errorCode, protocolId, byteBuffer);
-        out.add(byteBufferMessage);
-        //释放 messageBody 的引用
-        messageBody.release();
-
-        //方式二
-//        byte[] array = new byte[messageBody.readableBytes()];
-////        byte[] array = messageBody.array();
-//        ByteMessage byteBufMessage = new ByteMessage(cid, errorCode, protocolId, array);
-//        out.add(byteBufMessage);
+//        ByteBuffer byteBuffer = messageBody.nioBuffer();
+//        ByteBufferMessage byteBufferMessage = new ByteBufferMessage(cid, errorCode, protocolId, byteBuffer);
+//        out.add(byteBufferMessage);
 //        //释放 messageBody 的引用
 //        messageBody.release();
 
+
+        //方式二
+        byte[] bytes = new byte[length];
+        in.readBytes(bytes, 0, length);
+        ByteBufferMessage byteBufMessage = new ByteBufferMessage(cid, errorCode, protocolId, bytes);
+        out.add(byteBufMessage);
     }
 }

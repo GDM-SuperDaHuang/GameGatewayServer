@@ -65,8 +65,7 @@ public class GatewayServer implements CommandLineRunner {
             System.out.println("----------------------------服务器关闭--------------------------------------------");
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
-            // 关闭ZooKeeper客户端
-//            client.close();
+
         }
     }
 
