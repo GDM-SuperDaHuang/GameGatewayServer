@@ -1,4 +1,4 @@
-# 游戏服务器框架 gameServer
+# 游戏服务器框架 网关gameServer
     JDK17
     apache-maven-3.9.5
     脚本工具:protoc-28.2-win64  https://github.com/protocolbuffers/protobuf/releases
@@ -20,19 +20,10 @@
 
 # [demo](demo)
     为了演示增加的模块，里面有演示的示例，后续可删除，也可做业务模块
-
 # [entrance](entrance)
     主启动类，程序入口,开发待续.....
-
-# [fight](fight)
-    战斗服，战斗逻辑，开发待续.....
-
 # [gateway](gateway)
     网关服，开发待续....
 
 # [protobufFile](protobufFile)
     存放protobuf文件，diy.proto里面有脚本toJava.bat用作生成java类
-
-# 目前本地测试可以轻松应付 1000线程， 2毫秒连接响应， 2毫秒回响应
-![img.png](img.png)
-![img_1.png](img_1.png)

@@ -89,7 +89,6 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         if (parse == null) {
             return;
         }
-
         //todo
         //登录
         if (protocolId == 1) {
@@ -148,44 +147,6 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
     }
 
     /**
-     * 客户端消息
-     */
-    public ByteBuf buildClientMsg(int cid, int errorCode, int protocolId, int zip, int version, byte[] bodyArray) {
-        int length = bodyArray.length;
-        //写回
-        ByteBuf out = Unpooled.buffer(16 + length);
-        //消息头
-        out.writeInt(cid);      // 4字节
-        out.writeInt(errorCode);      // 4字节
-        out.writeInt(protocolId);      // 4字节
-        out.writeByte(zip);                       // zip压缩标志，1字节
-        out.writeByte(version);                       // pb版本，1字节
-        //消息体
-        out.writeShort(bodyArray.length);                 // 消息体长度，2字节
-        // 写入消息体
-        out.writeBytes(bodyArray);
-        return out;
-    }
-
-    public ByteBuf buildServerMsg(long userId, int cid, int errorCode, int protocolId, int zip, int version, byte[] bodyArray, int initByteLength) {
-        int length = bodyArray.length;
-        //写回
-        ByteBuf out = Unpooled.buffer(initByteLength + length);
-        //消息头
-        out.writeLong(userId);      // 8字节
-        out.writeInt(cid);      // 4字节
-        out.writeInt(errorCode);      // 4字节
-        out.writeInt(protocolId);      // 4字节
-        out.writeByte(zip);                       // zip压缩标志，1字节
-        out.writeByte(version);                       // pb版本，1字节
-        //消息体
-        out.writeShort(bodyArray.length);                 // 消息体长度，2字节
-        // 写入消息体
-        out.writeBytes(bodyArray);
-        return out;
-    }
-
-    /**
      * 转发到目标服务器
      *
      * @param clientChannel       客户端-网关
@@ -197,7 +158,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
             Channel channel = getOrCreateChannel(msg.getProtocolId(), targetServerAddress);
             //进行转发到目标服务器
             if (channel != null && channel.isActive()) {
-                ByteBuf out = buildServerMsg(userId, msg.getCid(), msg.getErrorCode(), msg.getProtocolId(), 0, 1, msg.getBody(), 24);
+                ByteBuf out = buildServerMsg(userId, msg.getCid(), msg.getErrorCode(), msg.getProtocolId(), 0, 1, msg.getBody());
                 ChannelFuture channelFuture = channel.writeAndFlush(out);
                 channelFuture.addListener((ChannelFutureListener) future -> {
                     if (future.isSuccess()) {
@@ -217,6 +178,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
             } else {
                 //log.error("No active channel for {}", targetServerAddress);
                 //todo 直接告诉客户端，返回错误码
+
                 clientChannel.writeAndFlush(new ByteBufferMessage(0, 0, msg.getProtocolId(), null));
             }
         } catch (Exception e) {
@@ -299,6 +261,47 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         } else {
             return null;
         }
+    }
+
+    /**
+     * 客户端消息
+     */
+    public ByteBuf buildClientMsg(int cid, int errorCode, int protocolId, int zip, int version, byte[] bodyArray) {
+        int length = bodyArray.length;
+        //写回
+        ByteBuf out = Unpooled.buffer(16 + length);
+        //消息头
+        out.writeInt(cid);      // 4字节
+        out.writeInt(errorCode);      // 4字节
+        out.writeInt(protocolId);      // 4字节
+        out.writeByte(zip);                       // zip压缩标志，1字节
+        out.writeByte(version);                       // pb版本，1字节
+        //消息体
+        out.writeShort(bodyArray.length);                 // 消息体长度，2字节
+        // 写入消息体
+        out.writeBytes(bodyArray);
+        return out;
+    }
+
+    /**
+     * 服务器信息
+     */
+    public ByteBuf buildServerMsg(long userId, int cid, int errorCode, int protocolId, int zip, int version, byte[] bodyArray) {
+        int length = bodyArray.length;
+        //写回
+        ByteBuf out = Unpooled.buffer(24 + length);
+        //消息头
+        out.writeLong(userId);      // 8字节
+        out.writeInt(cid);      // 4字节
+        out.writeInt(errorCode);      // 4字节
+        out.writeInt(protocolId);      // 4字节
+        out.writeByte(zip);                       // zip压缩标志，1字节
+        out.writeByte(version);                       // pb版本，1字节
+        //消息体
+        out.writeShort(bodyArray.length);                 // 消息体长度，2字节
+        // 写入消息体
+        out.writeBytes(bodyArray);
+        return out;
     }
 
 }

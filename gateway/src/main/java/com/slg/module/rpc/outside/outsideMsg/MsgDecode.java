@@ -22,33 +22,19 @@ public class MsgDecode extends ByteToMessageDecoder {
         }
         // 缓存 readableBytes 不够则暂时到局部变量
         int readableBytes = in.readableBytes();
-
         // 消息头
         int cid = in.readInt();
         int errorCode = in.readInt();
-
         int protocolId = in.readInt();
         byte zip = in.readByte();
         byte pbVersion = in.readByte();
         short length = in.readShort();
-
         // 检查是否有足够的字节来读取整个消息体
         if (readableBytes < 16 + length) {
             // 如果没有，丢弃已经读取的头部信息，并返回
             in.readerIndex(in.readerIndex() - 16);
             return;
         }
-//        ByteBuf messageBody = in.readBytes(length);
-
-        //方式1
-//        ByteBuffer byteBuffer = messageBody.nioBuffer();
-//        ByteBufferMessage byteBufferMessage = new ByteBufferMessage(cid, errorCode, protocolId, byteBuffer);
-//        out.add(byteBufferMessage);
-//        //释放 messageBody 的引用
-//        messageBody.release();
-
-
-        //方式二
         byte[] bytes = new byte[length];
         in.readBytes(bytes, 0, length);
         ByteBufferMessage byteBufMessage = new ByteBufferMessage(cid, errorCode, protocolId, bytes);
