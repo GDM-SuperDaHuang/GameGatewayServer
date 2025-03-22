@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 @ToServer
 public class Test {
     private static final Logger logger = LogManager.getLogger(Test.class);

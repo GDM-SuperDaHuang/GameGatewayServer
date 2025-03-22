@@ -89,6 +89,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         if (parse == null) {
             return;
         }
+
         //todo
         //登录
         if (protocolId == 1) {
@@ -117,9 +118,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
             //todo java.lang.IndexOutOfBoundsException: srcIndex: 0
             ChannelFuture channelFuture = ctx.writeAndFlush(out);
             channelFuture.addListener(future -> {
-                if (future.isSuccess()) {
-                    // 操作成功，释放 ByteBuf
-                } else {
+                if (!future.isSuccess()) {
                     // 操作失败，也释放 ByteBuf
                     System.err.println("Write and flush failed: " + future.cause());
                 }
