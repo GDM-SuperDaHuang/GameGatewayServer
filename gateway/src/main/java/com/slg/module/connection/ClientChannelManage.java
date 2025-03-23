@@ -1,36 +1,55 @@
 package com.slg.module.connection;
+
+import io.netty.channel.Channel;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 客户端连接管理
+ */
 @Component
 public class ClientChannelManage {
     //客户端连接管理
-    private final Map<String, ClientChannel> AddrChannelMap = new ConcurrentHashMap<>();
-    private final Map<Long, ClientChannel> userIdChannelMap = new ConcurrentHashMap<>();
+    private final Map<Channel, Long> channelUserIdMap = new ConcurrentHashMap<>();
+    private final Map<Long, Channel> userIdChannelMap = new ConcurrentHashMap<>();
+    private final Map<String, Channel> addrChannelMap = new ConcurrentHashMap<>();
+
+    public void put1(Channel channel, Long userId) {
+        channelUserIdMap.put(channel, userId);
+    }
+
+    public Long get1(Channel channel) {
+        return channelUserIdMap.get(channel);
+    }
+
+    public void put(String addr, Channel channel) {
+        addrChannelMap.put(addr, channel);
+    }
+    public Channel get(String addr) {
+        return addrChannelMap.get(addr);
+    }
 
     public ClientChannelManage() {
     }
 
-    public void saveChannelByAddr(String addr,Long userId,ClientChannel channel){
-        AddrChannelMap.put(addr,channel);
-        userIdChannelMap.put(userId,channel);
+    public void put(Channel channel, Long userId) {
+        channelUserIdMap.put(channel, userId);
+        userIdChannelMap.put(userId, channel);
     }
 
-    public ClientChannel getChannelByAddr(String addr){
-        return AddrChannelMap.getOrDefault(addr,null);
+    public Long getUserId(Channel channel) {
+        return channelUserIdMap.getOrDefault(channel, null);
     }
 
-    public ClientChannel getChannelByUserId(Long userId){
-        return userIdChannelMap.getOrDefault(userId,null);
+    public Channel getChannelByUserId(Long userId) {
+        return userIdChannelMap.getOrDefault(userId, null);
     }
 
-    public void removeByUserId(String addr){
-        ClientChannel clientChannel = AddrChannelMap.get(addr);
-        Long userId = clientChannel.getUserId();
+    public void remove(Channel channel) {
+        Long userId = channelUserIdMap.remove(channel);
         userIdChannelMap.remove(userId);
-        AddrChannelMap.remove(addr);
     }
 
 }

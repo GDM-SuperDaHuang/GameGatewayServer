@@ -1,9 +1,8 @@
 package com.slg.module.rpc.interMsg;
 
-import com.slg.module.connection.ClientChannel;
 import com.slg.module.connection.ClientChannelManage;
+import com.slg.module.connection.ServerChannelManage;
 import com.slg.module.message.ByteBufferServerMessage;
-import com.slg.module.rpc.outside.PbMessageHandler;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
@@ -15,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
+import java.net.SocketAddress;
 import java.net.SocketException;
 
 /**
@@ -23,13 +23,11 @@ import java.net.SocketException;
 @Component
 @ChannelHandler.Sharable
 public class TargetServerHandler extends SimpleChannelInboundHandler<ByteBufferServerMessage> {
-    public TargetServerHandler() {
-
-    }
-
     @Autowired
     private ClientChannelManage channelManage;
-
+    //目标服务器--网关管理
+    @Autowired
+    private ServerChannelManage serverChannelManage;
     /**
      * 接收目标服务器数据
      *
@@ -42,11 +40,10 @@ public class TargetServerHandler extends SimpleChannelInboundHandler<ByteBufferS
         long userId = msg.getUserId();
         byte[] body = msg.getBody();
         //转发回给客户端
-        ClientChannel clientChannel = channelManage.getChannelByUserId(userId);
+        Channel clientChannel = channelManage.getChannelByUserId(userId);
         if (clientChannel != null) {
             ByteBuf out = buildClientMsg(msg.getCid(), msg.getErrorCode(), msg.getProtocolId(), 0, 1, body);
-            Channel channel = clientChannel.getChannel();
-            channel.writeAndFlush(out)
+            clientChannel.writeAndFlush(out)
                     .addListener(future -> {
                         if (future.isSuccess()) {
 
@@ -77,15 +74,32 @@ public class TargetServerHandler extends SimpleChannelInboundHandler<ByteBufferS
         return out;
     }
 
+    /**
+     * 网关-服务器错误处理
+     */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         if (cause instanceof InvocationTargetException) {
             //目标方法错误
         } else if (cause instanceof SocketException
                 || cause instanceof DecoderException) {
+            destroyConnection(ctx);
             //客户端关闭连接/连接错误
             // 关闭连接
             ctx.close();
         }
+    }
+
+    /**
+     * 关闭内部服务器连接
+     */
+    private void destroyConnection(ChannelHandlerContext ctx) {
+        //断开无效连接
+        SocketAddress socketAddress = ctx.channel().remoteAddress();
+
+        String addr = socketAddress.toString();
+
+        Channel channel = serverChannelManage.removeChanelByIp(addr);
+        System.out.println("内部服务器关闭连接："+channel+"地址："+addr);
     }
 }

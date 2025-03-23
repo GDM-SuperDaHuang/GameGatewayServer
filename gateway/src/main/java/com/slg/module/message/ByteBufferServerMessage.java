@@ -4,7 +4,7 @@ package com.slg.module.message;
  * 服务器内部协议
  */
 public class ByteBufferServerMessage {
-    private long userId;
+    private long userId;//用户id
     private int cid;//顺序号
     private int errorCode;//错误码
     private int protocolId;

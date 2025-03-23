@@ -17,11 +17,11 @@ public class ServerChannelManage {
     public Channel getChanelByIp(String ip){
         return serverChannelMap.getOrDefault(ip, null);
     }
-    public void removeChanelByIp(String ip){
-        serverChannelMap.remove(ip);
+    public Channel removeChanelByIp(String ip){
+        return serverChannelMap.remove(ip);
     }
 
-    public void saveByAddr(String ip,Channel channel){
+    public void put(String ip,Channel channel){
         serverChannelMap.put(ip,channel);
     }
 
