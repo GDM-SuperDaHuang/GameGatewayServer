@@ -14,26 +14,9 @@ public class ClientChannelManage {
     //客户端连接管理
     private final Map<Channel, Long> channelUserIdMap = new ConcurrentHashMap<>();
     private final Map<Long, Channel> userIdChannelMap = new ConcurrentHashMap<>();
-    private final Map<String, Channel> addrChannelMap = new ConcurrentHashMap<>();
-
-    public void put1(Channel channel, Long userId) {
-        channelUserIdMap.put(channel, userId);
-    }
-
-    public Long get1(Channel channel) {
-        return channelUserIdMap.get(channel);
-    }
-
-    public void put(String addr, Channel channel) {
-        addrChannelMap.put(addr, channel);
-    }
-    public Channel get(String addr) {
-        return addrChannelMap.get(addr);
-    }
 
     public ClientChannelManage() {
     }
-
     public void put(Channel channel, Long userId) {
         channelUserIdMap.put(channel, userId);
         userIdChannelMap.put(userId, channel);

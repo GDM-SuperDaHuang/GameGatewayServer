@@ -12,32 +12,28 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class ServerChannelManage {
     //目标服务器连接管理
-    private Map<String, Channel> serverChannelMap = new ConcurrentHashMap<>();
+    private Map<Integer, Channel> serverChannelMap = new ConcurrentHashMap<>();//<serverId,channel>
+    private Map<Integer, ServerConfig> serverConfigMap = new ConcurrentHashMap<>();////<serverId,ServerConfig>
 
-    public Channel getChanelByIp(String ip){
-        return serverChannelMap.getOrDefault(ip, null);
-    }
-    public Channel removeChanelByIp(String ip){
-        return serverChannelMap.remove(ip);
+    public Channel getChanelByIp(Integer serverId) {
+        return serverChannelMap.getOrDefault(serverId, null);
     }
 
-    public void put(String ip,Channel channel){
-        serverChannelMap.put(ip,channel);
+    public Channel removeChanelByIp(Integer serverId) {
+        Channel remove = serverChannelMap.remove(serverId);
+        serverConfigMap.remove(serverId);
+        return remove;
     }
 
-
-    public ServerChannelManage(Map<String, Channel> serverChannelMap) {
-        this.serverChannelMap = serverChannelMap;
+    public void put(Integer serverId, Channel channel, ServerConfig serverConfig) {
+        serverChannelMap.put(serverId, channel);
+        serverConfigMap.put(serverId, new ServerConfig(serverId, serverConfig.getIp(), serverConfig.getPort()));
     }
 
     public ServerChannelManage() {
     }
 
-    public Map<String, Channel> getServerChannelMap() {
-        return serverChannelMap;
-    }
-
-    public void setServerChannelMap(Map<String, Channel> serverChannelMap) {
-        this.serverChannelMap = serverChannelMap;
+    public Map<Integer, ServerConfig> getServerConfigMap() {
+        return serverConfigMap;
     }
 }

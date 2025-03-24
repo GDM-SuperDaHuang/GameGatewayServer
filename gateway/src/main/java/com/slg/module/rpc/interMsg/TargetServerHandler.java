@@ -2,6 +2,7 @@ package com.slg.module.rpc.interMsg;
 
 import com.slg.module.connection.ClientChannelManage;
 import com.slg.module.connection.ServerChannelManage;
+import com.slg.module.connection.ServerConfig;
 import com.slg.module.message.ByteBufferServerMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -14,8 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
+import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.net.SocketException;
+import java.util.Map;
 
 /**
  * 目标服务器--网关
@@ -28,6 +31,7 @@ public class TargetServerHandler extends SimpleChannelInboundHandler<ByteBufferS
     //目标服务器--网关管理
     @Autowired
     private ServerChannelManage serverChannelManage;
+
     /**
      * 接收目标服务器数据
      *
@@ -45,15 +49,13 @@ public class TargetServerHandler extends SimpleChannelInboundHandler<ByteBufferS
             ByteBuf out = buildClientMsg(msg.getCid(), msg.getErrorCode(), msg.getProtocolId(), 0, 1, body);
             clientChannel.writeAndFlush(out)
                     .addListener(future -> {
-                        if (future.isSuccess()) {
-
-                        } else {
-
+                        if (!future.isSuccess()) {
                             System.err.println("Write and flush failed: " + future.cause());
                         }
                     });
 
         } else {//todo 没有，则让网关，返回错误码
+
         }
     }
 
@@ -96,10 +98,15 @@ public class TargetServerHandler extends SimpleChannelInboundHandler<ByteBufferS
     private void destroyConnection(ChannelHandlerContext ctx) {
         //断开无效连接
         SocketAddress socketAddress = ctx.channel().remoteAddress();
-
-        String addr = socketAddress.toString();
-
-        Channel channel = serverChannelManage.removeChanelByIp(addr);
-        System.out.println("内部服务器关闭连接："+channel+"地址："+addr);
+        int port = ((InetSocketAddress) socketAddress).getPort();
+        String ip = ((InetSocketAddress) socketAddress).getHostString();
+        Map<Integer, ServerConfig> serverConfigMap = serverChannelManage.getServerConfigMap();
+        for (Map.Entry<Integer, ServerConfig> entry : serverConfigMap.entrySet()) {
+            ServerConfig config = entry.getValue();
+            if (config.getIp().equals(ip)&&config.getPort()==port){
+                serverChannelManage.removeChanelByIp(config.getServerId());
+            }
+        }
+        System.out.println("内部服务器关闭连接：" + socketAddress);
     }
 }

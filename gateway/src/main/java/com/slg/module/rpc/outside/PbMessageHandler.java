@@ -84,34 +84,6 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         byte[] body = msg.getBody();
         Channel channel = ctx.channel();
 
-        SocketAddress socketAddress = ctx.channel().remoteAddress();
-        //方式1
-//        int port = ((InetSocketAddress) socketAddress).getPort();
-//        String hostString = ((InetSocketAddress) socketAddress).getHostString();
-//        String key = hostString + port;
-        long startTime1 = System.currentTimeMillis();
-        for (int i = 0; i < 100000000; i++) {
-            int port11 = ((InetSocketAddress) socketAddress).getPort()+i;
-            String hostString11 = ((InetSocketAddress) socketAddress).getHostString();
-            String key11 = hostString11 + port11;
-            clientchannelManage.put(key11, channel);
-            Channel channel11 = clientchannelManage.get(key11);
-        }
-        long endTime1 = System.currentTimeMillis();
-        long duration1 = endTime1 - startTime1;
-        System.out.println("代码执行时间1: " + duration1 + " 毫秒");
-
-
-        //方式2
-        long startTime2 = System.currentTimeMillis();
-        for (int i = 0; i < 100000000; i++) {
-            clientchannelManage.put1(channel, 1321321321L);
-            Long userId222 = clientchannelManage.get1(channel);
-        }
-        long endTime2 = System.currentTimeMillis();
-        long duration2 = endTime2 - startTime2;
-        System.out.println("代码执行时间1: " + duration2 + " 毫秒");
-
         Method parse = postProcessor.getParseFromMethod(protocolId);
         if (parse == null) {
             return;
@@ -143,7 +115,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
             // todo 根据用户信息选择目标服务器
             ServerConfig serverConfig = getTargetServerAddress(protocolId);
             // 转发到目标服务器
-            forwardToTargetServer(ctx, msg, userId, serverConfig.getIp(), serverConfig.getPort());
+            forwardToTargetServer(ctx, msg, userId, serverConfig);
         }
     }
 
@@ -165,15 +137,15 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
      * @param clientChannel 客户端-网关
      * @param msg           消息
      */
-    private void forwardToTargetServer(ChannelHandlerContext clientChannel, ByteBufferMessage msg, long userId, String ip, int port) {
+    private void forwardToTargetServer(ChannelHandlerContext clientChannel, ByteBufferMessage msg, long userId, ServerConfig serverConfig) {
 
-        Channel channel = serverChannelManage.getChanelByIp(ip);
+        Channel channel = serverChannelManage.getChanelByIp(serverConfig.getServerId());
         if (channel == null) {
             try {
-                ChannelFuture future = bootstrap.connect(ip, port).sync();
+                ChannelFuture future = bootstrap.connect(serverConfig.getIp(), serverConfig.getPort()).sync();
                 if (future.isSuccess()) {
                     channel = future.channel();
-                    serverChannelManage.put(ip, channel);
+                    serverChannelManage.put(serverConfig.getServerId(), channel, serverConfig);
                 }
             } catch (Exception e) {
 //                log.error("Failed to create channel for {}", address, e);
@@ -192,7 +164,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
                 } else {
                     // 消息转发失败的处理
                     // log.error("Failed to forward message to {}", targetServerAddress, future.cause());
-                    serverChannelManage.removeChanelByIp(ip);
+                    serverChannelManage.removeChanelByIp(serverConfig.getServerId());
                     //直接告诉客户端，返回错误码 todo
                     // 错误码 10，todo
                     ByteBuf outClient = buildClientMsg(msg.getCid(), 10, msg.getProtocolId(), 0, 1, null);
