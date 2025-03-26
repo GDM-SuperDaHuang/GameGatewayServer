@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = false;
+option java_outer_classname = "Account";
+package account;
+import "monon.proto";
+//示例
+message LoginRequest
+{
+    monon.messs ss=1;
+    string username = 2;
+    string password = 3;
+}
+
+//示例
+message LoginResponse
+{
+    fixed32 aaa = 1;
+    fixed32 bbb = 2;
+}

@@ -26,4 +26,6 @@
     网关服，开发待续....
 
 # [protobufFile](protobufFile)
-    存放protobuf文件，diy.proto里面有脚本toJava.bat用作生成java类
+    存放protobuf文件，
+    1，pb文件夹只存放proto文件
+    2，点击脚本toJava.bat,生成java类

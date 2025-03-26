@@ -20,8 +20,6 @@
 
 
     <modules>
-<!--        <module>common</module>-->
-<!--        <module>fight</module>-->
         <module>gateway</module>
         <module>protobufFile</module>
         <module>entrance</module>
@@ -46,22 +44,6 @@
             <scope>test</scope>
         </dependency>
 
-
-        <!--        <dependency>-->
-        <!--            <groupId>com.slg</groupId>-->
-        <!--            <artifactId>common</artifactId>-->
-        <!--            <version>0.0.1-SNAPSHOT</version>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.slg</groupId>-->
-        <!--            <artifactId>fight</artifactId>-->
-        <!--            <version>0.0.1-SNAPSHOT</version>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.slg</groupId>-->
-        <!--            <artifactId>gateway</artifactId>-->
-        <!--            <version>0.0.1-SNAPSHOT</version>-->
-        <!--        </dependency>-->
 
         <!-- caffeine -->
         <dependency>

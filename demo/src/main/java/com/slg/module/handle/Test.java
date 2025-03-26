@@ -1,20 +1,19 @@
 package com.slg.module.handle;
 
+import account.Account;
 import com.slg.module.annotation.ToMethod;
 import com.slg.module.annotation.ToServer;
-
-
-import com.slg.module.message.MSG;
-//import com.slg.module.message.MsgResponse;
 import com.slg.module.message.MsgResponse;
 import com.slg.module.message.SendMsg;
+import diy.DIY;
 import io.netty.channel.ChannelHandlerContext;
+import monon.Monon;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+
+
 
 @ToServer
 public class Test {
@@ -25,9 +24,13 @@ public class Test {
         this.sendMsg = sendMsg;
     }
 
+
     @ToMethod(value = 1)
-    public MsgResponse diy(ChannelHandlerContext ctx, MSG.LoginRequest request, long userId) throws IOException, InterruptedException {
-        MSG.LoginResponse.Builder builder = MSG.LoginResponse.newBuilder()
+    public MsgResponse diy(ChannelHandlerContext ctx, Account.LoginRequest request, long userId) throws IOException, InterruptedException {
+        Monon.messs ss = request.getSs();
+        String data = ss.getData();
+
+        Account.LoginResponse.Builder builder = Account.LoginResponse.newBuilder()
                 .setAaa(999999999)
                 .setBbb(777777777);
 //        MSG.LoginRequest.parseFrom()
@@ -39,11 +42,11 @@ public class Test {
 
 
     @ToMethod(value = 2)
-    public MsgResponse ffff(ChannelHandlerContext ctx, MSG.FriendRequest request,long userId) throws IOException {
+    public MsgResponse ffff(ChannelHandlerContext ctx, DIY.FriendRequest request, long userId) throws IOException {
         ArrayList<Long> longs = new ArrayList<>();
         longs.add(110L);
         longs.add(211L);
-        MSG.FriendsResponse.Builder friendsResponse = MSG.FriendsResponse.newBuilder()
+        DIY.FriendsResponse.Builder friendsResponse = DIY.FriendsResponse.newBuilder()
                 .addAllUserIdList(longs);
         MsgResponse msgResponse = new MsgResponse();
         msgResponse.setBody(friendsResponse);

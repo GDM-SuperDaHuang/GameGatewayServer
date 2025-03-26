@@ -88,7 +88,6 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         if (parse == null) {
             return;
         }
-        //todo
 
         //登录
         if (protocolId == 1) {

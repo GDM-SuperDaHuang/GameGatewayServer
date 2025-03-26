@@ -3,10 +3,10 @@
 // source: diy.proto
 // Protobuf Java Version: 4.27.2
 
-package com.slg.module.message;
+package diy;
 
-public final class MSG {
-  private MSG() {}
+public final class DIY {
+  private DIY() {}
   static {
     com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
       com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
@@ -14,7 +14,7 @@ public final class MSG {
       /* minor= */ 27,
       /* patch= */ 2,
       /* suffix= */ "",
-      MSG.class.getName());
+      DIY.class.getName());
   }
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistryLite registry) {
@@ -30,7 +30,7 @@ public final class MSG {
    * 通用错误码
    * </pre>
    *
-   * Protobuf enum {@code protobuffile.ERERROR}
+   * Protobuf enum {@code diy.ERERROR}
    */
   public enum ERERROR
       implements com.google.protobuf.ProtocolMessageEnum {
@@ -138,7 +138,7 @@ public final class MSG {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return MSG.getDescriptor().getEnumTypes().get(0);
+      return diy.DIY.getDescriptor().getEnumTypes().get(0);
     }
 
     private static final ERERROR[] VALUES = values();
@@ -161,1191 +161,11 @@ public final class MSG {
       this.value = value;
     }
 
-    // @@protoc_insertion_point(enum_scope:protobuffile.ERERROR)
-  }
-
-  public interface LoginRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:protobuffile.LoginRequest)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string username = 1;</code>
-     * @return The username.
-     */
-    java.lang.String getUsername();
-    /**
-     * <code>string username = 1;</code>
-     * @return The bytes for username.
-     */
-    com.google.protobuf.ByteString
-        getUsernameBytes();
-
-    /**
-     * <code>string password = 2;</code>
-     * @return The password.
-     */
-    java.lang.String getPassword();
-    /**
-     * <code>string password = 2;</code>
-     * @return The bytes for password.
-     */
-    com.google.protobuf.ByteString
-        getPasswordBytes();
-  }
-  /**
-   * <pre>
-   * 示例
-   * </pre>
-   *
-   * Protobuf type {@code protobuffile.LoginRequest}
-   */
-  public static final class LoginRequest extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:protobuffile.LoginRequest)
-      LoginRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 27,
-        /* patch= */ 2,
-        /* suffix= */ "",
-        LoginRequest.class.getName());
-    }
-    // Use LoginRequest.newBuilder() to construct.
-    private LoginRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private LoginRequest() {
-      username_ = "";
-      password_ = "";
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return MSG.internal_static_protobuffile_LoginRequest_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return MSG.internal_static_protobuffile_LoginRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              MSG.LoginRequest.class, MSG.LoginRequest.Builder.class);
-    }
-
-    public static final int USERNAME_FIELD_NUMBER = 1;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object username_ = "";
-    /**
-     * <code>string username = 1;</code>
-     * @return The username.
-     */
-    @java.lang.Override
-    public java.lang.String getUsername() {
-      java.lang.Object ref = username_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        username_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string username = 1;</code>
-     * @return The bytes for username.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getUsernameBytes() {
-      java.lang.Object ref = username_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        username_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PASSWORD_FIELD_NUMBER = 2;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object password_ = "";
-    /**
-     * <code>string password = 2;</code>
-     * @return The password.
-     */
-    @java.lang.Override
-    public java.lang.String getPassword() {
-      java.lang.Object ref = password_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        password_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string password = 2;</code>
-     * @return The bytes for password.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getPasswordBytes() {
-      java.lang.Object ref = password_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        password_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(username_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 1, username_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(password_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 2, password_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(username_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, username_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(password_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, password_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof MSG.LoginRequest)) {
-        return super.equals(obj);
-      }
-      MSG.LoginRequest other = (MSG.LoginRequest) obj;
-
-      if (!getUsername()
-          .equals(other.getUsername())) return false;
-      if (!getPassword()
-          .equals(other.getPassword())) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + USERNAME_FIELD_NUMBER;
-      hash = (53 * hash) + getUsername().hashCode();
-      hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
-      hash = (53 * hash) + getPassword().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static MSG.LoginRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static MSG.LoginRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static MSG.LoginRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static MSG.LoginRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static MSG.LoginRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static MSG.LoginRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static MSG.LoginRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static MSG.LoginRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static MSG.LoginRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static MSG.LoginRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static MSG.LoginRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static MSG.LoginRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(MSG.LoginRequest prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * 示例
-     * </pre>
-     *
-     * Protobuf type {@code protobuffile.LoginRequest}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:protobuffile.LoginRequest)
-        MSG.LoginRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return MSG.internal_static_protobuffile_LoginRequest_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return MSG.internal_static_protobuffile_LoginRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                MSG.LoginRequest.class, MSG.LoginRequest.Builder.class);
-      }
-
-      // Construct using com.slg.protobuffile.message.MSG.LoginRequest.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        username_ = "";
-        password_ = "";
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return MSG.internal_static_protobuffile_LoginRequest_descriptor;
-      }
-
-      @java.lang.Override
-      public MSG.LoginRequest getDefaultInstanceForType() {
-        return MSG.LoginRequest.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public MSG.LoginRequest build() {
-        MSG.LoginRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public MSG.LoginRequest buildPartial() {
-        MSG.LoginRequest result = new MSG.LoginRequest(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(MSG.LoginRequest result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.username_ = username_;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.password_ = password_;
-        }
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof MSG.LoginRequest) {
-          return mergeFrom((MSG.LoginRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(MSG.LoginRequest other) {
-        if (other == MSG.LoginRequest.getDefaultInstance()) return this;
-        if (!other.getUsername().isEmpty()) {
-          username_ = other.username_;
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        if (!other.getPassword().isEmpty()) {
-          password_ = other.password_;
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                username_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              case 18: {
-                password_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 18
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object username_ = "";
-      /**
-       * <code>string username = 1;</code>
-       * @return The username.
-       */
-      public java.lang.String getUsername() {
-        java.lang.Object ref = username_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          username_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string username = 1;</code>
-       * @return The bytes for username.
-       */
-      public com.google.protobuf.ByteString
-          getUsernameBytes() {
-        java.lang.Object ref = username_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          username_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string username = 1;</code>
-       * @param value The username to set.
-       * @return This builder for chaining.
-       */
-      public Builder setUsername(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        username_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string username = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearUsername() {
-        username_ = getDefaultInstance().getUsername();
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string username = 1;</code>
-       * @param value The bytes for username to set.
-       * @return This builder for chaining.
-       */
-      public Builder setUsernameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        username_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object password_ = "";
-      /**
-       * <code>string password = 2;</code>
-       * @return The password.
-       */
-      public java.lang.String getPassword() {
-        java.lang.Object ref = password_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          password_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string password = 2;</code>
-       * @return The bytes for password.
-       */
-      public com.google.protobuf.ByteString
-          getPasswordBytes() {
-        java.lang.Object ref = password_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          password_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string password = 2;</code>
-       * @param value The password to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPassword(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        password_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string password = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearPassword() {
-        password_ = getDefaultInstance().getPassword();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string password = 2;</code>
-       * @param value The bytes for password to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPasswordBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        password_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:protobuffile.LoginRequest)
-    }
-
-    // @@protoc_insertion_point(class_scope:protobuffile.LoginRequest)
-    private static final MSG.LoginRequest DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new MSG.LoginRequest();
-    }
-
-    public static MSG.LoginRequest getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<LoginRequest>
-        PARSER = new com.google.protobuf.AbstractParser<LoginRequest>() {
-      @java.lang.Override
-      public LoginRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<LoginRequest> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<LoginRequest> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public MSG.LoginRequest getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface LoginResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:protobuffile.LoginResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>fixed32 aaa = 1;</code>
-     * @return The aaa.
-     */
-    int getAaa();
-
-    /**
-     * <code>fixed32 bbb = 2;</code>
-     * @return The bbb.
-     */
-    int getBbb();
-  }
-  /**
-   * <pre>
-   * 示例
-   * </pre>
-   *
-   * Protobuf type {@code protobuffile.LoginResponse}
-   */
-  public static final class LoginResponse extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:protobuffile.LoginResponse)
-      LoginResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 27,
-        /* patch= */ 2,
-        /* suffix= */ "",
-        LoginResponse.class.getName());
-    }
-    // Use LoginResponse.newBuilder() to construct.
-    private LoginResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private LoginResponse() {
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return MSG.internal_static_protobuffile_LoginResponse_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return MSG.internal_static_protobuffile_LoginResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              MSG.LoginResponse.class, MSG.LoginResponse.Builder.class);
-    }
-
-    public static final int AAA_FIELD_NUMBER = 1;
-    private int aaa_ = 0;
-    /**
-     * <code>fixed32 aaa = 1;</code>
-     * @return The aaa.
-     */
-    @java.lang.Override
-    public int getAaa() {
-      return aaa_;
-    }
-
-    public static final int BBB_FIELD_NUMBER = 2;
-    private int bbb_ = 0;
-    /**
-     * <code>fixed32 bbb = 2;</code>
-     * @return The bbb.
-     */
-    @java.lang.Override
-    public int getBbb() {
-      return bbb_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (aaa_ != 0) {
-        output.writeFixed32(1, aaa_);
-      }
-      if (bbb_ != 0) {
-        output.writeFixed32(2, bbb_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (aaa_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFixed32Size(1, aaa_);
-      }
-      if (bbb_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFixed32Size(2, bbb_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof MSG.LoginResponse)) {
-        return super.equals(obj);
-      }
-      MSG.LoginResponse other = (MSG.LoginResponse) obj;
-
-      if (getAaa()
-          != other.getAaa()) return false;
-      if (getBbb()
-          != other.getBbb()) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + AAA_FIELD_NUMBER;
-      hash = (53 * hash) + getAaa();
-      hash = (37 * hash) + BBB_FIELD_NUMBER;
-      hash = (53 * hash) + getBbb();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static MSG.LoginResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static MSG.LoginResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static MSG.LoginResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static MSG.LoginResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static MSG.LoginResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static MSG.LoginResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static MSG.LoginResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static MSG.LoginResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static MSG.LoginResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static MSG.LoginResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static MSG.LoginResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static MSG.LoginResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(MSG.LoginResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * 示例
-     * </pre>
-     *
-     * Protobuf type {@code protobuffile.LoginResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:protobuffile.LoginResponse)
-        MSG.LoginResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return MSG.internal_static_protobuffile_LoginResponse_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return MSG.internal_static_protobuffile_LoginResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                MSG.LoginResponse.class, MSG.LoginResponse.Builder.class);
-      }
-
-      // Construct using com.slg.protobuffile.message.MSG.LoginResponse.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        aaa_ = 0;
-        bbb_ = 0;
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return MSG.internal_static_protobuffile_LoginResponse_descriptor;
-      }
-
-      @java.lang.Override
-      public MSG.LoginResponse getDefaultInstanceForType() {
-        return MSG.LoginResponse.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public MSG.LoginResponse build() {
-        MSG.LoginResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public MSG.LoginResponse buildPartial() {
-        MSG.LoginResponse result = new MSG.LoginResponse(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(MSG.LoginResponse result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.aaa_ = aaa_;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.bbb_ = bbb_;
-        }
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof MSG.LoginResponse) {
-          return mergeFrom((MSG.LoginResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(MSG.LoginResponse other) {
-        if (other == MSG.LoginResponse.getDefaultInstance()) return this;
-        if (other.getAaa() != 0) {
-          setAaa(other.getAaa());
-        }
-        if (other.getBbb() != 0) {
-          setBbb(other.getBbb());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 13: {
-                aaa_ = input.readFixed32();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 13
-              case 21: {
-                bbb_ = input.readFixed32();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 21
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private int aaa_ ;
-      /**
-       * <code>fixed32 aaa = 1;</code>
-       * @return The aaa.
-       */
-      @java.lang.Override
-      public int getAaa() {
-        return aaa_;
-      }
-      /**
-       * <code>fixed32 aaa = 1;</code>
-       * @param value The aaa to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAaa(int value) {
-
-        aaa_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>fixed32 aaa = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearAaa() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        aaa_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private int bbb_ ;
-      /**
-       * <code>fixed32 bbb = 2;</code>
-       * @return The bbb.
-       */
-      @java.lang.Override
-      public int getBbb() {
-        return bbb_;
-      }
-      /**
-       * <code>fixed32 bbb = 2;</code>
-       * @param value The bbb to set.
-       * @return This builder for chaining.
-       */
-      public Builder setBbb(int value) {
-
-        bbb_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>fixed32 bbb = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearBbb() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        bbb_ = 0;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:protobuffile.LoginResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:protobuffile.LoginResponse)
-    private static final MSG.LoginResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new MSG.LoginResponse();
-    }
-
-    public static MSG.LoginResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<LoginResponse>
-        PARSER = new com.google.protobuf.AbstractParser<LoginResponse>() {
-      @java.lang.Override
-      public LoginResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<LoginResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<LoginResponse> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public MSG.LoginResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
+    // @@protoc_insertion_point(enum_scope:diy.ERERROR)
   }
 
   public interface TestRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:protobuffile.TestRequest)
+      // @@protoc_insertion_point(interface_extends:diy.TestRequest)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -1365,11 +185,11 @@ public final class MSG {
    * 示例
    * </pre>
    *
-   * Protobuf type {@code protobuffile.TestRequest}
+   * Protobuf type {@code diy.TestRequest}
    */
   public static final class TestRequest extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:protobuffile.TestRequest)
+      // @@protoc_insertion_point(message_implements:diy.TestRequest)
       TestRequestOrBuilder {
   private static final long serialVersionUID = 0L;
     static {
@@ -1391,15 +211,15 @@ public final class MSG {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return MSG.internal_static_protobuffile_TestRequest_descriptor;
+      return diy.DIY.internal_static_diy_TestRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return MSG.internal_static_protobuffile_TestRequest_fieldAccessorTable
+      return diy.DIY.internal_static_diy_TestRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              MSG.TestRequest.class, MSG.TestRequest.Builder.class);
+              diy.DIY.TestRequest.class, diy.DIY.TestRequest.Builder.class);
     }
 
     public static final int DATA_FIELD_NUMBER = 1;
@@ -1480,10 +300,10 @@ public final class MSG {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof MSG.TestRequest)) {
+      if (!(obj instanceof diy.DIY.TestRequest)) {
         return super.equals(obj);
       }
-      MSG.TestRequest other = (MSG.TestRequest) obj;
+      diy.DIY.TestRequest other = (diy.DIY.TestRequest) obj;
 
       if (!getData()
           .equals(other.getData())) return false;
@@ -1505,44 +325,44 @@ public final class MSG {
       return hash;
     }
 
-    public static MSG.TestRequest parseFrom(
+    public static diy.DIY.TestRequest parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static MSG.TestRequest parseFrom(
+    public static diy.DIY.TestRequest parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static MSG.TestRequest parseFrom(
+    public static diy.DIY.TestRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static MSG.TestRequest parseFrom(
+    public static diy.DIY.TestRequest parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static MSG.TestRequest parseFrom(byte[] data)
+    public static diy.DIY.TestRequest parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static MSG.TestRequest parseFrom(
+    public static diy.DIY.TestRequest parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static MSG.TestRequest parseFrom(java.io.InputStream input)
+    public static diy.DIY.TestRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static MSG.TestRequest parseFrom(
+    public static diy.DIY.TestRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1550,26 +370,26 @@ public final class MSG {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static MSG.TestRequest parseDelimitedFrom(java.io.InputStream input)
+    public static diy.DIY.TestRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static MSG.TestRequest parseDelimitedFrom(
+    public static diy.DIY.TestRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static MSG.TestRequest parseFrom(
+    public static diy.DIY.TestRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static MSG.TestRequest parseFrom(
+    public static diy.DIY.TestRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1582,7 +402,7 @@ public final class MSG {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(MSG.TestRequest prototype) {
+    public static Builder newBuilder(diy.DIY.TestRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -1602,26 +422,26 @@ public final class MSG {
      * 示例
      * </pre>
      *
-     * Protobuf type {@code protobuffile.TestRequest}
+     * Protobuf type {@code diy.TestRequest}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:protobuffile.TestRequest)
-        MSG.TestRequestOrBuilder {
+        // @@protoc_insertion_point(builder_implements:diy.TestRequest)
+        diy.DIY.TestRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return MSG.internal_static_protobuffile_TestRequest_descriptor;
+        return diy.DIY.internal_static_diy_TestRequest_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return MSG.internal_static_protobuffile_TestRequest_fieldAccessorTable
+        return diy.DIY.internal_static_diy_TestRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                MSG.TestRequest.class, MSG.TestRequest.Builder.class);
+                diy.DIY.TestRequest.class, diy.DIY.TestRequest.Builder.class);
       }
 
-      // Construct using com.slg.protobuffile.message.MSG.TestRequest.newBuilder()
+      // Construct using diy.DIY.TestRequest.newBuilder()
       private Builder() {
 
       }
@@ -1642,17 +462,17 @@ public final class MSG {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return MSG.internal_static_protobuffile_TestRequest_descriptor;
+        return diy.DIY.internal_static_diy_TestRequest_descriptor;
       }
 
       @java.lang.Override
-      public MSG.TestRequest getDefaultInstanceForType() {
-        return MSG.TestRequest.getDefaultInstance();
+      public diy.DIY.TestRequest getDefaultInstanceForType() {
+        return diy.DIY.TestRequest.getDefaultInstance();
       }
 
       @java.lang.Override
-      public MSG.TestRequest build() {
-        MSG.TestRequest result = buildPartial();
+      public diy.DIY.TestRequest build() {
+        diy.DIY.TestRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -1660,14 +480,14 @@ public final class MSG {
       }
 
       @java.lang.Override
-      public MSG.TestRequest buildPartial() {
-        MSG.TestRequest result = new MSG.TestRequest(this);
+      public diy.DIY.TestRequest buildPartial() {
+        diy.DIY.TestRequest result = new diy.DIY.TestRequest(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(MSG.TestRequest result) {
+      private void buildPartial0(diy.DIY.TestRequest result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.data_ = data_;
@@ -1676,16 +496,16 @@ public final class MSG {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof MSG.TestRequest) {
-          return mergeFrom((MSG.TestRequest)other);
+        if (other instanceof diy.DIY.TestRequest) {
+          return mergeFrom((diy.DIY.TestRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(MSG.TestRequest other) {
-        if (other == MSG.TestRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(diy.DIY.TestRequest other) {
+        if (other == diy.DIY.TestRequest.getDefaultInstance()) return this;
         if (!other.getData().isEmpty()) {
           data_ = other.data_;
           bitField0_ |= 0x00000001;
@@ -1811,16 +631,16 @@ public final class MSG {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:protobuffile.TestRequest)
+      // @@protoc_insertion_point(builder_scope:diy.TestRequest)
     }
 
-    // @@protoc_insertion_point(class_scope:protobuffile.TestRequest)
-    private static final MSG.TestRequest DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:diy.TestRequest)
+    private static final diy.DIY.TestRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new MSG.TestRequest();
+      DEFAULT_INSTANCE = new diy.DIY.TestRequest();
     }
 
-    public static MSG.TestRequest getDefaultInstance() {
+    public static diy.DIY.TestRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1856,14 +676,14 @@ public final class MSG {
     }
 
     @java.lang.Override
-    public MSG.TestRequest getDefaultInstanceForType() {
+    public diy.DIY.TestRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface TestResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:protobuffile.TestResponse)
+      // @@protoc_insertion_point(interface_extends:diy.TestResponse)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -1883,11 +703,11 @@ public final class MSG {
    * 示例
    * </pre>
    *
-   * Protobuf type {@code protobuffile.TestResponse}
+   * Protobuf type {@code diy.TestResponse}
    */
   public static final class TestResponse extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:protobuffile.TestResponse)
+      // @@protoc_insertion_point(message_implements:diy.TestResponse)
       TestResponseOrBuilder {
   private static final long serialVersionUID = 0L;
     static {
@@ -1909,15 +729,15 @@ public final class MSG {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return MSG.internal_static_protobuffile_TestResponse_descriptor;
+      return diy.DIY.internal_static_diy_TestResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return MSG.internal_static_protobuffile_TestResponse_fieldAccessorTable
+      return diy.DIY.internal_static_diy_TestResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              MSG.TestResponse.class, MSG.TestResponse.Builder.class);
+              diy.DIY.TestResponse.class, diy.DIY.TestResponse.Builder.class);
     }
 
     public static final int RESULT_FIELD_NUMBER = 1;
@@ -1998,10 +818,10 @@ public final class MSG {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof MSG.TestResponse)) {
+      if (!(obj instanceof diy.DIY.TestResponse)) {
         return super.equals(obj);
       }
-      MSG.TestResponse other = (MSG.TestResponse) obj;
+      diy.DIY.TestResponse other = (diy.DIY.TestResponse) obj;
 
       if (!getResult()
           .equals(other.getResult())) return false;
@@ -2023,44 +843,44 @@ public final class MSG {
       return hash;
     }
 
-    public static MSG.TestResponse parseFrom(
+    public static diy.DIY.TestResponse parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static MSG.TestResponse parseFrom(
+    public static diy.DIY.TestResponse parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static MSG.TestResponse parseFrom(
+    public static diy.DIY.TestResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static MSG.TestResponse parseFrom(
+    public static diy.DIY.TestResponse parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static MSG.TestResponse parseFrom(byte[] data)
+    public static diy.DIY.TestResponse parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static MSG.TestResponse parseFrom(
+    public static diy.DIY.TestResponse parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static MSG.TestResponse parseFrom(java.io.InputStream input)
+    public static diy.DIY.TestResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static MSG.TestResponse parseFrom(
+    public static diy.DIY.TestResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2068,26 +888,26 @@ public final class MSG {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static MSG.TestResponse parseDelimitedFrom(java.io.InputStream input)
+    public static diy.DIY.TestResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static MSG.TestResponse parseDelimitedFrom(
+    public static diy.DIY.TestResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static MSG.TestResponse parseFrom(
+    public static diy.DIY.TestResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static MSG.TestResponse parseFrom(
+    public static diy.DIY.TestResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2100,7 +920,7 @@ public final class MSG {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(MSG.TestResponse prototype) {
+    public static Builder newBuilder(diy.DIY.TestResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -2120,26 +940,26 @@ public final class MSG {
      * 示例
      * </pre>
      *
-     * Protobuf type {@code protobuffile.TestResponse}
+     * Protobuf type {@code diy.TestResponse}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:protobuffile.TestResponse)
-        MSG.TestResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:diy.TestResponse)
+        diy.DIY.TestResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return MSG.internal_static_protobuffile_TestResponse_descriptor;
+        return diy.DIY.internal_static_diy_TestResponse_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return MSG.internal_static_protobuffile_TestResponse_fieldAccessorTable
+        return diy.DIY.internal_static_diy_TestResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                MSG.TestResponse.class, MSG.TestResponse.Builder.class);
+                diy.DIY.TestResponse.class, diy.DIY.TestResponse.Builder.class);
       }
 
-      // Construct using com.slg.protobuffile.message.MSG.TestResponse.newBuilder()
+      // Construct using diy.DIY.TestResponse.newBuilder()
       private Builder() {
 
       }
@@ -2160,17 +980,17 @@ public final class MSG {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return MSG.internal_static_protobuffile_TestResponse_descriptor;
+        return diy.DIY.internal_static_diy_TestResponse_descriptor;
       }
 
       @java.lang.Override
-      public MSG.TestResponse getDefaultInstanceForType() {
-        return MSG.TestResponse.getDefaultInstance();
+      public diy.DIY.TestResponse getDefaultInstanceForType() {
+        return diy.DIY.TestResponse.getDefaultInstance();
       }
 
       @java.lang.Override
-      public MSG.TestResponse build() {
-        MSG.TestResponse result = buildPartial();
+      public diy.DIY.TestResponse build() {
+        diy.DIY.TestResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -2178,14 +998,14 @@ public final class MSG {
       }
 
       @java.lang.Override
-      public MSG.TestResponse buildPartial() {
-        MSG.TestResponse result = new MSG.TestResponse(this);
+      public diy.DIY.TestResponse buildPartial() {
+        diy.DIY.TestResponse result = new diy.DIY.TestResponse(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(MSG.TestResponse result) {
+      private void buildPartial0(diy.DIY.TestResponse result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.result_ = result_;
@@ -2194,16 +1014,16 @@ public final class MSG {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof MSG.TestResponse) {
-          return mergeFrom((MSG.TestResponse)other);
+        if (other instanceof diy.DIY.TestResponse) {
+          return mergeFrom((diy.DIY.TestResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(MSG.TestResponse other) {
-        if (other == MSG.TestResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(diy.DIY.TestResponse other) {
+        if (other == diy.DIY.TestResponse.getDefaultInstance()) return this;
         if (!other.getResult().isEmpty()) {
           result_ = other.result_;
           bitField0_ |= 0x00000001;
@@ -2329,16 +1149,16 @@ public final class MSG {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:protobuffile.TestResponse)
+      // @@protoc_insertion_point(builder_scope:diy.TestResponse)
     }
 
-    // @@protoc_insertion_point(class_scope:protobuffile.TestResponse)
-    private static final MSG.TestResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:diy.TestResponse)
+    private static final diy.DIY.TestResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new MSG.TestResponse();
+      DEFAULT_INSTANCE = new diy.DIY.TestResponse();
     }
 
-    public static MSG.TestResponse getDefaultInstance() {
+    public static diy.DIY.TestResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2374,14 +1194,14 @@ public final class MSG {
     }
 
     @java.lang.Override
-    public MSG.TestResponse getDefaultInstanceForType() {
+    public diy.DIY.TestResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface FriendRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:protobuffile.FriendRequest)
+      // @@protoc_insertion_point(interface_extends:diy.FriendRequest)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -2395,11 +1215,11 @@ public final class MSG {
    * 示例
    * </pre>
    *
-   * Protobuf type {@code protobuffile.FriendRequest}
+   * Protobuf type {@code diy.FriendRequest}
    */
   public static final class FriendRequest extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:protobuffile.FriendRequest)
+      // @@protoc_insertion_point(message_implements:diy.FriendRequest)
       FriendRequestOrBuilder {
   private static final long serialVersionUID = 0L;
     static {
@@ -2420,15 +1240,15 @@ public final class MSG {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return MSG.internal_static_protobuffile_FriendRequest_descriptor;
+      return diy.DIY.internal_static_diy_FriendRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return MSG.internal_static_protobuffile_FriendRequest_fieldAccessorTable
+      return diy.DIY.internal_static_diy_FriendRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              MSG.FriendRequest.class, MSG.FriendRequest.Builder.class);
+              diy.DIY.FriendRequest.class, diy.DIY.FriendRequest.Builder.class);
     }
 
     public static final int USERID_FIELD_NUMBER = 1;
@@ -2482,10 +1302,10 @@ public final class MSG {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof MSG.FriendRequest)) {
+      if (!(obj instanceof diy.DIY.FriendRequest)) {
         return super.equals(obj);
       }
-      MSG.FriendRequest other = (MSG.FriendRequest) obj;
+      diy.DIY.FriendRequest other = (diy.DIY.FriendRequest) obj;
 
       if (getUserId()
           != other.getUserId()) return false;
@@ -2508,44 +1328,44 @@ public final class MSG {
       return hash;
     }
 
-    public static MSG.FriendRequest parseFrom(
+    public static diy.DIY.FriendRequest parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static MSG.FriendRequest parseFrom(
+    public static diy.DIY.FriendRequest parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static MSG.FriendRequest parseFrom(
+    public static diy.DIY.FriendRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static MSG.FriendRequest parseFrom(
+    public static diy.DIY.FriendRequest parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static MSG.FriendRequest parseFrom(byte[] data)
+    public static diy.DIY.FriendRequest parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static MSG.FriendRequest parseFrom(
+    public static diy.DIY.FriendRequest parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static MSG.FriendRequest parseFrom(java.io.InputStream input)
+    public static diy.DIY.FriendRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static MSG.FriendRequest parseFrom(
+    public static diy.DIY.FriendRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2553,26 +1373,26 @@ public final class MSG {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static MSG.FriendRequest parseDelimitedFrom(java.io.InputStream input)
+    public static diy.DIY.FriendRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static MSG.FriendRequest parseDelimitedFrom(
+    public static diy.DIY.FriendRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static MSG.FriendRequest parseFrom(
+    public static diy.DIY.FriendRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static MSG.FriendRequest parseFrom(
+    public static diy.DIY.FriendRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2585,7 +1405,7 @@ public final class MSG {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(MSG.FriendRequest prototype) {
+    public static Builder newBuilder(diy.DIY.FriendRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -2605,26 +1425,26 @@ public final class MSG {
      * 示例
      * </pre>
      *
-     * Protobuf type {@code protobuffile.FriendRequest}
+     * Protobuf type {@code diy.FriendRequest}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:protobuffile.FriendRequest)
-        MSG.FriendRequestOrBuilder {
+        // @@protoc_insertion_point(builder_implements:diy.FriendRequest)
+        diy.DIY.FriendRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return MSG.internal_static_protobuffile_FriendRequest_descriptor;
+        return diy.DIY.internal_static_diy_FriendRequest_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return MSG.internal_static_protobuffile_FriendRequest_fieldAccessorTable
+        return diy.DIY.internal_static_diy_FriendRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                MSG.FriendRequest.class, MSG.FriendRequest.Builder.class);
+                diy.DIY.FriendRequest.class, diy.DIY.FriendRequest.Builder.class);
       }
 
-      // Construct using com.slg.protobuffile.message.MSG.FriendRequest.newBuilder()
+      // Construct using diy.DIY.FriendRequest.newBuilder()
       private Builder() {
 
       }
@@ -2645,17 +1465,17 @@ public final class MSG {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return MSG.internal_static_protobuffile_FriendRequest_descriptor;
+        return diy.DIY.internal_static_diy_FriendRequest_descriptor;
       }
 
       @java.lang.Override
-      public MSG.FriendRequest getDefaultInstanceForType() {
-        return MSG.FriendRequest.getDefaultInstance();
+      public diy.DIY.FriendRequest getDefaultInstanceForType() {
+        return diy.DIY.FriendRequest.getDefaultInstance();
       }
 
       @java.lang.Override
-      public MSG.FriendRequest build() {
-        MSG.FriendRequest result = buildPartial();
+      public diy.DIY.FriendRequest build() {
+        diy.DIY.FriendRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -2663,14 +1483,14 @@ public final class MSG {
       }
 
       @java.lang.Override
-      public MSG.FriendRequest buildPartial() {
-        MSG.FriendRequest result = new MSG.FriendRequest(this);
+      public diy.DIY.FriendRequest buildPartial() {
+        diy.DIY.FriendRequest result = new diy.DIY.FriendRequest(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(MSG.FriendRequest result) {
+      private void buildPartial0(diy.DIY.FriendRequest result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.userId_ = userId_;
@@ -2679,16 +1499,16 @@ public final class MSG {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof MSG.FriendRequest) {
-          return mergeFrom((MSG.FriendRequest)other);
+        if (other instanceof diy.DIY.FriendRequest) {
+          return mergeFrom((diy.DIY.FriendRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(MSG.FriendRequest other) {
-        if (other == MSG.FriendRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(diy.DIY.FriendRequest other) {
+        if (other == diy.DIY.FriendRequest.getDefaultInstance()) return this;
         if (other.getUserId() != 0L) {
           setUserId(other.getUserId());
         }
@@ -2772,16 +1592,16 @@ public final class MSG {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:protobuffile.FriendRequest)
+      // @@protoc_insertion_point(builder_scope:diy.FriendRequest)
     }
 
-    // @@protoc_insertion_point(class_scope:protobuffile.FriendRequest)
-    private static final MSG.FriendRequest DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:diy.FriendRequest)
+    private static final diy.DIY.FriendRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new MSG.FriendRequest();
+      DEFAULT_INSTANCE = new diy.DIY.FriendRequest();
     }
 
-    public static MSG.FriendRequest getDefaultInstance() {
+    public static diy.DIY.FriendRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2817,14 +1637,14 @@ public final class MSG {
     }
 
     @java.lang.Override
-    public MSG.FriendRequest getDefaultInstanceForType() {
+    public diy.DIY.FriendRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface FriendsResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:protobuffile.FriendsResponse)
+      // @@protoc_insertion_point(interface_extends:diy.FriendsResponse)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -2849,11 +1669,11 @@ public final class MSG {
    * 示例
    * </pre>
    *
-   * Protobuf type {@code protobuffile.FriendsResponse}
+   * Protobuf type {@code diy.FriendsResponse}
    */
   public static final class FriendsResponse extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:protobuffile.FriendsResponse)
+      // @@protoc_insertion_point(message_implements:diy.FriendsResponse)
       FriendsResponseOrBuilder {
   private static final long serialVersionUID = 0L;
     static {
@@ -2875,15 +1695,15 @@ public final class MSG {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return MSG.internal_static_protobuffile_FriendsResponse_descriptor;
+      return diy.DIY.internal_static_diy_FriendsResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return MSG.internal_static_protobuffile_FriendsResponse_fieldAccessorTable
+      return diy.DIY.internal_static_diy_FriendsResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              MSG.FriendsResponse.class, MSG.FriendsResponse.Builder.class);
+              diy.DIY.FriendsResponse.class, diy.DIY.FriendsResponse.Builder.class);
     }
 
     public static final int USERIDLIST_FIELD_NUMBER = 1;
@@ -2971,10 +1791,10 @@ public final class MSG {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof MSG.FriendsResponse)) {
+      if (!(obj instanceof diy.DIY.FriendsResponse)) {
         return super.equals(obj);
       }
-      MSG.FriendsResponse other = (MSG.FriendsResponse) obj;
+      diy.DIY.FriendsResponse other = (diy.DIY.FriendsResponse) obj;
 
       if (!getUserIdListList()
           .equals(other.getUserIdListList())) return false;
@@ -2998,44 +1818,44 @@ public final class MSG {
       return hash;
     }
 
-    public static MSG.FriendsResponse parseFrom(
+    public static diy.DIY.FriendsResponse parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static MSG.FriendsResponse parseFrom(
+    public static diy.DIY.FriendsResponse parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static MSG.FriendsResponse parseFrom(
+    public static diy.DIY.FriendsResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static MSG.FriendsResponse parseFrom(
+    public static diy.DIY.FriendsResponse parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static MSG.FriendsResponse parseFrom(byte[] data)
+    public static diy.DIY.FriendsResponse parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static MSG.FriendsResponse parseFrom(
+    public static diy.DIY.FriendsResponse parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static MSG.FriendsResponse parseFrom(java.io.InputStream input)
+    public static diy.DIY.FriendsResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static MSG.FriendsResponse parseFrom(
+    public static diy.DIY.FriendsResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3043,26 +1863,26 @@ public final class MSG {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static MSG.FriendsResponse parseDelimitedFrom(java.io.InputStream input)
+    public static diy.DIY.FriendsResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static MSG.FriendsResponse parseDelimitedFrom(
+    public static diy.DIY.FriendsResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static MSG.FriendsResponse parseFrom(
+    public static diy.DIY.FriendsResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static MSG.FriendsResponse parseFrom(
+    public static diy.DIY.FriendsResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3075,7 +1895,7 @@ public final class MSG {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(MSG.FriendsResponse prototype) {
+    public static Builder newBuilder(diy.DIY.FriendsResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -3095,26 +1915,26 @@ public final class MSG {
      * 示例
      * </pre>
      *
-     * Protobuf type {@code protobuffile.FriendsResponse}
+     * Protobuf type {@code diy.FriendsResponse}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:protobuffile.FriendsResponse)
-        MSG.FriendsResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:diy.FriendsResponse)
+        diy.DIY.FriendsResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return MSG.internal_static_protobuffile_FriendsResponse_descriptor;
+        return diy.DIY.internal_static_diy_FriendsResponse_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return MSG.internal_static_protobuffile_FriendsResponse_fieldAccessorTable
+        return diy.DIY.internal_static_diy_FriendsResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                MSG.FriendsResponse.class, MSG.FriendsResponse.Builder.class);
+                diy.DIY.FriendsResponse.class, diy.DIY.FriendsResponse.Builder.class);
       }
 
-      // Construct using com.slg.protobuffile.message.MSG.FriendsResponse.newBuilder()
+      // Construct using diy.DIY.FriendsResponse.newBuilder()
       private Builder() {
 
       }
@@ -3135,17 +1955,17 @@ public final class MSG {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return MSG.internal_static_protobuffile_FriendsResponse_descriptor;
+        return diy.DIY.internal_static_diy_FriendsResponse_descriptor;
       }
 
       @java.lang.Override
-      public MSG.FriendsResponse getDefaultInstanceForType() {
-        return MSG.FriendsResponse.getDefaultInstance();
+      public diy.DIY.FriendsResponse getDefaultInstanceForType() {
+        return diy.DIY.FriendsResponse.getDefaultInstance();
       }
 
       @java.lang.Override
-      public MSG.FriendsResponse build() {
-        MSG.FriendsResponse result = buildPartial();
+      public diy.DIY.FriendsResponse build() {
+        diy.DIY.FriendsResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -3153,14 +1973,14 @@ public final class MSG {
       }
 
       @java.lang.Override
-      public MSG.FriendsResponse buildPartial() {
-        MSG.FriendsResponse result = new MSG.FriendsResponse(this);
+      public diy.DIY.FriendsResponse buildPartial() {
+        diy.DIY.FriendsResponse result = new diy.DIY.FriendsResponse(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(MSG.FriendsResponse result) {
+      private void buildPartial0(diy.DIY.FriendsResponse result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           userIdList_.makeImmutable();
@@ -3170,16 +1990,16 @@ public final class MSG {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof MSG.FriendsResponse) {
-          return mergeFrom((MSG.FriendsResponse)other);
+        if (other instanceof diy.DIY.FriendsResponse) {
+          return mergeFrom((diy.DIY.FriendsResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(MSG.FriendsResponse other) {
-        if (other == MSG.FriendsResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(diy.DIY.FriendsResponse other) {
+        if (other == diy.DIY.FriendsResponse.getDefaultInstance()) return this;
         if (!other.userIdList_.isEmpty()) {
           if (userIdList_.isEmpty()) {
             userIdList_ = other.userIdList_;
@@ -3334,16 +2154,16 @@ public final class MSG {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:protobuffile.FriendsResponse)
+      // @@protoc_insertion_point(builder_scope:diy.FriendsResponse)
     }
 
-    // @@protoc_insertion_point(class_scope:protobuffile.FriendsResponse)
-    private static final MSG.FriendsResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:diy.FriendsResponse)
+    private static final diy.DIY.FriendsResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new MSG.FriendsResponse();
+      DEFAULT_INSTANCE = new diy.DIY.FriendsResponse();
     }
 
-    public static MSG.FriendsResponse getDefaultInstance() {
+    public static diy.DIY.FriendsResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3379,42 +2199,32 @@ public final class MSG {
     }
 
     @java.lang.Override
-    public MSG.FriendsResponse getDefaultInstanceForType() {
+    public diy.DIY.FriendsResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protobuffile_LoginRequest_descriptor;
+    internal_static_diy_TestRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_protobuffile_LoginRequest_fieldAccessorTable;
+      internal_static_diy_TestRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protobuffile_LoginResponse_descriptor;
+    internal_static_diy_TestResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_protobuffile_LoginResponse_fieldAccessorTable;
+      internal_static_diy_TestResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protobuffile_TestRequest_descriptor;
+    internal_static_diy_FriendRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_protobuffile_TestRequest_fieldAccessorTable;
+      internal_static_diy_FriendRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protobuffile_TestResponse_descriptor;
+    internal_static_diy_FriendsResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_protobuffile_TestResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protobuffile_FriendRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_protobuffile_FriendRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protobuffile_FriendsResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_protobuffile_FriendsResponse_fieldAccessorTable;
+      internal_static_diy_FriendsResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -3424,56 +2234,41 @@ public final class MSG {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\tdiy.proto\022\014protobuffile\"2\n\014LoginReques" +
-      "t\022\020\n\010username\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\")\n" +
-      "\rLoginResponse\022\013\n\003aaa\030\001 \001(\007\022\013\n\003bbb\030\002 \001(\007" +
-      "\"\033\n\013TestRequest\022\014\n\004data\030\001 \001(\t\"\036\n\014TestRes" +
-      "ponse\022\016\n\006result\030\001 \001(\t\"\037\n\rFriendRequest\022\016" +
-      "\n\006userId\030\001 \001(\003\"%\n\017FriendsResponse\022\022\n\nuse" +
-      "rIdList\030\001 \003(\003*U\n\007ERERROR\022\013\n\007SUCCESS\020\000\022\023\n" +
-      "\017PARAMET_ERERROR\020\001\022\023\n\017UNKNOWN_ERERROR\020\002\022" +
-      "\023\n\017TIMEOUT_ERERROR\020\003B%\n\034com.slg.protobuf" +
-      "file.messageB\003MSGP\000b\006proto3"
+      "\n\tdiy.proto\022\003diy\"\033\n\013TestRequest\022\014\n\004data\030" +
+      "\001 \001(\t\"\036\n\014TestResponse\022\016\n\006result\030\001 \001(\t\"\037\n" +
+      "\rFriendRequest\022\016\n\006userId\030\001 \001(\003\"%\n\017Friend" +
+      "sResponse\022\022\n\nuserIdList\030\001 \003(\003*U\n\007ERERROR" +
+      "\022\013\n\007SUCCESS\020\000\022\023\n\017PARAMET_ERERROR\020\001\022\023\n\017UN" +
+      "KNOWN_ERERROR\020\002\022\023\n\017TIMEOUT_ERERROR\020\003B\007B\003" +
+      "DIYP\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_protobuffile_LoginRequest_descriptor =
+    internal_static_diy_TestRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_protobuffile_LoginRequest_fieldAccessorTable = new
+    internal_static_diy_TestRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_protobuffile_LoginRequest_descriptor,
-        new java.lang.String[] { "Username", "Password", });
-    internal_static_protobuffile_LoginResponse_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_protobuffile_LoginResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_protobuffile_LoginResponse_descriptor,
-        new java.lang.String[] { "Aaa", "Bbb", });
-    internal_static_protobuffile_TestRequest_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_protobuffile_TestRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_protobuffile_TestRequest_descriptor,
+        internal_static_diy_TestRequest_descriptor,
         new java.lang.String[] { "Data", });
-    internal_static_protobuffile_TestResponse_descriptor =
-      getDescriptor().getMessageTypes().get(3);
-    internal_static_protobuffile_TestResponse_fieldAccessorTable = new
+    internal_static_diy_TestResponse_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_diy_TestResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_protobuffile_TestResponse_descriptor,
+        internal_static_diy_TestResponse_descriptor,
         new java.lang.String[] { "Result", });
-    internal_static_protobuffile_FriendRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
-    internal_static_protobuffile_FriendRequest_fieldAccessorTable = new
+    internal_static_diy_FriendRequest_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_diy_FriendRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_protobuffile_FriendRequest_descriptor,
+        internal_static_diy_FriendRequest_descriptor,
         new java.lang.String[] { "UserId", });
-    internal_static_protobuffile_FriendsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_protobuffile_FriendsResponse_fieldAccessorTable = new
+    internal_static_diy_FriendsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_diy_FriendsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_protobuffile_FriendsResponse_descriptor,
+        internal_static_diy_FriendsResponse_descriptor,
         new java.lang.String[] { "UserIdList", });
     descriptor.resolveAllFeaturesImmutable();
   }
