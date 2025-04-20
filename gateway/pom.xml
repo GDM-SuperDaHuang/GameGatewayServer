@@ -8,13 +8,25 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gateway</name>
 	<description>gateway</description>
+    <dependencies>
+        <dependency>
+            <groupId>com.proto</groupId>
+            <artifactId>protobufFile</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+		<!-- 加密 -->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk18on</artifactId>
+			<version>1.80</version>
+		</dependency>
+    </dependencies>
 
-	<parent>
+    <parent>
 		<groupId>com.slg.module</groupId>
-		<artifactId>gameServer</artifactId>
+		<artifactId>GameGatewayServer</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-
 
 	<build>
 		<plugins>
@@ -27,44 +39,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
-<!--	<url/>-->
-<!--	<licenses>-->
-<!--		<license/>-->
-<!--	</licenses>-->
-<!--	<developers>-->
-<!--		<developer/>-->
-<!--	</developers>-->
-<!--	<scm>-->
-<!--		<connection/>-->
-<!--		<developerConnection/>-->
-<!--		<tag/>-->
-<!--		<url/>-->
-<!--	</scm>-->
-<!--	<properties>-->
-<!--		<java.version>17</java.version>-->
-<!--	</properties>-->
-<!--	<dependencies>-->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter</artifactId>-->
-<!--		</dependency>-->
-
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-test</artifactId>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
-<!--	</dependencies>-->
-
-<!--	<build>-->
-<!--		<plugins>-->
-<!--			<plugin>-->
-<!--				<groupId>org.springframework.boot</groupId>-->
-<!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--			</plugin>-->
-<!--		</plugins>-->
-<!--	</build>-->
 
 </project>

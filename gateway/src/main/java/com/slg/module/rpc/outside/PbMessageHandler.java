@@ -1,6 +1,7 @@
 package com.slg.module.rpc.outside;
 
 import com.google.protobuf.GeneratedMessage;
+import com.slg.module.config.GatewayRoutingProperties;
 import com.slg.module.connection.ClientChannelManage;
 import com.slg.module.connection.ServerChannelManage;
 import com.slg.module.connection.ServerConfig;
@@ -24,8 +25,6 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 import java.net.SocketException;
 
 import io.netty.handler.timeout.IdleStateHandler;
@@ -53,6 +52,8 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
     private final IdleStateHandler idleStateHandler = new IdleStateHandler(0, 30, 0, TimeUnit.SECONDS);
     private final IdleStateEventHandler idleStateEventHandler = new IdleStateEventHandler();
 
+    @Autowired
+    private GatewayRoutingProperties routingProperties;  // 注入配置
     /**
      * 网关转发
      */
@@ -86,8 +87,11 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
 
         Method parse = postProcessor.getParseFromMethod(protocolId);
         if (parse == null) {
+            ByteBuf outClient = buildClientMsg(msg.getCid(), 10, msg.getProtocolId(), 0, 1, null);
+            ctx.writeAndFlush(outClient);
             return;
         }
+
 
         //登录
         if (protocolId == 1) {
@@ -98,10 +102,11 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
             //本地
             Object msgObject = parse.invoke(null, body);
             MsgResponse message = route(ctx, msgObject, protocolId, userId);
-            GeneratedMessage.Builder<?> responseBody = message.getBody();
-            byte[] bodyByteArr = responseBody.buildPartial().toByteArray();
+
 
             //写回
+            GeneratedMessage.Builder<?> responseBody = message.getBody();
+            byte[] bodyByteArr = responseBody.buildPartial().toByteArray();
             ByteBuf out = buildClientMsg(msg.getCid(), message.getErrorCode(), msg.getProtocolId(), 0, 1, bodyByteArr);
             ChannelFuture channelFuture = ctx.writeAndFlush(out);
             channelFuture.addListener(future -> {
@@ -118,17 +123,24 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         }
     }
 
-
     //todo 获取主机
+    // 根据 protocolId 获取目标服务器
     private ServerConfig getTargetServerAddress(int protocolId) {
-        // 简单逻辑：根据用户信息选择目标服务器
-        if (protocolId > 1000 && protocolId < 2000) {
-            return new ServerConfig(1, "127.0.0.1", 8081);
-        } else if (protocolId >= 2000 && protocolId < 3000) {
-            return new ServerConfig(1, "127.0.0.1", 8082);
-        }
-        return new ServerConfig(1, "127.0.0.1", 9999);
+        // 如果配置里没有对应的 protocolId，返回默认服务器
+        return routingProperties.getServers().getOrDefault(
+                protocolId,
+                new ServerConfig(0, "default.host", 9999)  // 默认值
+        );
     }
+//    private ServerConfig getTargetServerAddress(int protocolId) {
+//        // 简单逻辑：根据用户信息选择目标服务器
+//        if (protocolId > 1000 && protocolId < 2000) {
+//            return new ServerConfig(1, "127.0.0.1", 8081);
+//        } else if (protocolId >= 2000 && protocolId < 3000) {
+//            return new ServerConfig(1, "127.0.0.1", 8082);
+//        }
+//        return new ServerConfig(1, "127.0.0.1", 9999);
+//    }
 
     /**
      * 转发到目标服务器
@@ -148,6 +160,14 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
                 }
             } catch (Exception e) {
 //                log.error("Failed to create channel for {}", address, e);
+                // 发送失败,直接返回，告诉客户端
+                ByteBuf out = buildClientMsg(msg.getCid(), 1, msg.getProtocolId(), 0, 1, null);
+                ChannelFuture channelFuture = clientChannel.writeAndFlush(out);
+                channelFuture.addListener(future -> {
+                    if (!future.isSuccess()) {
+                        System.err.println("Write and flush failed: " + future.cause());
+                    }
+                });
                 return;
             }
         }
@@ -224,6 +244,9 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
      * 客户端消息
      */
     public ByteBuf buildClientMsg(int cid, int errorCode, int protocolId, int zip, int version, byte[] bodyArray) {
+        if (bodyArray==null){
+            bodyArray= new byte[]{0};
+        }
         int length = bodyArray.length;
         //写回
         ByteBuf out = Unpooled.buffer(16 + length);
@@ -234,7 +257,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         out.writeByte(zip);                       // zip压缩标志，1字节
         out.writeByte(version);                       // pb版本，1字节
         //消息体
-        out.writeShort(bodyArray.length);                 // 消息体长度，2字节
+        out.writeShort(length);                 // 消息体长度，2字节
         // 写入消息体
         out.writeBytes(bodyArray);
         return out;

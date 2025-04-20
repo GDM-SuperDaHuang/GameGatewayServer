@@ -8,8 +8,6 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -19,15 +17,14 @@ import org.springframework.stereotype.Component;
 import java.net.InetSocketAddress;
 
 @Component
-@Getter
-@RequiredArgsConstructor
 public class GatewayServer implements CommandLineRunner {
-    @Value("8888")
+    //todo
+    @Value("${netty.server.port:8888}")
     private int port;
     EventLoopGroup bossGroup = new NioEventLoopGroup(1);
     EventLoopGroup workerGroup = new NioEventLoopGroup(30);
     @Autowired
-    private final PbMessageHandler pbMessageHandler;
+    private PbMessageHandler pbMessageHandler;
     LoggingHandler loggingHandler = new LoggingHandler(LogLevel.INFO);
     public void start(int port) throws Exception {
 

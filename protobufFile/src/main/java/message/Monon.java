@@ -3,7 +3,7 @@
 // source: monon.proto
 // Protobuf Java Version: 4.27.2
 
-package monon;
+package message;
 
 public final class Monon {
   private Monon() {}
@@ -138,7 +138,7 @@ public final class Monon {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return monon.Monon.getDescriptor().getEnumTypes().get(0);
+      return message.Monon.getDescriptor().getEnumTypes().get(0);
     }
 
     private static final ERERROR[] VALUES = values();
@@ -211,15 +211,15 @@ public final class Monon {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return monon.Monon.internal_static_monon_messs_descriptor;
+      return message.Monon.internal_static_monon_messs_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return monon.Monon.internal_static_monon_messs_fieldAccessorTable
+      return message.Monon.internal_static_monon_messs_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              monon.Monon.messs.class, monon.Monon.messs.Builder.class);
+              message.Monon.messs.class, message.Monon.messs.Builder.class);
     }
 
     public static final int DATA_FIELD_NUMBER = 1;
@@ -300,10 +300,10 @@ public final class Monon {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof monon.Monon.messs)) {
+      if (!(obj instanceof message.Monon.messs)) {
         return super.equals(obj);
       }
-      monon.Monon.messs other = (monon.Monon.messs) obj;
+      message.Monon.messs other = (message.Monon.messs) obj;
 
       if (!getData()
           .equals(other.getData())) return false;
@@ -325,44 +325,44 @@ public final class Monon {
       return hash;
     }
 
-    public static monon.Monon.messs parseFrom(
+    public static message.Monon.messs parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static monon.Monon.messs parseFrom(
+    public static message.Monon.messs parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static monon.Monon.messs parseFrom(
+    public static message.Monon.messs parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static monon.Monon.messs parseFrom(
+    public static message.Monon.messs parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static monon.Monon.messs parseFrom(byte[] data)
+    public static message.Monon.messs parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static monon.Monon.messs parseFrom(
+    public static message.Monon.messs parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static monon.Monon.messs parseFrom(java.io.InputStream input)
+    public static message.Monon.messs parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static monon.Monon.messs parseFrom(
+    public static message.Monon.messs parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -370,26 +370,26 @@ public final class Monon {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static monon.Monon.messs parseDelimitedFrom(java.io.InputStream input)
+    public static message.Monon.messs parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static monon.Monon.messs parseDelimitedFrom(
+    public static message.Monon.messs parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static monon.Monon.messs parseFrom(
+    public static message.Monon.messs parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static monon.Monon.messs parseFrom(
+    public static message.Monon.messs parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -402,7 +402,7 @@ public final class Monon {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(monon.Monon.messs prototype) {
+    public static Builder newBuilder(message.Monon.messs prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -427,21 +427,21 @@ public final class Monon {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:monon.messs)
-        monon.Monon.messsOrBuilder {
+        message.Monon.messsOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return monon.Monon.internal_static_monon_messs_descriptor;
+        return message.Monon.internal_static_monon_messs_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return monon.Monon.internal_static_monon_messs_fieldAccessorTable
+        return message.Monon.internal_static_monon_messs_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                monon.Monon.messs.class, monon.Monon.messs.Builder.class);
+                message.Monon.messs.class, message.Monon.messs.Builder.class);
       }
 
-      // Construct using monon.Monon.messs.newBuilder()
+      // Construct using message.Monon.messs.newBuilder()
       private Builder() {
 
       }
@@ -462,17 +462,17 @@ public final class Monon {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return monon.Monon.internal_static_monon_messs_descriptor;
+        return message.Monon.internal_static_monon_messs_descriptor;
       }
 
       @java.lang.Override
-      public monon.Monon.messs getDefaultInstanceForType() {
-        return monon.Monon.messs.getDefaultInstance();
+      public message.Monon.messs getDefaultInstanceForType() {
+        return message.Monon.messs.getDefaultInstance();
       }
 
       @java.lang.Override
-      public monon.Monon.messs build() {
-        monon.Monon.messs result = buildPartial();
+      public message.Monon.messs build() {
+        message.Monon.messs result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -480,14 +480,14 @@ public final class Monon {
       }
 
       @java.lang.Override
-      public monon.Monon.messs buildPartial() {
-        monon.Monon.messs result = new monon.Monon.messs(this);
+      public message.Monon.messs buildPartial() {
+        message.Monon.messs result = new message.Monon.messs(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(monon.Monon.messs result) {
+      private void buildPartial0(message.Monon.messs result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.data_ = data_;
@@ -496,16 +496,16 @@ public final class Monon {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof monon.Monon.messs) {
-          return mergeFrom((monon.Monon.messs)other);
+        if (other instanceof message.Monon.messs) {
+          return mergeFrom((message.Monon.messs)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(monon.Monon.messs other) {
-        if (other == monon.Monon.messs.getDefaultInstance()) return this;
+      public Builder mergeFrom(message.Monon.messs other) {
+        if (other == message.Monon.messs.getDefaultInstance()) return this;
         if (!other.getData().isEmpty()) {
           data_ = other.data_;
           bitField0_ |= 0x00000001;
@@ -635,12 +635,12 @@ public final class Monon {
     }
 
     // @@protoc_insertion_point(class_scope:monon.messs)
-    private static final monon.Monon.messs DEFAULT_INSTANCE;
+    private static final message.Monon.messs DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new monon.Monon.messs();
+      DEFAULT_INSTANCE = new message.Monon.messs();
     }
 
-    public static monon.Monon.messs getDefaultInstance() {
+    public static message.Monon.messs getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -676,7 +676,7 @@ public final class Monon {
     }
 
     @java.lang.Override
-    public monon.Monon.messs getDefaultInstanceForType() {
+    public message.Monon.messs getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -699,7 +699,7 @@ public final class Monon {
       "\n\013monon.proto\022\005monon\"\025\n\005messs\022\014\n\004data\030\001 " +
       "\001(\t*U\n\007ERERROR\022\013\n\007SUCCESS\020\000\022\023\n\017PARAMET_E" +
       "RERROR\020\001\022\023\n\017UNKNOWN_ERERROR\020\002\022\023\n\017TIMEOUT" +
-      "_ERERROR\020\003B\tB\005MononP\000b\006proto3"
+      "_ERERROR\020\003B\t\n\007messageb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

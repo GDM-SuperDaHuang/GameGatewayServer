@@ -1,6 +1,5 @@
 syntax = "proto3";
-option java_multiple_files = false;
-option java_outer_classname = "Monon";
+option java_package = "message";
 package monon;
 
 //通用错误码

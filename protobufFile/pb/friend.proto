@@ -1,7 +1,6 @@
 syntax = "proto3";
-option java_multiple_files = false;
-option java_outer_classname = "Friend";
-package friend;
+option java_package = "message";
+
 
 //通用错误码
 enum ERERROR {

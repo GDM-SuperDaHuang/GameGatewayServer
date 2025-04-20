@@ -13,7 +13,7 @@
 
     <parent>
         <groupId>com.slg.module</groupId>
-        <artifactId>gameServer</artifactId>
+        <artifactId>GameGatewayServer</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
