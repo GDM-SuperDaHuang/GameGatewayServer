@@ -49,28 +49,27 @@ public class TargetServerHandler extends SimpleChannelInboundHandler<ByteBufferS
             ByteBuf out = buildClientMsg(msg.getCid(), msg.getErrorCode(), msg.getProtocolId(), 0, 1, body);
             clientChannel.writeAndFlush(out)
                     .addListener(future -> {
-                        if (!future.isSuccess()) {
+                        if (!future.isSuccess()) {//客户端连接丢失
                             System.err.println("Write and flush failed: " + future.cause());
                         }
                     });
-
-        } else {//todo 没有，则让网关，返回错误码
+        } else {//todo 没有，记录失败
 
         }
     }
 
-    public ByteBuf buildClientMsg(int cid, int errorCode, int protocolId, int zip, int version, byte[] bodyArray) {
+    public ByteBuf buildClientMsg(int cid, int errorCode, int protocolId, int zip, int encrypted, byte[] bodyArray) {
         int length = bodyArray.length;
         //写回
         ByteBuf out = Unpooled.buffer(16 + length);
         //消息头
-        out.writeInt(cid);      // 4字节
-        out.writeInt(errorCode);      // 4字节
-        out.writeInt(protocolId);      // 4字节
-        out.writeByte(zip);                       // zip压缩标志，1字节
-        out.writeByte(version);                       // pb版本，1字节
+        out.writeInt(cid); // 4字节
+        out.writeInt(errorCode); // 4字节
+        out.writeInt(protocolId); // 4字节
+        out.writeByte(zip); // zip压缩标志，1字节
+        out.writeByte(encrypted); // 是否加密，1字节,0不加密
         //消息体
-        out.writeShort(bodyArray.length);                 // 消息体长度，2字节
+        out.writeShort(bodyArray.length);// 消息体长度，2字节
         // 写入消息体
         out.writeBytes(bodyArray);
         return out;
@@ -100,10 +99,10 @@ public class TargetServerHandler extends SimpleChannelInboundHandler<ByteBufferS
         SocketAddress socketAddress = ctx.channel().remoteAddress();
         int port = ((InetSocketAddress) socketAddress).getPort();
         String ip = ((InetSocketAddress) socketAddress).getHostString();
-        Map<Integer, ServerConfig> serverConfigMap = serverChannelManage.getServerConfigMap();
-        for (Map.Entry<Integer, ServerConfig> entry : serverConfigMap.entrySet()) {
+        Map<Byte, ServerConfig> serverConfigMap = serverChannelManage.getServerConfigMap();
+        for (Map.Entry<Byte, ServerConfig> entry : serverConfigMap.entrySet()) {
             ServerConfig config = entry.getValue();
-            if (config.getIp().equals(ip)&&config.getPort()==port){
+            if (config.getIp().equals(ip) && config.getPort() == port) {
                 serverChannelManage.removeChanelByIp(config.getServerId());
             }
         }

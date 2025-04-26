@@ -25,45 +25,51 @@ public final class Account {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface LoginRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:LoginRequest)
+  public interface KeyExchangeReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:KeyExchangeReq)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string username = 2;</code>
-     * @return The username.
+     * <pre>
+     * 生成元
+     * </pre>
+     *
+     * <code>bytes g = 1;</code>
+     * @return The g.
      */
-    java.lang.String getUsername();
-    /**
-     * <code>string username = 2;</code>
-     * @return The bytes for username.
-     */
-    com.google.protobuf.ByteString
-        getUsernameBytes();
+    com.google.protobuf.ByteString getG();
 
     /**
-     * <code>string password = 3;</code>
-     * @return The password.
+     * <pre>
+     * 素数
+     * </pre>
+     *
+     * <code>bytes p = 2;</code>
+     * @return The p.
      */
-    java.lang.String getPassword();
+    com.google.protobuf.ByteString getP();
+
     /**
-     * <code>string password = 3;</code>
-     * @return The bytes for password.
+     * <pre>
+     * 公钥
+     * </pre>
+     *
+     * <code>bytes public_key = 3;</code>
+     * @return The publicKey.
      */
-    com.google.protobuf.ByteString
-        getPasswordBytes();
+    com.google.protobuf.ByteString getPublicKey();
   }
   /**
    * <pre>
-   * 示例
+   * 公钥交换请求
    * </pre>
    *
-   * Protobuf type {@code LoginRequest}
+   * Protobuf type {@code KeyExchangeReq}
    */
-  public static final class LoginRequest extends
+  public static final class KeyExchangeReq extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:LoginRequest)
-      LoginRequestOrBuilder {
+      // @@protoc_insertion_point(message_implements:KeyExchangeReq)
+      KeyExchangeReqOrBuilder {
   private static final long serialVersionUID = 0L;
     static {
       com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
@@ -72,102 +78,1686 @@ public final class Account {
         /* minor= */ 27,
         /* patch= */ 2,
         /* suffix= */ "",
-        LoginRequest.class.getName());
+        KeyExchangeReq.class.getName());
     }
-    // Use LoginRequest.newBuilder() to construct.
-    private LoginRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    // Use KeyExchangeReq.newBuilder() to construct.
+    private KeyExchangeReq(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
     }
-    private LoginRequest() {
-      username_ = "";
-      password_ = "";
+    private KeyExchangeReq() {
+      g_ = com.google.protobuf.ByteString.EMPTY;
+      p_ = com.google.protobuf.ByteString.EMPTY;
+      publicKey_ = com.google.protobuf.ByteString.EMPTY;
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return message.Account.internal_static_LoginRequest_descriptor;
+      return message.Account.internal_static_KeyExchangeReq_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return message.Account.internal_static_LoginRequest_fieldAccessorTable
+      return message.Account.internal_static_KeyExchangeReq_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              message.Account.LoginRequest.class, message.Account.LoginRequest.Builder.class);
+              message.Account.KeyExchangeReq.class, message.Account.KeyExchangeReq.Builder.class);
     }
 
-    public static final int USERNAME_FIELD_NUMBER = 2;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object username_ = "";
+    public static final int G_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString g_ = com.google.protobuf.ByteString.EMPTY;
     /**
-     * <code>string username = 2;</code>
-     * @return The username.
+     * <pre>
+     * 生成元
+     * </pre>
+     *
+     * <code>bytes g = 1;</code>
+     * @return The g.
      */
     @java.lang.Override
-    public java.lang.String getUsername() {
-      java.lang.Object ref = username_;
+    public com.google.protobuf.ByteString getG() {
+      return g_;
+    }
+
+    public static final int P_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString p_ = com.google.protobuf.ByteString.EMPTY;
+    /**
+     * <pre>
+     * 素数
+     * </pre>
+     *
+     * <code>bytes p = 2;</code>
+     * @return The p.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getP() {
+      return p_;
+    }
+
+    public static final int PUBLIC_KEY_FIELD_NUMBER = 3;
+    private com.google.protobuf.ByteString publicKey_ = com.google.protobuf.ByteString.EMPTY;
+    /**
+     * <pre>
+     * 公钥
+     * </pre>
+     *
+     * <code>bytes public_key = 3;</code>
+     * @return The publicKey.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getPublicKey() {
+      return publicKey_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!g_.isEmpty()) {
+        output.writeBytes(1, g_);
+      }
+      if (!p_.isEmpty()) {
+        output.writeBytes(2, p_);
+      }
+      if (!publicKey_.isEmpty()) {
+        output.writeBytes(3, publicKey_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!g_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, g_);
+      }
+      if (!p_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, p_);
+      }
+      if (!publicKey_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, publicKey_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof message.Account.KeyExchangeReq)) {
+        return super.equals(obj);
+      }
+      message.Account.KeyExchangeReq other = (message.Account.KeyExchangeReq) obj;
+
+      if (!getG()
+          .equals(other.getG())) return false;
+      if (!getP()
+          .equals(other.getP())) return false;
+      if (!getPublicKey()
+          .equals(other.getPublicKey())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + G_FIELD_NUMBER;
+      hash = (53 * hash) + getG().hashCode();
+      hash = (37 * hash) + P_FIELD_NUMBER;
+      hash = (53 * hash) + getP().hashCode();
+      hash = (37 * hash) + PUBLIC_KEY_FIELD_NUMBER;
+      hash = (53 * hash) + getPublicKey().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static message.Account.KeyExchangeReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static message.Account.KeyExchangeReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static message.Account.KeyExchangeReq parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static message.Account.KeyExchangeReq parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static message.Account.KeyExchangeReq parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static message.Account.KeyExchangeReq parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static message.Account.KeyExchangeReq parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static message.Account.KeyExchangeReq parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static message.Account.KeyExchangeReq parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static message.Account.KeyExchangeReq parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static message.Account.KeyExchangeReq parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static message.Account.KeyExchangeReq parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(message.Account.KeyExchangeReq prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * 公钥交换请求
+     * </pre>
+     *
+     * Protobuf type {@code KeyExchangeReq}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:KeyExchangeReq)
+        message.Account.KeyExchangeReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return message.Account.internal_static_KeyExchangeReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return message.Account.internal_static_KeyExchangeReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                message.Account.KeyExchangeReq.class, message.Account.KeyExchangeReq.Builder.class);
+      }
+
+      // Construct using message.Account.KeyExchangeReq.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        g_ = com.google.protobuf.ByteString.EMPTY;
+        p_ = com.google.protobuf.ByteString.EMPTY;
+        publicKey_ = com.google.protobuf.ByteString.EMPTY;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return message.Account.internal_static_KeyExchangeReq_descriptor;
+      }
+
+      @java.lang.Override
+      public message.Account.KeyExchangeReq getDefaultInstanceForType() {
+        return message.Account.KeyExchangeReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public message.Account.KeyExchangeReq build() {
+        message.Account.KeyExchangeReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public message.Account.KeyExchangeReq buildPartial() {
+        message.Account.KeyExchangeReq result = new message.Account.KeyExchangeReq(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(message.Account.KeyExchangeReq result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.g_ = g_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.p_ = p_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.publicKey_ = publicKey_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof message.Account.KeyExchangeReq) {
+          return mergeFrom((message.Account.KeyExchangeReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(message.Account.KeyExchangeReq other) {
+        if (other == message.Account.KeyExchangeReq.getDefaultInstance()) return this;
+        if (other.getG() != com.google.protobuf.ByteString.EMPTY) {
+          setG(other.getG());
+        }
+        if (other.getP() != com.google.protobuf.ByteString.EMPTY) {
+          setP(other.getP());
+        }
+        if (other.getPublicKey() != com.google.protobuf.ByteString.EMPTY) {
+          setPublicKey(other.getPublicKey());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                g_ = input.readBytes();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                p_ = input.readBytes();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              case 26: {
+                publicKey_ = input.readBytes();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.ByteString g_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       * 生成元
+       * </pre>
+       *
+       * <code>bytes g = 1;</code>
+       * @return The g.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getG() {
+        return g_;
+      }
+      /**
+       * <pre>
+       * 生成元
+       * </pre>
+       *
+       * <code>bytes g = 1;</code>
+       * @param value The g to set.
+       * @return This builder for chaining.
+       */
+      public Builder setG(com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        g_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 生成元
+       * </pre>
+       *
+       * <code>bytes g = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearG() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        g_ = getDefaultInstance().getG();
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString p_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       * 素数
+       * </pre>
+       *
+       * <code>bytes p = 2;</code>
+       * @return The p.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getP() {
+        return p_;
+      }
+      /**
+       * <pre>
+       * 素数
+       * </pre>
+       *
+       * <code>bytes p = 2;</code>
+       * @param value The p to set.
+       * @return This builder for chaining.
+       */
+      public Builder setP(com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        p_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 素数
+       * </pre>
+       *
+       * <code>bytes p = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearP() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        p_ = getDefaultInstance().getP();
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString publicKey_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       * 公钥
+       * </pre>
+       *
+       * <code>bytes public_key = 3;</code>
+       * @return The publicKey.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getPublicKey() {
+        return publicKey_;
+      }
+      /**
+       * <pre>
+       * 公钥
+       * </pre>
+       *
+       * <code>bytes public_key = 3;</code>
+       * @param value The publicKey to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPublicKey(com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        publicKey_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 公钥
+       * </pre>
+       *
+       * <code>bytes public_key = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPublicKey() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        publicKey_ = getDefaultInstance().getPublicKey();
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:KeyExchangeReq)
+    }
+
+    // @@protoc_insertion_point(class_scope:KeyExchangeReq)
+    private static final message.Account.KeyExchangeReq DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new message.Account.KeyExchangeReq();
+    }
+
+    public static message.Account.KeyExchangeReq getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<KeyExchangeReq>
+        PARSER = new com.google.protobuf.AbstractParser<KeyExchangeReq>() {
+      @java.lang.Override
+      public KeyExchangeReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<KeyExchangeReq> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<KeyExchangeReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public message.Account.KeyExchangeReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface KeyExchangeRespOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:KeyExchangeResp)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * 公钥
+     * </pre>
+     *
+     * <code>bytes public_key = 1;</code>
+     * @return The publicKey.
+     */
+    com.google.protobuf.ByteString getPublicKey();
+  }
+  /**
+   * <pre>
+   * 公钥交换响应
+   * </pre>
+   *
+   * Protobuf type {@code KeyExchangeResp}
+   */
+  public static final class KeyExchangeResp extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:KeyExchangeResp)
+      KeyExchangeRespOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 27,
+        /* patch= */ 2,
+        /* suffix= */ "",
+        KeyExchangeResp.class.getName());
+    }
+    // Use KeyExchangeResp.newBuilder() to construct.
+    private KeyExchangeResp(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private KeyExchangeResp() {
+      publicKey_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return message.Account.internal_static_KeyExchangeResp_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return message.Account.internal_static_KeyExchangeResp_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              message.Account.KeyExchangeResp.class, message.Account.KeyExchangeResp.Builder.class);
+    }
+
+    public static final int PUBLIC_KEY_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString publicKey_ = com.google.protobuf.ByteString.EMPTY;
+    /**
+     * <pre>
+     * 公钥
+     * </pre>
+     *
+     * <code>bytes public_key = 1;</code>
+     * @return The publicKey.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getPublicKey() {
+      return publicKey_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!publicKey_.isEmpty()) {
+        output.writeBytes(1, publicKey_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!publicKey_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, publicKey_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof message.Account.KeyExchangeResp)) {
+        return super.equals(obj);
+      }
+      message.Account.KeyExchangeResp other = (message.Account.KeyExchangeResp) obj;
+
+      if (!getPublicKey()
+          .equals(other.getPublicKey())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + PUBLIC_KEY_FIELD_NUMBER;
+      hash = (53 * hash) + getPublicKey().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static message.Account.KeyExchangeResp parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static message.Account.KeyExchangeResp parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static message.Account.KeyExchangeResp parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static message.Account.KeyExchangeResp parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static message.Account.KeyExchangeResp parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static message.Account.KeyExchangeResp parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static message.Account.KeyExchangeResp parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static message.Account.KeyExchangeResp parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static message.Account.KeyExchangeResp parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static message.Account.KeyExchangeResp parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static message.Account.KeyExchangeResp parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static message.Account.KeyExchangeResp parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(message.Account.KeyExchangeResp prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * 公钥交换响应
+     * </pre>
+     *
+     * Protobuf type {@code KeyExchangeResp}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:KeyExchangeResp)
+        message.Account.KeyExchangeRespOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return message.Account.internal_static_KeyExchangeResp_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return message.Account.internal_static_KeyExchangeResp_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                message.Account.KeyExchangeResp.class, message.Account.KeyExchangeResp.Builder.class);
+      }
+
+      // Construct using message.Account.KeyExchangeResp.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        publicKey_ = com.google.protobuf.ByteString.EMPTY;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return message.Account.internal_static_KeyExchangeResp_descriptor;
+      }
+
+      @java.lang.Override
+      public message.Account.KeyExchangeResp getDefaultInstanceForType() {
+        return message.Account.KeyExchangeResp.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public message.Account.KeyExchangeResp build() {
+        message.Account.KeyExchangeResp result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public message.Account.KeyExchangeResp buildPartial() {
+        message.Account.KeyExchangeResp result = new message.Account.KeyExchangeResp(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(message.Account.KeyExchangeResp result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.publicKey_ = publicKey_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof message.Account.KeyExchangeResp) {
+          return mergeFrom((message.Account.KeyExchangeResp)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(message.Account.KeyExchangeResp other) {
+        if (other == message.Account.KeyExchangeResp.getDefaultInstance()) return this;
+        if (other.getPublicKey() != com.google.protobuf.ByteString.EMPTY) {
+          setPublicKey(other.getPublicKey());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                publicKey_ = input.readBytes();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.ByteString publicKey_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       * 公钥
+       * </pre>
+       *
+       * <code>bytes public_key = 1;</code>
+       * @return The publicKey.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getPublicKey() {
+        return publicKey_;
+      }
+      /**
+       * <pre>
+       * 公钥
+       * </pre>
+       *
+       * <code>bytes public_key = 1;</code>
+       * @param value The publicKey to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPublicKey(com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        publicKey_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 公钥
+       * </pre>
+       *
+       * <code>bytes public_key = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPublicKey() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        publicKey_ = getDefaultInstance().getPublicKey();
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:KeyExchangeResp)
+    }
+
+    // @@protoc_insertion_point(class_scope:KeyExchangeResp)
+    private static final message.Account.KeyExchangeResp DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new message.Account.KeyExchangeResp();
+    }
+
+    public static message.Account.KeyExchangeResp getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<KeyExchangeResp>
+        PARSER = new com.google.protobuf.AbstractParser<KeyExchangeResp>() {
+      @java.lang.Override
+      public KeyExchangeResp parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<KeyExchangeResp> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<KeyExchangeResp> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public message.Account.KeyExchangeResp getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface KeyVerificationReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:KeyVerificationReq)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * 用共享密钥加密的测试消息
+     * </pre>
+     *
+     * <code>bytes test_message = 1;</code>
+     * @return The testMessage.
+     */
+    com.google.protobuf.ByteString getTestMessage();
+  }
+  /**
+   * <pre>
+   * 用共享密钥加密测试验证请求
+   * </pre>
+   *
+   * Protobuf type {@code KeyVerificationReq}
+   */
+  public static final class KeyVerificationReq extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:KeyVerificationReq)
+      KeyVerificationReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 27,
+        /* patch= */ 2,
+        /* suffix= */ "",
+        KeyVerificationReq.class.getName());
+    }
+    // Use KeyVerificationReq.newBuilder() to construct.
+    private KeyVerificationReq(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private KeyVerificationReq() {
+      testMessage_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return message.Account.internal_static_KeyVerificationReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return message.Account.internal_static_KeyVerificationReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              message.Account.KeyVerificationReq.class, message.Account.KeyVerificationReq.Builder.class);
+    }
+
+    public static final int TEST_MESSAGE_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString testMessage_ = com.google.protobuf.ByteString.EMPTY;
+    /**
+     * <pre>
+     * 用共享密钥加密的测试消息
+     * </pre>
+     *
+     * <code>bytes test_message = 1;</code>
+     * @return The testMessage.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getTestMessage() {
+      return testMessage_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!testMessage_.isEmpty()) {
+        output.writeBytes(1, testMessage_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!testMessage_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, testMessage_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof message.Account.KeyVerificationReq)) {
+        return super.equals(obj);
+      }
+      message.Account.KeyVerificationReq other = (message.Account.KeyVerificationReq) obj;
+
+      if (!getTestMessage()
+          .equals(other.getTestMessage())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + TEST_MESSAGE_FIELD_NUMBER;
+      hash = (53 * hash) + getTestMessage().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static message.Account.KeyVerificationReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static message.Account.KeyVerificationReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static message.Account.KeyVerificationReq parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static message.Account.KeyVerificationReq parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static message.Account.KeyVerificationReq parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static message.Account.KeyVerificationReq parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static message.Account.KeyVerificationReq parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static message.Account.KeyVerificationReq parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static message.Account.KeyVerificationReq parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static message.Account.KeyVerificationReq parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static message.Account.KeyVerificationReq parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static message.Account.KeyVerificationReq parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(message.Account.KeyVerificationReq prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * 用共享密钥加密测试验证请求
+     * </pre>
+     *
+     * Protobuf type {@code KeyVerificationReq}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:KeyVerificationReq)
+        message.Account.KeyVerificationReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return message.Account.internal_static_KeyVerificationReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return message.Account.internal_static_KeyVerificationReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                message.Account.KeyVerificationReq.class, message.Account.KeyVerificationReq.Builder.class);
+      }
+
+      // Construct using message.Account.KeyVerificationReq.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        testMessage_ = com.google.protobuf.ByteString.EMPTY;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return message.Account.internal_static_KeyVerificationReq_descriptor;
+      }
+
+      @java.lang.Override
+      public message.Account.KeyVerificationReq getDefaultInstanceForType() {
+        return message.Account.KeyVerificationReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public message.Account.KeyVerificationReq build() {
+        message.Account.KeyVerificationReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public message.Account.KeyVerificationReq buildPartial() {
+        message.Account.KeyVerificationReq result = new message.Account.KeyVerificationReq(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(message.Account.KeyVerificationReq result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.testMessage_ = testMessage_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof message.Account.KeyVerificationReq) {
+          return mergeFrom((message.Account.KeyVerificationReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(message.Account.KeyVerificationReq other) {
+        if (other == message.Account.KeyVerificationReq.getDefaultInstance()) return this;
+        if (other.getTestMessage() != com.google.protobuf.ByteString.EMPTY) {
+          setTestMessage(other.getTestMessage());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                testMessage_ = input.readBytes();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.ByteString testMessage_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       * 用共享密钥加密的测试消息
+       * </pre>
+       *
+       * <code>bytes test_message = 1;</code>
+       * @return The testMessage.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getTestMessage() {
+        return testMessage_;
+      }
+      /**
+       * <pre>
+       * 用共享密钥加密的测试消息
+       * </pre>
+       *
+       * <code>bytes test_message = 1;</code>
+       * @param value The testMessage to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTestMessage(com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        testMessage_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 用共享密钥加密的测试消息
+       * </pre>
+       *
+       * <code>bytes test_message = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTestMessage() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        testMessage_ = getDefaultInstance().getTestMessage();
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:KeyVerificationReq)
+    }
+
+    // @@protoc_insertion_point(class_scope:KeyVerificationReq)
+    private static final message.Account.KeyVerificationReq DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new message.Account.KeyVerificationReq();
+    }
+
+    public static message.Account.KeyVerificationReq getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<KeyVerificationReq>
+        PARSER = new com.google.protobuf.AbstractParser<KeyVerificationReq>() {
+      @java.lang.Override
+      public KeyVerificationReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<KeyVerificationReq> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<KeyVerificationReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public message.Account.KeyVerificationReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface KeyVerificationRespOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:KeyVerificationResp)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * 验证是否成功
+     * </pre>
+     *
+     * <code>bool success = 1;</code>
+     * @return The success.
+     */
+    boolean getSuccess();
+
+    /**
+     * <pre>
+     * 服务端返回的加密回显(可选)
+     * </pre>
+     *
+     * <code>bytes encrypted_echo = 2;</code>
+     * @return The encryptedEcho.
+     */
+    com.google.protobuf.ByteString getEncryptedEcho();
+
+    /**
+     * <pre>
+     * 失败时的错误信息
+     * </pre>
+     *
+     * <code>string error_message = 3;</code>
+     * @return The errorMessage.
+     */
+    java.lang.String getErrorMessage();
+    /**
+     * <pre>
+     * 失败时的错误信息
+     * </pre>
+     *
+     * <code>string error_message = 3;</code>
+     * @return The bytes for errorMessage.
+     */
+    com.google.protobuf.ByteString
+        getErrorMessageBytes();
+  }
+  /**
+   * <pre>
+   * 用共享密钥加密测试验证响应
+   * </pre>
+   *
+   * Protobuf type {@code KeyVerificationResp}
+   */
+  public static final class KeyVerificationResp extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:KeyVerificationResp)
+      KeyVerificationRespOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 27,
+        /* patch= */ 2,
+        /* suffix= */ "",
+        KeyVerificationResp.class.getName());
+    }
+    // Use KeyVerificationResp.newBuilder() to construct.
+    private KeyVerificationResp(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private KeyVerificationResp() {
+      encryptedEcho_ = com.google.protobuf.ByteString.EMPTY;
+      errorMessage_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return message.Account.internal_static_KeyVerificationResp_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return message.Account.internal_static_KeyVerificationResp_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              message.Account.KeyVerificationResp.class, message.Account.KeyVerificationResp.Builder.class);
+    }
+
+    public static final int SUCCESS_FIELD_NUMBER = 1;
+    private boolean success_ = false;
+    /**
+     * <pre>
+     * 验证是否成功
+     * </pre>
+     *
+     * <code>bool success = 1;</code>
+     * @return The success.
+     */
+    @java.lang.Override
+    public boolean getSuccess() {
+      return success_;
+    }
+
+    public static final int ENCRYPTED_ECHO_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString encryptedEcho_ = com.google.protobuf.ByteString.EMPTY;
+    /**
+     * <pre>
+     * 服务端返回的加密回显(可选)
+     * </pre>
+     *
+     * <code>bytes encrypted_echo = 2;</code>
+     * @return The encryptedEcho.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getEncryptedEcho() {
+      return encryptedEcho_;
+    }
+
+    public static final int ERROR_MESSAGE_FIELD_NUMBER = 3;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object errorMessage_ = "";
+    /**
+     * <pre>
+     * 失败时的错误信息
+     * </pre>
+     *
+     * <code>string error_message = 3;</code>
+     * @return The errorMessage.
+     */
+    @java.lang.Override
+    public java.lang.String getErrorMessage() {
+      java.lang.Object ref = errorMessage_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        username_ = s;
+        errorMessage_ = s;
         return s;
       }
     }
     /**
-     * <code>string username = 2;</code>
-     * @return The bytes for username.
+     * <pre>
+     * 失败时的错误信息
+     * </pre>
+     *
+     * <code>string error_message = 3;</code>
+     * @return The bytes for errorMessage.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getUsernameBytes() {
-      java.lang.Object ref = username_;
+        getErrorMessageBytes() {
+      java.lang.Object ref = errorMessage_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        username_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PASSWORD_FIELD_NUMBER = 3;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object password_ = "";
-    /**
-     * <code>string password = 3;</code>
-     * @return The password.
-     */
-    @java.lang.Override
-    public java.lang.String getPassword() {
-      java.lang.Object ref = password_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        password_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string password = 3;</code>
-     * @return The bytes for password.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getPasswordBytes() {
-      java.lang.Object ref = password_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        password_ = b;
+        errorMessage_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -188,11 +1778,14 @@ public final class Account {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(username_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 2, username_);
+      if (success_ != false) {
+        output.writeBool(1, success_);
       }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(password_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 3, password_);
+      if (!encryptedEcho_.isEmpty()) {
+        output.writeBytes(2, encryptedEcho_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(errorMessage_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 3, errorMessage_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -203,11 +1796,16 @@ public final class Account {
       if (size != -1) return size;
 
       size = 0;
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(username_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, username_);
+      if (success_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, success_);
       }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(password_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, password_);
+      if (!encryptedEcho_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, encryptedEcho_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(errorMessage_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, errorMessage_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -219,15 +1817,17 @@ public final class Account {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof message.Account.LoginRequest)) {
+      if (!(obj instanceof message.Account.KeyVerificationResp)) {
         return super.equals(obj);
       }
-      message.Account.LoginRequest other = (message.Account.LoginRequest) obj;
+      message.Account.KeyVerificationResp other = (message.Account.KeyVerificationResp) obj;
 
-      if (!getUsername()
-          .equals(other.getUsername())) return false;
-      if (!getPassword()
-          .equals(other.getPassword())) return false;
+      if (getSuccess()
+          != other.getSuccess()) return false;
+      if (!getEncryptedEcho()
+          .equals(other.getEncryptedEcho())) return false;
+      if (!getErrorMessage()
+          .equals(other.getErrorMessage())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -239,53 +1839,56 @@ public final class Account {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + USERNAME_FIELD_NUMBER;
-      hash = (53 * hash) + getUsername().hashCode();
-      hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
-      hash = (53 * hash) + getPassword().hashCode();
+      hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getSuccess());
+      hash = (37 * hash) + ENCRYPTED_ECHO_FIELD_NUMBER;
+      hash = (53 * hash) + getEncryptedEcho().hashCode();
+      hash = (37 * hash) + ERROR_MESSAGE_FIELD_NUMBER;
+      hash = (53 * hash) + getErrorMessage().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static message.Account.LoginRequest parseFrom(
+    public static message.Account.KeyVerificationResp parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static message.Account.LoginRequest parseFrom(
+    public static message.Account.KeyVerificationResp parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static message.Account.LoginRequest parseFrom(
+    public static message.Account.KeyVerificationResp parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static message.Account.LoginRequest parseFrom(
+    public static message.Account.KeyVerificationResp parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static message.Account.LoginRequest parseFrom(byte[] data)
+    public static message.Account.KeyVerificationResp parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static message.Account.LoginRequest parseFrom(
+    public static message.Account.KeyVerificationResp parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static message.Account.LoginRequest parseFrom(java.io.InputStream input)
+    public static message.Account.KeyVerificationResp parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static message.Account.LoginRequest parseFrom(
+    public static message.Account.KeyVerificationResp parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -293,26 +1896,26 @@ public final class Account {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static message.Account.LoginRequest parseDelimitedFrom(java.io.InputStream input)
+    public static message.Account.KeyVerificationResp parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static message.Account.LoginRequest parseDelimitedFrom(
+    public static message.Account.KeyVerificationResp parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static message.Account.LoginRequest parseFrom(
+    public static message.Account.KeyVerificationResp parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static message.Account.LoginRequest parseFrom(
+    public static message.Account.KeyVerificationResp parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -325,7 +1928,7 @@ public final class Account {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(message.Account.LoginRequest prototype) {
+    public static Builder newBuilder(message.Account.KeyVerificationResp prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -342,29 +1945,29 @@ public final class Account {
     }
     /**
      * <pre>
-     * 示例
+     * 用共享密钥加密测试验证响应
      * </pre>
      *
-     * Protobuf type {@code LoginRequest}
+     * Protobuf type {@code KeyVerificationResp}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:LoginRequest)
-        message.Account.LoginRequestOrBuilder {
+        // @@protoc_insertion_point(builder_implements:KeyVerificationResp)
+        message.Account.KeyVerificationRespOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return message.Account.internal_static_LoginRequest_descriptor;
+        return message.Account.internal_static_KeyVerificationResp_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return message.Account.internal_static_LoginRequest_fieldAccessorTable
+        return message.Account.internal_static_KeyVerificationResp_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                message.Account.LoginRequest.class, message.Account.LoginRequest.Builder.class);
+                message.Account.KeyVerificationResp.class, message.Account.KeyVerificationResp.Builder.class);
       }
 
-      // Construct using message.Account.LoginRequest.newBuilder()
+      // Construct using message.Account.KeyVerificationResp.newBuilder()
       private Builder() {
 
       }
@@ -378,25 +1981,26 @@ public final class Account {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        username_ = "";
-        password_ = "";
+        success_ = false;
+        encryptedEcho_ = com.google.protobuf.ByteString.EMPTY;
+        errorMessage_ = "";
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return message.Account.internal_static_LoginRequest_descriptor;
+        return message.Account.internal_static_KeyVerificationResp_descriptor;
       }
 
       @java.lang.Override
-      public message.Account.LoginRequest getDefaultInstanceForType() {
-        return message.Account.LoginRequest.getDefaultInstance();
+      public message.Account.KeyVerificationResp getDefaultInstanceForType() {
+        return message.Account.KeyVerificationResp.getDefaultInstance();
       }
 
       @java.lang.Override
-      public message.Account.LoginRequest build() {
-        message.Account.LoginRequest result = buildPartial();
+      public message.Account.KeyVerificationResp build() {
+        message.Account.KeyVerificationResp result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -404,43 +2008,47 @@ public final class Account {
       }
 
       @java.lang.Override
-      public message.Account.LoginRequest buildPartial() {
-        message.Account.LoginRequest result = new message.Account.LoginRequest(this);
+      public message.Account.KeyVerificationResp buildPartial() {
+        message.Account.KeyVerificationResp result = new message.Account.KeyVerificationResp(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(message.Account.LoginRequest result) {
+      private void buildPartial0(message.Account.KeyVerificationResp result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.username_ = username_;
+          result.success_ = success_;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.password_ = password_;
+          result.encryptedEcho_ = encryptedEcho_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.errorMessage_ = errorMessage_;
         }
       }
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof message.Account.LoginRequest) {
-          return mergeFrom((message.Account.LoginRequest)other);
+        if (other instanceof message.Account.KeyVerificationResp) {
+          return mergeFrom((message.Account.KeyVerificationResp)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(message.Account.LoginRequest other) {
-        if (other == message.Account.LoginRequest.getDefaultInstance()) return this;
-        if (!other.getUsername().isEmpty()) {
-          username_ = other.username_;
-          bitField0_ |= 0x00000001;
-          onChanged();
+      public Builder mergeFrom(message.Account.KeyVerificationResp other) {
+        if (other == message.Account.KeyVerificationResp.getDefaultInstance()) return this;
+        if (other.getSuccess() != false) {
+          setSuccess(other.getSuccess());
         }
-        if (!other.getPassword().isEmpty()) {
-          password_ = other.password_;
-          bitField0_ |= 0x00000002;
+        if (other.getEncryptedEcho() != com.google.protobuf.ByteString.EMPTY) {
+          setEncryptedEcho(other.getEncryptedEcho());
+        }
+        if (!other.getErrorMessage().isEmpty()) {
+          errorMessage_ = other.errorMessage_;
+          bitField0_ |= 0x00000004;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -469,14 +2077,19 @@ public final class Account {
               case 0:
                 done = true;
                 break;
-              case 18: {
-                username_ = input.readStringRequireUtf8();
+              case 8: {
+                success_ = input.readBool();
                 bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              case 18: {
+                encryptedEcho_ = input.readBytes();
+                bitField0_ |= 0x00000002;
                 break;
               } // case 18
               case 26: {
-                password_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
+                errorMessage_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
                 break;
               } // case 26
               default: {
@@ -496,167 +2109,203 @@ public final class Account {
       }
       private int bitField0_;
 
-      private java.lang.Object username_ = "";
+      private boolean success_ ;
       /**
-       * <code>string username = 2;</code>
-       * @return The username.
+       * <pre>
+       * 验证是否成功
+       * </pre>
+       *
+       * <code>bool success = 1;</code>
+       * @return The success.
        */
-      public java.lang.String getUsername() {
-        java.lang.Object ref = username_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          username_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      @java.lang.Override
+      public boolean getSuccess() {
+        return success_;
       }
       /**
-       * <code>string username = 2;</code>
-       * @return The bytes for username.
-       */
-      public com.google.protobuf.ByteString
-          getUsernameBytes() {
-        java.lang.Object ref = username_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          username_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string username = 2;</code>
-       * @param value The username to set.
+       * <pre>
+       * 验证是否成功
+       * </pre>
+       *
+       * <code>bool success = 1;</code>
+       * @param value The success to set.
        * @return This builder for chaining.
        */
-      public Builder setUsername(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        username_ = value;
+      public Builder setSuccess(boolean value) {
+
+        success_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
-       * <code>string username = 2;</code>
+       * <pre>
+       * 验证是否成功
+       * </pre>
+       *
+       * <code>bool success = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearUsername() {
-        username_ = getDefaultInstance().getUsername();
+      public Builder clearSuccess() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string username = 2;</code>
-       * @param value The bytes for username to set.
-       * @return This builder for chaining.
-       */
-      public Builder setUsernameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        username_ = value;
-        bitField0_ |= 0x00000001;
+        success_ = false;
         onChanged();
         return this;
       }
 
-      private java.lang.Object password_ = "";
+      private com.google.protobuf.ByteString encryptedEcho_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>string password = 3;</code>
-       * @return The password.
+       * <pre>
+       * 服务端返回的加密回显(可选)
+       * </pre>
+       *
+       * <code>bytes encrypted_echo = 2;</code>
+       * @return The encryptedEcho.
        */
-      public java.lang.String getPassword() {
-        java.lang.Object ref = password_;
+      @java.lang.Override
+      public com.google.protobuf.ByteString getEncryptedEcho() {
+        return encryptedEcho_;
+      }
+      /**
+       * <pre>
+       * 服务端返回的加密回显(可选)
+       * </pre>
+       *
+       * <code>bytes encrypted_echo = 2;</code>
+       * @param value The encryptedEcho to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEncryptedEcho(com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        encryptedEcho_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 服务端返回的加密回显(可选)
+       * </pre>
+       *
+       * <code>bytes encrypted_echo = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEncryptedEcho() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        encryptedEcho_ = getDefaultInstance().getEncryptedEcho();
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object errorMessage_ = "";
+      /**
+       * <pre>
+       * 失败时的错误信息
+       * </pre>
+       *
+       * <code>string error_message = 3;</code>
+       * @return The errorMessage.
+       */
+      public java.lang.String getErrorMessage() {
+        java.lang.Object ref = errorMessage_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          password_ = s;
+          errorMessage_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string password = 3;</code>
-       * @return The bytes for password.
+       * <pre>
+       * 失败时的错误信息
+       * </pre>
+       *
+       * <code>string error_message = 3;</code>
+       * @return The bytes for errorMessage.
        */
       public com.google.protobuf.ByteString
-          getPasswordBytes() {
-        java.lang.Object ref = password_;
+          getErrorMessageBytes() {
+        java.lang.Object ref = errorMessage_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          password_ = b;
+          errorMessage_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string password = 3;</code>
-       * @param value The password to set.
+       * <pre>
+       * 失败时的错误信息
+       * </pre>
+       *
+       * <code>string error_message = 3;</code>
+       * @param value The errorMessage to set.
        * @return This builder for chaining.
        */
-      public Builder setPassword(
+      public Builder setErrorMessage(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
-        password_ = value;
-        bitField0_ |= 0x00000002;
+        errorMessage_ = value;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
       /**
-       * <code>string password = 3;</code>
+       * <pre>
+       * 失败时的错误信息
+       * </pre>
+       *
+       * <code>string error_message = 3;</code>
        * @return This builder for chaining.
        */
-      public Builder clearPassword() {
-        password_ = getDefaultInstance().getPassword();
-        bitField0_ = (bitField0_ & ~0x00000002);
+      public Builder clearErrorMessage() {
+        errorMessage_ = getDefaultInstance().getErrorMessage();
+        bitField0_ = (bitField0_ & ~0x00000004);
         onChanged();
         return this;
       }
       /**
-       * <code>string password = 3;</code>
-       * @param value The bytes for password to set.
+       * <pre>
+       * 失败时的错误信息
+       * </pre>
+       *
+       * <code>string error_message = 3;</code>
+       * @param value The bytes for errorMessage to set.
        * @return This builder for chaining.
        */
-      public Builder setPasswordBytes(
+      public Builder setErrorMessageBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
-        password_ = value;
-        bitField0_ |= 0x00000002;
+        errorMessage_ = value;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:LoginRequest)
+      // @@protoc_insertion_point(builder_scope:KeyVerificationResp)
     }
 
-    // @@protoc_insertion_point(class_scope:LoginRequest)
-    private static final message.Account.LoginRequest DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:KeyVerificationResp)
+    private static final message.Account.KeyVerificationResp DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new message.Account.LoginRequest();
+      DEFAULT_INSTANCE = new message.Account.KeyVerificationResp();
     }
 
-    public static message.Account.LoginRequest getDefaultInstance() {
+    public static message.Account.KeyVerificationResp getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<LoginRequest>
-        PARSER = new com.google.protobuf.AbstractParser<LoginRequest>() {
+    private static final com.google.protobuf.Parser<KeyVerificationResp>
+        PARSER = new com.google.protobuf.AbstractParser<KeyVerificationResp>() {
       @java.lang.Override
-      public LoginRequest parsePartialFrom(
+      public KeyVerificationResp parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -675,17 +2324,17 @@ public final class Account {
       }
     };
 
-    public static com.google.protobuf.Parser<LoginRequest> parser() {
+    public static com.google.protobuf.Parser<KeyVerificationResp> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<LoginRequest> getParserForType() {
+    public com.google.protobuf.Parser<KeyVerificationResp> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public message.Account.LoginRequest getDefaultInstanceForType() {
+    public message.Account.KeyVerificationResp getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1928,10 +3577,25 @@ public final class Account {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_LoginRequest_descriptor;
+    internal_static_KeyExchangeReq_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_LoginRequest_fieldAccessorTable;
+      internal_static_KeyExchangeReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_KeyExchangeResp_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_KeyExchangeResp_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_KeyVerificationReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_KeyVerificationReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_KeyVerificationResp_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_KeyVerificationResp_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_LoginResponse_descriptor;
   private static final 
@@ -1951,32 +3615,54 @@ public final class Account {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\raccount.proto\032\013monon.proto\"2\n\014LoginReq" +
-      "uest\022\020\n\010username\030\002 \001(\t\022\020\n\010password\030\003 \001(\t" +
-      "\")\n\rLoginResponse\022\013\n\003aaa\030\001 \001(\007\022\013\n\003bbb\030\002 " +
-      "\001(\007\"A\n\013TempRequest\022\030\n\002ss\030\001 \001(\0132\014.monon.m" +
-      "esss\022\013\n\003aaa\030\002 \001(\007\022\013\n\003bbb\030\003 \001(\007B\t\n\007messag" +
-      "eb\006proto3"
+      "\n\raccount.proto\032\013monon.proto\":\n\016KeyExcha" +
+      "ngeReq\022\t\n\001g\030\001 \001(\014\022\t\n\001p\030\002 \001(\014\022\022\n\npublic_k" +
+      "ey\030\003 \001(\014\"%\n\017KeyExchangeResp\022\022\n\npublic_ke" +
+      "y\030\001 \001(\014\"*\n\022KeyVerificationReq\022\024\n\014test_me" +
+      "ssage\030\001 \001(\014\"U\n\023KeyVerificationResp\022\017\n\007su" +
+      "ccess\030\001 \001(\010\022\026\n\016encrypted_echo\030\002 \001(\014\022\025\n\re" +
+      "rror_message\030\003 \001(\t\")\n\rLoginResponse\022\013\n\003a" +
+      "aa\030\001 \001(\007\022\013\n\003bbb\030\002 \001(\007\"A\n\013TempRequest\022\030\n\002" +
+      "ss\030\001 \001(\0132\014.monon.messs\022\013\n\003aaa\030\002 \001(\007\022\013\n\003b" +
+      "bb\030\003 \001(\007B\t\n\007messageb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           message.Monon.getDescriptor(),
         });
-    internal_static_LoginRequest_descriptor =
+    internal_static_KeyExchangeReq_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_LoginRequest_fieldAccessorTable = new
+    internal_static_KeyExchangeReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_LoginRequest_descriptor,
-        new java.lang.String[] { "Username", "Password", });
-    internal_static_LoginResponse_descriptor =
+        internal_static_KeyExchangeReq_descriptor,
+        new java.lang.String[] { "G", "P", "PublicKey", });
+    internal_static_KeyExchangeResp_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_KeyExchangeResp_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_KeyExchangeResp_descriptor,
+        new java.lang.String[] { "PublicKey", });
+    internal_static_KeyVerificationReq_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_KeyVerificationReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_KeyVerificationReq_descriptor,
+        new java.lang.String[] { "TestMessage", });
+    internal_static_KeyVerificationResp_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_KeyVerificationResp_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_KeyVerificationResp_descriptor,
+        new java.lang.String[] { "Success", "EncryptedEcho", "ErrorMessage", });
+    internal_static_LoginResponse_descriptor =
+      getDescriptor().getMessageTypes().get(4);
     internal_static_LoginResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_LoginResponse_descriptor,
         new java.lang.String[] { "Aaa", "Bbb", });
     internal_static_TempRequest_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_TempRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_TempRequest_descriptor,

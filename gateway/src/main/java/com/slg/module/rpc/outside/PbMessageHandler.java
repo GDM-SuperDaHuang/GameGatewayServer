@@ -54,6 +54,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
 
     @Autowired
     private GatewayRoutingProperties routingProperties;  // 注入配置
+
     /**
      * 网关转发
      */
@@ -84,30 +85,37 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         int protocolId = msg.getProtocolId();
         byte[] body = msg.getBody();
         Channel channel = ctx.channel();
-
+        byte zip = 0;
+        byte encrypted = 0;
         Method parse = postProcessor.getParseFromMethod(protocolId);
         if (parse == null) {
-            ByteBuf outClient = buildClientMsg(msg.getCid(), 10, msg.getProtocolId(), 0, 1, null);
+
+            ByteBuf outClient = buildClientMsg(msg.getCid(), 10, protocolId, zip, encrypted, null);
             ctx.writeAndFlush(outClient);
             return;
         }
+        Long userId = clientchannelManage.getUserId(ctx.channel());
+//        switch (protocolId) {
+//            case 1://加密校验
+//
+//                break;
+//            case 2://登录
+//                break;
+//            default://转发到目标服务器
+//                // todo 根据用户信息选择目标服务器
+//                ServerConfig serverConfig = getTargetServerAddress(protocolId);
+//                // 转发到目标服务器
+//                forwardToTargetServer(ctx, msg, userId, serverConfig);
+//        }
 
-
-        //登录
-        if (protocolId == 1) {
-            //todo 获取用户信息
-            long userId = 123456789L;
-            String token = "";
-            clientchannelManage.put(channel, userId);
-            //本地
+        if (protocolId < 10) {//本地
             Object msgObject = parse.invoke(null, body);
             MsgResponse message = route(ctx, msgObject, protocolId, userId);
-
-
             //写回
             GeneratedMessage.Builder<?> responseBody = message.getBody();
             byte[] bodyByteArr = responseBody.buildPartial().toByteArray();
-            ByteBuf out = buildClientMsg(msg.getCid(), message.getErrorCode(), msg.getProtocolId(), 0, 1, bodyByteArr);
+            //加密判断
+            ByteBuf out = buildClientMsg(msg.getCid(), message.getErrorCode(), protocolId, zip, encrypted, bodyByteArr);
             ChannelFuture channelFuture = ctx.writeAndFlush(out);
             channelFuture.addListener(future -> {
                 if (!future.isSuccess()) {
@@ -115,7 +123,6 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
                 }
             });
         } else {//转发
-            long userId = 123456789L;
             // todo 根据用户信息选择目标服务器
             ServerConfig serverConfig = getTargetServerAddress(protocolId);
             // 转发到目标服务器
@@ -132,6 +139,8 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
                 new ServerConfig(0, "default.host", 9999)  // 默认值
         );
     }
+
+
 //    private ServerConfig getTargetServerAddress(int protocolId) {
 //        // 简单逻辑：根据用户信息选择目标服务器
 //        if (protocolId > 1000 && protocolId < 2000) {
@@ -149,7 +158,6 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
      * @param msg           消息
      */
     private void forwardToTargetServer(ChannelHandlerContext clientChannel, ByteBufferMessage msg, long userId, ServerConfig serverConfig) {
-
         Channel channel = serverChannelManage.getChanelByIp(serverConfig.getServerId());
         if (channel == null) {
             try {
@@ -243,9 +251,9 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
     /**
      * 客户端消息
      */
-    public ByteBuf buildClientMsg(int cid, int errorCode, int protocolId, int zip, int version, byte[] bodyArray) {
-        if (bodyArray==null){
-            bodyArray= new byte[]{0};
+    public ByteBuf buildClientMsg(int cid, int errorCode, int protocolId, byte zip, byte encrypted, byte[] bodyArray) {
+        if (bodyArray == null) {
+            bodyArray = new byte[]{0};
         }
         int length = bodyArray.length;
         //写回
@@ -255,7 +263,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         out.writeInt(errorCode);      // 4字节
         out.writeInt(protocolId);      // 4字节
         out.writeByte(zip);                       // zip压缩标志，1字节
-        out.writeByte(version);                       // pb版本，1字节
+        out.writeByte(encrypted);                       // 加密标志，1字节
         //消息体
         out.writeShort(length);                 // 消息体长度，2字节
         // 写入消息体

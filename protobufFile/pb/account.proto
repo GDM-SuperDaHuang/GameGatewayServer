@@ -28,15 +28,15 @@ HMAC 校验（更安全）
 检查 H1 == H2，如果一致则密钥校验通过。
 */
 
-//公钥发送请求
-message PublicKeyReq {
+//公钥交换请求
+message KeyExchangeReq {
     bytes g = 1;   // 生成元
     bytes p = 2;   // 素数
     bytes public_key = 3; // 公钥
 }
 
-//公钥响应
-message PublicKeyResp {
+//公钥交换响应
+message KeyExchangeResp {
     bytes public_key = 1;   //公钥
 }
 

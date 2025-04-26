@@ -12,8 +12,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class ClientChannelManage {
     //客户端连接管理
-    private final Map<Channel, Long> channelUserIdMap = new ConcurrentHashMap<>();
-    private final Map<Long, Channel> userIdChannelMap = new ConcurrentHashMap<>();
+    private final Map<Channel, Long> channelUserIdMap = new ConcurrentHashMap<>();//channel-userId
+    private final Map<Long, Channel> userIdChannelMap = new ConcurrentHashMap<>();//userId-channel
+
 
     public ClientChannelManage() {
     }
