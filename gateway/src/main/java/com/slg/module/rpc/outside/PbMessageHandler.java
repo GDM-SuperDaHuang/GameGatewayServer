@@ -91,7 +91,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         byte encrypted = 0;
         Method parse = postProcessor.getParseFromMethod(protocolId);
         if (parse == null) {
-            ByteBuf outClient = buildClientMsg(msg.getCid(), 10, protocolId, zip, encrypted, null);
+            ByteBuf outClient = buildClientMsg(msg.getCid(), ErrorCodeConstants.SERIALIZATION_METHOD_LACK, protocolId, zip, encrypted, null);
             ctx.writeAndFlush(outClient);
             return;
         }
@@ -122,18 +122,6 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         }
     }
 
-    //todo 获取主机
-    // 根据 protocolId 获取目标服务器
-    private ServerConfig getTargetServerAddress(int protocolId) {
-        // 如果配置里没有对应的 protocolId，返回默认服务器
-        ServerConfig serverConfig routingProperties.getServerByProtoId(protocolId)
-        return routingProperties.getServers().getOrDefault(
-                protocolId,
-                new ServerConfig(0, "default.host", 9999)  // 默认值
-        );
-    }
-
-
 //    private ServerConfig getTargetServerAddress(int protocolId) {
 //        // 简单逻辑：根据用户信息选择目标服务器
 //        if (protocolId > 1000 && protocolId < 2000) {
@@ -162,7 +150,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
             } catch (Exception e) {
 //                log.error("Failed to create channel for {}", address, e);
                 // 发送失败,直接返回，告诉客户端
-                ByteBuf out = buildClientMsg(msg.getCid(), 1, msg.getProtocolId(), 0, 1, null);
+                ByteBuf out = buildClientMsg(msg.getCid(), ErrorCodeConstants.ESTABLISH_CONNECTION_FAILED, msg.getProtocolId(), 0, 1, null);
                 ChannelFuture channelFuture = clientChannel.writeAndFlush(out);
                 channelFuture.addListener(future -> {
                     if (!future.isSuccess()) {
@@ -187,14 +175,14 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
                     serverChannelManage.removeChanelByIp(serverConfig.getServerId());
                     //直接告诉客户端，返回错误码 todo
                     // 错误码 10，todo
-                    ByteBuf outClient = buildClientMsg(msg.getCid(), 10, msg.getProtocolId(), 0, 1, null);
+                    ByteBuf outClient = buildClientMsg(msg.getCid(), ErrorCodeConstants.GATE_FORWARDING_FAILED, msg.getProtocolId(), 0, 1, null);
                     clientChannel.writeAndFlush(outClient);
                 }
             });
         } else {
             //log.error("No active channel for {}", targetServerAddress);
             //todo 直接告诉客户端，返回错误码
-            ByteBuf outClient = buildClientMsg(msg.getCid(), 10, msg.getProtocolId(), 0, 1, null);
+            ByteBuf outClient = buildClientMsg(msg.getCid(), ErrorCodeConstants.GATE_FORWARDING_FAILED, msg.getProtocolId(), 0, 1, null);
             clientChannel.writeAndFlush(outClient);
         }
     }
