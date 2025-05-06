@@ -54,6 +54,8 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
 
     @Autowired
     private GatewayRoutingProperties routingProperties;  // 注入配置
+    @Value("${server.proto-id-max}")
+    private String gateProtoIdMax;
 
     /**
      * 网关转发
@@ -89,26 +91,12 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         byte encrypted = 0;
         Method parse = postProcessor.getParseFromMethod(protocolId);
         if (parse == null) {
-
             ByteBuf outClient = buildClientMsg(msg.getCid(), 10, protocolId, zip, encrypted, null);
             ctx.writeAndFlush(outClient);
             return;
         }
         Long userId = clientchannelManage.getUserId(ctx.channel());
-//        switch (protocolId) {
-//            case 1://加密校验
-//
-//                break;
-//            case 2://登录
-//                break;
-//            default://转发到目标服务器
-//                // todo 根据用户信息选择目标服务器
-//                ServerConfig serverConfig = getTargetServerAddress(protocolId);
-//                // 转发到目标服务器
-//                forwardToTargetServer(ctx, msg, userId, serverConfig);
-//        }
-
-        if (protocolId < 10) {//本地
+        if (protocolId < gateProtoIdMax) {//本地
             Object msgObject = parse.invoke(null, body);
             MsgResponse message = route(ctx, msgObject, protocolId, userId);
             //写回
@@ -124,7 +112,11 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
             });
         } else {//转发
             // todo 根据用户信息选择目标服务器
-            ServerConfig serverConfig = getTargetServerAddress(protocolId);
+            // ServerConfig serverConfig = getTargetServerAddress(protocolId);
+            ServerConfig serverConfig routingProperties.getServerByProtoId(protocolId)
+            if(serverConfig==null){// 配置缺失,返回错误码
+                return;
+            }
             // 转发到目标服务器
             forwardToTargetServer(ctx, msg, userId, serverConfig);
         }
@@ -134,6 +126,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
     // 根据 protocolId 获取目标服务器
     private ServerConfig getTargetServerAddress(int protocolId) {
         // 如果配置里没有对应的 protocolId，返回默认服务器
+        ServerConfig serverConfig routingProperties.getServerByProtoId(protocolId)
         return routingProperties.getServers().getOrDefault(
                 protocolId,
                 new ServerConfig(0, "default.host", 9999)  // 默认值

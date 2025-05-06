@@ -12,27 +12,23 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "gateway.routing")  // 从配置读取
 public class GatewayRoutingProperties {
     private List<ServerConfig> servers;
-    private static Map<Integer,Byte> protoMap = new HashMap<>();
+    private static Map<Integer,ServerConfig> protoMap = new HashMap<>();//protoId-ServerConfig
     @PostConstruct
     public  ServerConfig init() {
         for (ServerConfig server : servers) {
             byte serverId = server.getServerId();
             int protoIdMin = server.getProtoIdMin();
             int protoIdMax = server.getProtoIdMax();
+            for (int i = protoIdMin; i <= protoIdMax; i++) {
+                protoMap.put(i,server)
+            }
         }
-
-        if (protocolId>=protoIdMin&&protocolId=<protoIdMax){
-            return ServerConfig;
-        }
-        return servers;
     }
-
     public  ServerConfig getServerByProtoId(int protocolId) {
-        Byte b = protoMap.get(protocolId);
-        if (protocolId>=protoIdMin&&protocolId=<protoIdMax){
-
+        ServerConfig serverConfig = protoMap.get(protocolId)
+        if(ServerConfig == null){
+            return null
         }
-
-        return servers;
+        return serverConfig;
     }
 }
