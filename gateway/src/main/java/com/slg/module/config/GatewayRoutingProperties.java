@@ -15,6 +15,10 @@ public class GatewayRoutingProperties {
     private List<ServerConfig> servers;
     private static Map<Integer, ServerConfig> protoMap = new HashMap<>();//protoId-ServerConfig
 
+    public void setServers(List<ServerConfig> servers) {
+        this.servers = servers;
+    }
+
     @PostConstruct
     public void init() {
         for (ServerConfig server : servers) {
