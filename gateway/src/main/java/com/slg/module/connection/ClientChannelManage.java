@@ -3,6 +3,7 @@ package com.slg.module.connection;
 import io.netty.channel.Channel;
 import org.springframework.stereotype.Component;
 
+import java.math.BigInteger;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -33,14 +34,15 @@ public class ClientChannelManage {
         userIdCipherMap.put(userId,k);
     }
     public BigInteger getCipher(Long userId) {
-        userIdCipherMap.get(userId);
+        return userIdCipherMap.get(userId);
     }
 
     public void putCipher(String ip,BigInteger k) {
         ipCipherMap.put(ip,k);
     }
+
     public BigInteger getCipher(String ip) {
-        ipCipherMap.get(ip);
+        return ipCipherMap.get(ip);
     }
 
     public Channel getChannelByUserId(Long userId) {

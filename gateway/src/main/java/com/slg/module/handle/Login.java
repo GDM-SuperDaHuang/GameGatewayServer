@@ -9,6 +9,11 @@ import io.netty.channel.ChannelHandlerContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -49,7 +54,7 @@ public class Login {
 
     // 密钥验证
     @ToMethod(value = 4)
-    public MsgResponse keyExchangeHandle(ChannelHandlerContext ctx, KeyExchangeReq request, long userId) throws IOException, InterruptedException {
+    public MsgResponse keyExchangeHandle2(ChannelHandlerContext ctx, KeyExchangeReq request, long userId) throws IOException, InterruptedException {
         BigInteger g = new BigInteger(request.getG().toByteArray());
         BigInteger p = new BigInteger(request.getP().toByteArray());
         BigInteger clientPublicKey = new BigInteger(request.getPublicKey().toByteArray());

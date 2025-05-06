@@ -8,27 +8,26 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @Component
 @ConfigurationProperties(prefix = "gateway.routing")  // 从配置读取
 public class GatewayRoutingProperties {
     private List<ServerConfig> servers;
-    private static Map<Integer,ServerConfig> protoMap = new HashMap<>();//protoId-ServerConfig
+    private static Map<Integer, ServerConfig> protoMap = new HashMap<>();//protoId-ServerConfig
+
     @PostConstruct
-    public  ServerConfig init() {
+    public void init() {
         for (ServerConfig server : servers) {
             byte serverId = server.getServerId();
             int protoIdMin = server.getProtoIdMin();
             int protoIdMax = server.getProtoIdMax();
             for (int i = protoIdMin; i <= protoIdMax; i++) {
-                protoMap.put(i,server)
+                protoMap.put(i, server);
             }
         }
     }
-    public  ServerConfig getServerByProtoId(int protocolId) {
-        ServerConfig serverConfig = protoMap.get(protocolId)
-        if(ServerConfig == null){
-            return null
-        }
-        return serverConfig;
+
+    public ServerConfig getServerByProtoId(int protocolId) {
+        return protoMap.get(protocolId);
     }
 }
