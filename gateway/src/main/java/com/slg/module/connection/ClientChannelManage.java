@@ -16,7 +16,7 @@ public class ClientChannelManage {
     private final Map<Long, Channel> userIdChannelMap = new ConcurrentHashMap<>();//userId-channel
 
     private final Map<String, BigInteger> ipCipherMap = new ConcurrentHashMap<>();//ipInfo-key共享密钥
-    private final Map<String, BigInteger> userIdCipherMap = new ConcurrentHashMap<>();//ipInfo-key共享密钥
+    private final Map<Long, BigInteger> userIdCipherMap = new ConcurrentHashMap<>();//ipInfo-key共享密钥
 
     public ClientChannelManage() {
     }
