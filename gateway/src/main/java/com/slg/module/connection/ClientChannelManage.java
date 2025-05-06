@@ -15,6 +15,7 @@ public class ClientChannelManage {
     private final Map<Channel, Long> channelUserIdMap = new ConcurrentHashMap<>();//channel-userId
     private final Map<Long, Channel> userIdChannelMap = new ConcurrentHashMap<>();//userId-channel
 
+    private final Map<Long, BigInteger> userIdCipherMap = new ConcurrentHashMap<>();//userId-共享密钥
 
     public ClientChannelManage() {
     }
@@ -27,6 +28,13 @@ public class ClientChannelManage {
         return channelUserIdMap.getOrDefault(channel, null);
     }
 
+    public void putCipher(Long userId,BigInteger k) {
+        userIdCipherMap.put(userId,k);
+    }
+    public BigInteger getCipher(Long userId) {
+        userIdCipherMap.get(userId);
+    }
+
     public Channel getChannelByUserId(Long userId) {
         return userIdChannelMap.getOrDefault(userId, null);
     }
@@ -35,5 +43,7 @@ public class ClientChannelManage {
         Long userId = channelUserIdMap.remove(channel);
         userIdChannelMap.remove(userId);
     }
+
+
 
 }

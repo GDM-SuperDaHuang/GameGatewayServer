@@ -173,8 +173,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
                     // 消息转发失败的处理
                     // log.error("Failed to forward message to {}", targetServerAddress, future.cause());
                     serverChannelManage.removeChanelByIp(serverConfig.getServerId());
-                    //直接告诉客户端，返回错误码 todo
-                    // 错误码 10，todo
+                    //直接告诉客户端，返回错误码
                     ByteBuf outClient = buildClientMsg(msg.getCid(), ErrorCodeConstants.GATE_FORWARDING_FAILED, msg.getProtocolId(), 0, 1, null);
                     clientChannel.writeAndFlush(outClient);
                 }
