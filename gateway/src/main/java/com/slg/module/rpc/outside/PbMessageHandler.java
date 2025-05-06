@@ -6,6 +6,7 @@ import com.slg.module.connection.ClientChannelManage;
 import com.slg.module.connection.ServerChannelManage;
 import com.slg.module.connection.ServerConfig;
 import com.slg.module.message.ByteBufferMessage;
+import com.slg.module.message.ErrorCodeConstants;
 import com.slg.module.message.MsgResponse;
 import com.slg.module.register.HandleBeanDefinitionRegistryPostProcessor;
 import com.slg.module.rpc.interMsg.IdleStateEventHandler;
@@ -21,6 +22,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.DecoderException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
@@ -55,7 +57,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
     @Autowired
     private GatewayRoutingProperties routingProperties;  // 注入配置
     @Value("${server.proto-id-max}")
-    private String gateProtoIdMax;
+    private int gateProtoIdMax;
 
     /**
      * 网关转发
@@ -113,8 +115,8 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         } else {//转发
             // todo 根据用户信息选择目标服务器
             // ServerConfig serverConfig = getTargetServerAddress(protocolId);
-            ServerConfig serverConfig routingProperties.getServerByProtoId(protocolId)
-            if(serverConfig==null){// 配置缺失,返回错误码
+            ServerConfig serverConfig = routingProperties.getServerByProtoId(protocolId);
+            if (serverConfig == null) {// 配置缺失,返回错误码
                 return;
             }
             // 转发到目标服务器
@@ -142,15 +144,17 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         Channel channel = serverChannelManage.getChanelByIp(serverConfig.getServerId());
         if (channel == null) {
             try {
-                ChannelFuture future = bootstrap.connect(serverConfig.getIp(), serverConfig.getPort()).sync();
+                ChannelFuture future = bootstrap.connect(serverConfig.getHost(), serverConfig.getPort()).sync();
                 if (future.isSuccess()) {
                     channel = future.channel();
                     serverChannelManage.put(serverConfig.getServerId(), channel, serverConfig);
                 }
             } catch (Exception e) {
 //                log.error("Failed to create channel for {}", address, e);
+                byte zip = 0;
+                byte ec = 0;
                 // 发送失败,直接返回，告诉客户端
-                ByteBuf out = buildClientMsg(msg.getCid(), ErrorCodeConstants.ESTABLISH_CONNECTION_FAILED, msg.getProtocolId(), 0, 1, null);
+                ByteBuf out = buildClientMsg(msg.getCid(), ErrorCodeConstants.ESTABLISH_CONNECTION_FAILED, msg.getProtocolId(), zip, ec, null);
                 ChannelFuture channelFuture = clientChannel.writeAndFlush(out);
                 channelFuture.addListener(future -> {
                     if (!future.isSuccess()) {
@@ -170,18 +174,22 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
                     // 消息转发成功的处理
                     System.out.println("Successfully forwarded message");
                 } else {
+                    byte zip = 0;
+                    byte ec = 0;
                     // 消息转发失败的处理
                     // log.error("Failed to forward message to {}", targetServerAddress, future.cause());
                     serverChannelManage.removeChanelByIp(serverConfig.getServerId());
                     //直接告诉客户端，返回错误码
-                    ByteBuf outClient = buildClientMsg(msg.getCid(), ErrorCodeConstants.GATE_FORWARDING_FAILED, msg.getProtocolId(), 0, 1, null);
+                    ByteBuf outClient = buildClientMsg(msg.getCid(), ErrorCodeConstants.GATE_FORWARDING_FAILED, msg.getProtocolId(), zip, ec, null);
                     clientChannel.writeAndFlush(outClient);
                 }
             });
         } else {
+            byte zip = 0;
+            byte ec = 0;
             //log.error("No active channel for {}", targetServerAddress);
             //todo 直接告诉客户端，返回错误码
-            ByteBuf outClient = buildClientMsg(msg.getCid(), ErrorCodeConstants.GATE_FORWARDING_FAILED, msg.getProtocolId(), 0, 1, null);
+            ByteBuf outClient = buildClientMsg(msg.getCid(), ErrorCodeConstants.GATE_FORWARDING_FAILED, msg.getProtocolId(), zip, ec, null);
             clientChannel.writeAndFlush(outClient);
         }
     }
@@ -240,12 +248,12 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
         ByteBuf out = Unpooled.buffer(16 + length);
         //消息头
         out.writeInt(cid);      // 4字节
-        out.writeInt(errorCode);      // 4字节
-        out.writeInt(protocolId);      // 4字节
-        out.writeByte(zip);                       // zip压缩标志，1字节
-        out.writeByte(encrypted);                       // 加密标志，1字节
+        out.writeInt(errorCode);   // 4字节
+        out.writeInt(protocolId);  // 4字节
+        out.writeByte(zip);         // zip压缩标志，1字节
+        out.writeByte(encrypted);  // 加密标志，1字节
         //消息体
-        out.writeShort(length);                 // 消息体长度，2字节
+        out.writeShort(length);   // 消息体长度，2字节
         // 写入消息体
         out.writeBytes(bodyArray);
         return out;

@@ -27,7 +27,7 @@ public class ServerChannelManage {
 
     public void put(Byte serverId, Channel channel, ServerConfig serverConfig) {
         serverChannelMap.put(serverId, channel);
-        serverConfigMap.put(serverId, new ServerConfig(serverId, serverConfig.getIp(), serverConfig.getPort()));
+        serverConfigMap.put(serverId, new ServerConfig(serverId, serverConfig.getHost(), serverConfig.getPort()));
     }
 
     public ServerChannelManage() {

@@ -102,7 +102,7 @@ public class TargetServerHandler extends SimpleChannelInboundHandler<ByteBufferS
         Map<Byte, ServerConfig> serverConfigMap = serverChannelManage.getServerConfigMap();
         for (Map.Entry<Byte, ServerConfig> entry : serverConfigMap.entrySet()) {
             ServerConfig config = entry.getValue();
-            if (config.getIp().equals(ip) && config.getPort() == port) {
+            if (config.getHost().equals(ip) && config.getPort() == port) {
                 serverChannelManage.removeChanelByIp(config.getServerId());
             }
         }
