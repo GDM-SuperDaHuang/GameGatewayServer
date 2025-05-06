@@ -119,6 +119,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
             if (serverConfig == null) {// 配置缺失,返回错误码
                 return;
             }
+
             // 转发到目标服务器
             forwardToTargetServer(ctx, msg, userId, serverConfig);
         }
@@ -214,7 +215,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
     /**
      * 路由分发
      */
-    public MsgResponse route(ChannelHandlerContext ctx, Object message, int protocolId, long userId) throws Exception {
+    public MsgResponse route(ChannelHandlerContext ctx, Object message, int protocolId, Long userId) throws Exception {
         Class<?> handleClazz = postProcessor.getHandleMap(protocolId);
         if (handleClazz == null) {
             return null;
