@@ -28,7 +28,7 @@ public class Login {
 
     // 密钥交换
     @ToMethod(value = 3)
-    public MsgResponse keyExchangeHandle(ChannelHandlerContext ctx, KeyExchangeReq request, Long userId) throws IOException, InterruptedException {
+    public MsgResponse keyExchangeHandle(ChannelHandlerContext ctx, KeyExchangeReq request, long userId) throws IOException, InterruptedException {
         BigInteger g = new BigInteger(request.getG().toByteArray());
         BigInteger p = new BigInteger(request.getP().toByteArray());
         BigInteger clientPublicKey = new BigInteger(request.getPublicKey().toByteArray());
@@ -54,7 +54,7 @@ public class Login {
 
     // 密钥验证
     @ToMethod(value = 4)
-    public MsgResponse keyExchangeHandle2(ChannelHandlerContext ctx, KeyExchangeReq request, Long userId) throws IOException, InterruptedException {
+    public MsgResponse keyExchangeHandle2(ChannelHandlerContext ctx, KeyExchangeReq request, long userId) throws IOException, InterruptedException {
         BigInteger g = new BigInteger(request.getG().toByteArray());
         BigInteger p = new BigInteger(request.getP().toByteArray());
         BigInteger clientPublicKey = new BigInteger(request.getPublicKey().toByteArray());
@@ -79,7 +79,7 @@ public class Login {
 
 
     @ToMethod(value = 1)
-    public MsgResponse loginHandle(ChannelHandlerContext ctx, LoginReq request, Long userId) throws IOException, InterruptedException {
+    public MsgResponse loginHandle(ChannelHandlerContext ctx, LoginReq request, long userId) throws IOException, InterruptedException {
         clientchannelManage.put(ctx.channel(),122111L);
 
         LoginResponse.Builder builder = LoginResponse.newBuilder()

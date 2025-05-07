@@ -97,7 +97,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
             ctx.writeAndFlush(outClient);
             return;
         }
-        Long userId = clientchannelManage.getUserId(ctx.channel());
+        long userId = clientchannelManage.getUserId(ctx.channel());
         if (protocolId < gateProtoIdMax) {//本地
             Object msgObject = parse.invoke(null, body);
             MsgResponse message = route(ctx, msgObject, protocolId, userId);
@@ -215,7 +215,7 @@ public class PbMessageHandler extends SimpleChannelInboundHandler<ByteBufferMess
     /**
      * 路由分发
      */
-    public MsgResponse route(ChannelHandlerContext ctx, Object message, int protocolId, Long userId) throws Exception {
+    public MsgResponse route(ChannelHandlerContext ctx, Object message, int protocolId, long userId) throws Exception {
         Class<?> handleClazz = postProcessor.getHandleMap(protocolId);
         if (handleClazz == null) {
             return null;
